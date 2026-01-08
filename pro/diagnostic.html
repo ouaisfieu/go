@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnostic — Veille Citoyenne</title>
+    <meta name="description" content="État des lieux documenté : concentration du pouvoir, répression, médias, affaires d'État. Sources officielles.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    <style>
+        :root{--bg:#fafafa;--surface:#fff;--text:#1a1a1a;--muted:#666;--accent:#c41e3a;--accent2:#1a5f7a;--border:#e0e0e0}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;line-height:1.7}
+        a{color:var(--accent2)}
+        nav{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+        nav ul{max-width:1100px;margin:0 auto;display:flex;justify-content:center;gap:.5rem;padding:1rem;list-style:none;flex-wrap:wrap}
+        nav a{color:var(--text);font-weight:500;font-size:.9rem;padding:.5rem .75rem;border-radius:4px;text-decoration:none}
+        nav a:hover{background:var(--bg)}
+        nav a.current{background:var(--accent);color:#fff}
+        main{max-width:900px;margin:0 auto;padding:2rem}
+        h1{font-size:2rem;margin-bottom:.5rem}
+        .subtitle{color:var(--muted);margin-bottom:2rem;font-size:1.1rem}
+        h2{font-size:1.5rem;margin:3rem 0 1rem;padding-bottom:.5rem;border-bottom:2px solid var(--border)}
+        h3{font-size:1.15rem;margin:2rem 0 1rem;color:var(--accent2)}
+        p{margin-bottom:1rem}
+        ul,ol{margin:1rem 0 1.5rem 1.5rem}
+        li{margin-bottom:.5rem}
+        .box{background:var(--surface);border:1px solid var(--border);padding:1.5rem;margin:1.5rem 0;border-radius:8px}
+        .box.alert{border-left:4px solid var(--accent);background:#fff5f5}
+        .box.info{border-left:4px solid var(--accent2)}
+        .box h4{margin-bottom:.75rem;color:var(--accent2)}
+        .source{font-size:.85rem;color:var(--muted);font-style:italic;margin-top:1rem}
+        table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.95rem}
+        th,td{padding:.75rem;text-align:left;border-bottom:1px solid var(--border)}
+        th{background:var(--bg);font-weight:600}
+        .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin:1.5rem 0}
+        .stat{background:var(--surface);border:1px solid var(--border);padding:1rem;text-align:center;border-radius:8px}
+        .stat-num{font-size:1.8rem;font-weight:700;color:var(--accent)}
+        .stat-label{font-size:.8rem;color:var(--muted)}
+        blockquote{border-left:3px solid var(--accent2);padding-left:1rem;margin:1.5rem 0;font-style:italic;color:var(--muted)}
+        .toc{background:var(--surface);border:1px solid var(--border);padding:1.5rem;border-radius:8px;margin-bottom:2rem}
+        .toc h4{margin-bottom:1rem}
+        .toc ul{margin:0;columns:2}
+        .toc li{margin-bottom:.25rem}
+        .print-btn{position:fixed;bottom:2rem;right:2rem;background:var(--accent2);color:#fff;padding:.75rem 1rem;border:none;border-radius:8px;cursor:pointer;font:inherit;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+        @media(max-width:600px){main{padding:1rem}.toc ul{columns:1}}
+        @media print{nav,.print-btn,.toc{display:none}h2{break-before:page}}
+    </style>
+</head>
+<body>
+
+<nav>
+    <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="diagnostic.html" class="current">Diagnostic</a></li>
+        <li><a href="arsenal.html">Arsenal juridique</a></li>
+        <li><a href="edpop.html">Éducation populaire</a></li>
+        <li><a href="mobilisations.html">Mobilisations</a></li>
+        <li><a href="osint.html">Outils OSINT</a></li>
+        <li><a href="collectifs.html">Collectifs</a></li>
+        <li><a href="sources.html">Sources</a></li>
+    </ul>
+</nav>
+
+<main>
+
+<h1>📊 Diagnostic</h1>
+<p class="subtitle">État des lieux documenté de la Ve République. Tout est sourcé.</p>
+
+<nav class="toc">
+    <h4>Sommaire</h4>
+    <ul>
+        <li><a href="#pouvoir">Concentration du pouvoir</a></li>
+        <li><a href="#repression">Répression documentée</a></li>
+        <li><a href="#medias">Concentration médiatique</a></li>
+        <li><a href="#affaires">Affaires d'État</a></li>
+        <li><a href="#securitaire">Lois sécuritaires</a></li>
+    </ul>
+</nav>
+
+<!-- SECTION 1 -->
+<h2 id="pouvoir">Concentration du pouvoir exécutif</h2>
+
+<h3>Le 49.3 : adoption sans vote</h3>
+
+<p>L'article 49 alinéa 3 de la Constitution permet au gouvernement d'adopter un texte sans vote de l'Assemblée nationale, à condition qu'aucune motion de censure ne soit adoptée dans les 24 heures.</p>
+
+<div class="stats">
+    <div class="stat"><div class="stat-num">23</div><div class="stat-label">49.3 sous Borne (record)</div></div>
+    <div class="stat"><div class="stat-num">28</div><div class="stat-label">49.3 sous Rocard (avant)</div></div>
+    <div class="stat"><div class="stat-num">72%</div><div class="stat-label">Opposition retraites 2023</div></div>
+    <div class="stat"><div class="stat-num">331</div><div class="stat-label">Voix censure Barnier</div></div>
+</div>
+
+<div class="box info">
+    <h4>Précédent historique : censure Barnier (4 décembre 2024)</h4>
+    <p>Pour la première fois sous la Ve République, une motion de censure a abouti après un 49.3. Le gouvernement Barnier est tombé par <strong>331 voix</strong> (majorité absolue : 289).</p>
+    <p>Preuve que le mécanisme, bien que déséquilibré, peut être retourné.</p>
+    <p class="source">Source : Assemblée nationale</p>
+</div>
+
+<h3>Le RIP : l'illusion du référendum citoyen</h3>
+
+<p>Le Référendum d'Initiative Partagée (article 11, Constitution) impose des conditions quasi-impossibles :</p>
+
+<ul>
+    <li><strong>1/5 des parlementaires</strong> (185 députés ou sénateurs)</li>
+    <li><strong>+ 1/10 des électeurs</strong> (~4,87 millions de signatures)</li>
+    <li><strong>En 9 mois</strong></li>
+</ul>
+
+<div class="box">
+    <h4>RIP ADP (2019-2020) : échec programmé</h4>
+    <p>Le RIP contre la privatisation d'Aéroports de Paris a réuni <strong>1,09 million de soutiens</strong> — moins d'un quart du seuil requis — dans l'indifférence médiatique.</p>
+    <p>Même atteint, le seuil n'aurait pas garanti de référendum : le Parlement peut bloquer en examinant simplement le texte.</p>
+    <p class="source">Sources : Conseil constitutionnel, Ministère de l'Intérieur</p>
+</div>
+
+<!-- SECTION 2 -->
+<h2 id="repression">Répression documentée</h2>
+
+<h3>Gilets Jaunes (2018-2019) : bilan</h3>
+
+<div class="box alert">
+    <h4>Blessures graves</h4>
+    <ul>
+        <li><strong>24-25 personnes éborgnées</strong> (perte d'un œil)</li>
+        <li><strong>5 mains arrachées</strong> par grenades GLI-F4</li>
+        <li><strong>1 décès :</strong> Zineb Redouane, 80 ans, grenade lacrymogène au visage (Marseille, 1er décembre 2018)</li>
+    </ul>
+    <p class="source">Sources : Défenseur des droits, ACAT, Amnesty International</p>
+</div>
+
+<div class="stats">
+    <div class="stat"><div class="stat-num">12 900+</div><div class="stat-label">Tirs de LBD (6 mois)</div></div>
+    <div class="stat"><div class="stat-num">10 718</div><div class="stat-label">Gardes à vue</div></div>
+    <div class="stat"><div class="stat-num">2 000+</div><div class="stat-label">Condamnations</div></div>
+</div>
+
+<div class="box info">
+    <h4>Alertes internationales</h4>
+    <p><strong>Michelle Bachelet</strong> (Haut-Commissaire ONU aux droits de l'homme, mars 2019) : appel à une enquête approfondie sur l'usage de la force.</p>
+    <p><strong>Amnesty International</strong> (décembre 2018) : rapport sur les "armes de guerre" utilisées contre les manifestants.</p>
+    <p><strong>Défenseur des droits</strong> : 4 rapports successifs critiquant les pratiques de maintien de l'ordre.</p>
+</div>
+
+<!-- SECTION 3 -->
+<h2 id="medias">Concentration médiatique</h2>
+
+<p>En France, <strong>9 milliardaires contrôlent environ 80% des médias</strong> de grande diffusion.</p>
+
+<table>
+    <tr><th>Propriétaire</th><th>Médias</th><th>Fortune (Forbes 2024)</th></tr>
+    <tr>
+        <td><strong>Vincent Bolloré</strong></td>
+        <td>Canal+, CNews, C8, Europe 1, JDD, Hachette, Prisma Media</td>
+        <td>~10 Md€</td>
+    </tr>
+    <tr>
+        <td><strong>Bernard Arnault</strong> (LVMH)</td>
+        <td>Les Échos, Le Parisien, Paris Match, Radio Classique</td>
+        <td>~170 Md€</td>
+    </tr>
+    <tr>
+        <td><strong>Rodolphe Saadé</strong> (CMA-CGM)</td>
+        <td>BFM TV, RMC, La Provence (ex-Drahi)</td>
+        <td>~40 Md€</td>
+    </tr>
+    <tr>
+        <td><strong>Xavier Niel</strong></td>
+        <td>Le Monde (actionnaire), Mediawan</td>
+        <td>~9 Md€</td>
+    </tr>
+    <tr>
+        <td><strong>François Pinault</strong></td>
+        <td>Le Point</td>
+        <td>~45 Md€</td>
+    </tr>
+</table>
+
+<div class="box">
+    <h4>Cas documentés d'intervention éditoriale</h4>
+    <ul>
+        <li><strong>i-Télé (2016) :</strong> Grève de 31 jours contre la "bollorisation" — plus longue grève de l'histoire de l'audiovisuel français</li>
+        <li><strong>JDD (2023) :</strong> Nomination de Geoffroy Lejeune (ex-Valeurs Actuelles), démission collective de la rédaction</li>
+        <li><strong>CNews :</strong> Mise en garde de l'Arcom pour manquement au pluralisme (2024), mais fréquence TNT renouvelée</li>
+    </ul>
+    <p class="source">Sources : ACRIMED, Observatoire des multinationales, Arcom</p>
+</div>
+
+<!-- SECTION 4 -->
+<h2 id="affaires">Affaires d'État</h2>
+
+<h3>McKinsey (Rapport Sénat, mars 2022)</h3>
+
+<div class="box alert">
+    <ul>
+        <li><strong>1+ milliard € de dépenses de conseil</strong> en 2021 (doublé depuis 2018)</li>
+        <li>McKinsey : <strong>0€ d'impôt sur les sociétés en France</strong> depuis au moins 10 ans, malgré 329 M€ de chiffre d'affaires</li>
+        <li>3 enquêtes judiciaires ouvertes</li>
+    </ul>
+    <p class="source">Source : Sénat, Commission d'enquête "Un phénomène tentaculaire"</p>
+</div>
+
+<h3>Alstom / General Electric (2014)</h3>
+
+<div class="box">
+    <p>Emmanuel Macron, ministre de l'Économie, valide la cession de la branche énergie d'Alstom (dont les turbines nucléaires Arabelle) à General Electric pour <strong>12,35 milliards €</strong>.</p>
+    <p>10 ans plus tard, EDF rachète cette même activité pour <strong>1,2 milliard €</strong>.</p>
+    <p>Bilan : plus de <strong>5 000 emplois supprimés</strong> en France.</p>
+    <p class="source">Sources : Mediapart, Le Monde, rapports parlementaires</p>
+</div>
+
+<h3>Uber Files (2022)</h3>
+
+<div class="box">
+    <p>Révélations du Consortium international des journalistes d'investigation :</p>
+    <ul>
+        <li><strong>34 échanges documentés</strong> entre Uber et l'Élysée (2014-2017)</li>
+        <li>Macron (ministre) s'est dit <strong>"très fier"</strong> de son action pour Uber</li>
+        <li>Rencontres secrètes avec Travis Kalanick (PDG Uber)</li>
+    </ul>
+    <p class="source">Source : ICIJ, Le Monde</p>
+</div>
+
+<h3>Affaire Benalla (2018-2024)</h3>
+
+<div class="box">
+    <p>Alexandre Benalla, chargé de mission à l'Élysée, filmé frappant des manifestants le 1er mai 2018.</p>
+    <ul>
+        <li>Couvert par l'Élysée pendant des mois malgré les preuves vidéo</li>
+        <li>Commission d'enquête parlementaire entravée</li>
+        <li><strong>Condamnation finale (2024) :</strong> 3 ans de prison dont 1 an ferme</li>
+    </ul>
+    <p class="source">Sources : Mediapart, Sénat</p>
+</div>
+
+<!-- SECTION 5 -->
+<h2 id="securitaire">Lois sécuritaires : l'exception devenue norme</h2>
+
+<h3>Chronologie</h3>
+
+<table>
+    <tr><th>Date</th><th>Mesure</th><th>Effet</th></tr>
+    <tr>
+        <td>Nov. 2015</td>
+        <td>État d'urgence</td>
+        <td>2 ans de régime d'exception (→ nov. 2017)</td>
+    </tr>
+    <tr>
+        <td>Juil. 2015</td>
+        <td>Loi Renseignement</td>
+        <td>Boîtes noires, IMSI-catchers, surveillance de masse légalisée</td>
+    </tr>
+    <tr>
+        <td>Oct. 2017</td>
+        <td>Loi SILT</td>
+        <td>État d'urgence intégré au droit commun (perquisitions administratives, MICAS)</td>
+    </tr>
+    <tr>
+        <td>2021</td>
+        <td>Loi Sécurité Globale</td>
+        <td>Article 24 (filmer police) <strong>censuré</strong>, drones <strong>censurés</strong></td>
+    </tr>
+    <tr>
+        <td>2023</td>
+        <td>Loi JO 2024</td>
+        <td>Premier pays UE à légaliser la vidéosurveillance algorithmique</td>
+    </tr>
+</table>
+
+<div class="box info">
+    <h4>Victoire partielle : Loi Sécurité Globale</h4>
+    <p>L'article 24 initial (interdiction de filmer la police) a été <strong>censuré par le Conseil constitutionnel</strong> après une mobilisation massive. Les dispositions sur les drones également censurées.</p>
+    <p><strong>Preuve que la mobilisation peut faire reculer.</strong></p>
+    <p class="source">Source : Conseil constitutionnel, décision 2021-817 DC</p>
+</div>
+
+<div class="box">
+    <h4>Loi JO 2024 : vidéosurveillance algorithmique</h4>
+    <p>Expérimentation jusqu'au 31 mars 2025. Algorithmes analysant les images en temps réel pour détecter des "comportements suspects".</p>
+    <p><strong>Critiques :</strong> CNIL, CNCDH, Amnesty International, 37 organisations européennes.</p>
+    <p class="source">Sources : Légifrance, La Quadrature du Net</p>
+</div>
+
+<hr style="margin:3rem 0">
+<p><strong>→ Page suivante :</strong> <a href="arsenal.html">Arsenal juridique citoyen</a> — Les outils qui fonctionnent pour contester.</p>
+
+</main>
+
+<button class="print-btn" onclick="window.print()">🖨️ Imprimer</button>
+
+</body>
+</html>

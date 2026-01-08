@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Éducation populaire — Veille Citoyenne</title>
+    <meta name="description" content="Freire, Boal, modèle belge. Méthodes concrètes de conscientisation et d'empouvoirement collectif.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+    <style>
+        :root{--bg:#fafafa;--surface:#fff;--text:#1a1a1a;--muted:#666;--accent:#c41e3a;--accent2:#1a5f7a;--accent3:#8e44ad;--border:#e0e0e0;--belgium:#fdda24}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;line-height:1.7}
+        a{color:var(--accent2)}
+        nav{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+        nav ul{max-width:1100px;margin:0 auto;display:flex;justify-content:center;gap:.5rem;padding:1rem;list-style:none;flex-wrap:wrap}
+        nav a{color:var(--text);font-weight:500;font-size:.9rem;padding:.5rem .75rem;border-radius:4px;text-decoration:none}
+        nav a:hover{background:var(--bg)}
+        nav a.current{background:var(--accent);color:#fff}
+        main{max-width:900px;margin:0 auto;padding:2rem}
+        h1{font-size:2rem;margin-bottom:.5rem}
+        .subtitle{color:var(--muted);margin-bottom:2rem;font-size:1.1rem}
+        h2{font-size:1.5rem;margin:3rem 0 1rem;padding-bottom:.5rem;border-bottom:2px solid var(--border)}
+        h3{font-size:1.15rem;margin:2rem 0 1rem;color:var(--accent2)}
+        p{margin-bottom:1rem}
+        ul,ol{margin:1rem 0 1.5rem 1.5rem}
+        li{margin-bottom:.5rem}
+        .box{background:var(--surface);border:1px solid var(--border);padding:1.5rem;margin:1.5rem 0;border-radius:8px}
+        .box.belgium{border-left:4px solid var(--belgium);background:#fffef5}
+        .box.info{border-left:4px solid var(--accent2)}
+        .box.quote{border-left:4px solid var(--accent3);background:#faf5ff}
+        .box h4{margin-bottom:.75rem;color:var(--accent2)}
+        .source{font-size:.85rem;color:var(--muted);font-style:italic;margin-top:1rem}
+        blockquote{border-left:3px solid var(--accent3);padding-left:1rem;margin:1.5rem 0;font-style:italic;color:var(--muted)}
+        .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin:1.5rem 0}
+        .stat{background:var(--surface);border:1px solid var(--border);padding:1rem;text-align:center;border-radius:8px}
+        .stat-num{font-size:1.8rem;font-weight:700;color:var(--accent3)}
+        .stat-label{font-size:.8rem;color:var(--muted)}
+        .method-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;margin:1rem 0}
+        .method-card h4{color:var(--accent2);margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem}
+        .methods-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin:1.5rem 0}
+        .toc{background:var(--surface);border:1px solid var(--border);padding:1.5rem;border-radius:8px;margin-bottom:2rem}
+        .toc h4{margin-bottom:1rem}
+        .toc ul{margin:0;columns:2}
+        .toc li{margin-bottom:.25rem}
+        .print-btn{position:fixed;bottom:2rem;right:2rem;background:var(--accent2);color:#fff;padding:.75rem 1rem;border:none;border-radius:8px;cursor:pointer;font:inherit;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+        @media(max-width:600px){main{padding:1rem}.toc ul{columns:1}.methods-grid{grid-template-columns:1fr}}
+        @media print{nav,.print-btn,.toc{display:none}}
+    </style>
+</head>
+<body>
+
+<nav>
+    <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="diagnostic.html">Diagnostic</a></li>
+        <li><a href="arsenal.html">Arsenal juridique</a></li>
+        <li><a href="edpop.html" class="current">Éducation populaire</a></li>
+        <li><a href="mobilisations.html">Mobilisations</a></li>
+        <li><a href="osint.html">Outils OSINT</a></li>
+        <li><a href="collectifs.html">Collectifs</a></li>
+        <li><a href="sources.html">Sources</a></li>
+    </ul>
+</nav>
+
+<main>
+
+<h1>📚 Éducation populaire</h1>
+<p class="subtitle">Méthodes de conscientisation et d'empouvoirement collectif. France & Belgique.</p>
+
+<nav class="toc">
+    <h4>Sommaire</h4>
+    <ul>
+        <li><a href="#freire">Paulo Freire</a></li>
+        <li><a href="#boal">Augusto Boal</a></li>
+        <li><a href="#belgique">Modèle belge 🇧🇪</a></li>
+        <li><a href="#france">Héritage français</a></li>
+        <li><a href="#methodes">Méthodes concrètes</a></li>
+    </ul>
+</nav>
+
+<!-- FREIRE -->
+<h2 id="freire">Paulo Freire — Pédagogie des opprimés</h2>
+
+<div class="stats">
+    <div class="stat"><div class="stat-num">3e</div><div class="stat-label">Ouvrage le plus cité (sciences humaines)</div></div>
+    <div class="stat"><div class="stat-num">1968</div><div class="stat-label">Publication</div></div>
+    <div class="stat"><div class="stat-num">2M</div><div class="stat-label">Brésiliens alphabétisés</div></div>
+</div>
+
+<div class="box quote">
+    <blockquote>"Personne ne libère autrui, personne ne se libère seul, les hommes se libèrent ensemble."</blockquote>
+    <p style="text-align:right;margin:0">— Paulo Freire</p>
+</div>
+
+<h3>Concepts clés</h3>
+
+<div class="box info">
+    <h4>Conscientisation (conscientização)</h4>
+    <p>Processus par lequel les opprimés passent d'une <strong>conscience naïve</strong> (acceptation du monde tel qu'il est) à une <strong>conscience critique</strong> (compréhension des mécanismes d'oppression et capacité à agir pour les transformer).</p>
+</div>
+
+<div class="box info">
+    <h4>Pédagogie bancaire vs dialogique</h4>
+    <p><strong>Bancaire :</strong> L'éducateur "dépose" des savoirs dans l'élève-récipient passif. Reproduit les rapports de domination.</p>
+    <p><strong>Dialogique :</strong> Éducateur et éduqué apprennent ensemble. Le savoir se construit dans le dialogue et l'action.</p>
+</div>
+
+<div class="box info">
+    <h4>Praxis</h4>
+    <p>Union indissociable de l'<strong>action</strong> et de la <strong>réflexion</strong>. L'action sans réflexion est de l'activisme aveugle. La réflexion sans action est du verbalisme stérile.</p>
+</div>
+
+<h3>Méthode d'alphabétisation</h3>
+<p>Freire a démontré que <strong>17 "mots générateurs"</strong> suffisent pour apprendre à lire en 30 heures. Ces mots, choisis avec les apprenants, sont liés à leur réalité sociale et permettent une prise de conscience simultanée.</p>
+<p>Résultat : <strong>2 millions de Brésiliens alphabétisés en 2 ans</strong> (programme interrompu par le coup d'État de 1964).</p>
+
+<!-- BOAL -->
+<h2 id="boal">Augusto Boal — Théâtre de l'Opprimé</h2>
+
+<div class="box info">
+    <h4>Théâtre-forum</h4>
+    <p>Une scène présente une situation d'oppression non résolue. Le "joker" (meneur de jeu) invite ensuite les <strong>"spect-acteurs"</strong> à monter sur scène pour proposer des alternatives.</p>
+    <p>Pratiqué dans plus de <strong>70 pays</strong>.</p>
+</div>
+
+<div class="box info">
+    <h4>Théâtre législatif</h4>
+    <p>Créé pendant le mandat de Boal comme conseiller municipal à Rio (1992-1997). Les propositions du public sont transformées en <strong>projets de loi réels</strong>.</p>
+    <p>Résultat : plusieurs lois municipales adoptées à partir de ce processus.</p>
+</div>
+
+<div class="box">
+    <h4>CTO-Paris</h4>
+    <p>Centre du Théâtre de l'Opprimé fondé par Boal en 1979. <strong>100-150 créations par an</strong>.</p>
+    <p><a href="https://www.theatredelopprime.com" target="_blank">theatredelopprime.com</a></p>
+</div>
+
+<!-- BELGIQUE -->
+<h2 id="belgique">🇧🇪 Modèle belge d'éducation permanente</h2>
+
+<div class="stats">
+    <div class="stat"><div class="stat-num">280</div><div class="stat-label">Associations reconnues</div></div>
+    <div class="stat"><div class="stat-num">2 300</div><div class="stat-label">Travailleurs</div></div>
+    <div class="stat"><div class="stat-num">2003</div><div class="stat-label">Décret fondateur</div></div>
+</div>
+
+<div class="box belgium">
+    <h4>Ce qui n'existe pas en France</h4>
+    <p>Le <strong>décret de 2003</strong> de la Fédération Wallonie-Bruxelles reconnaît l'éducation permanente comme politique culturelle à part entière.</p>
+    <p><strong>Objectifs officiels :</strong></p>
+    <ul>
+        <li>"Prise de conscience critique"</li>
+        <li>"Participation active à la vie sociale, économique, culturelle et politique"</li>
+        <li>"Émancipation individuelle et collective"</li>
+    </ul>
+    <p>Ce <strong>financement structurel</strong> n'a pas d'équivalent français.</p>
+    <p class="source">Source : educationpermanente.cfwb.be</p>
+</div>
+
+<h3>Organisations clés</h3>
+
+<div class="box">
+    <h4>PAC — Présence et Action Culturelles</h4>
+    <p>Plus grand mouvement d'éducation permanente belge. <strong>50 salariés</strong>, présence dans toute la Wallonie et Bruxelles.</p>
+    <p>Publie la revue <strong>"Agir par la Culture"</strong>.</p>
+    <p><a href="https://www.pac-g.be" target="_blank">pac-g.be</a></p>
+</div>
+
+<div class="box">
+    <h4>ARC — Action et Recherche Culturelles</h4>
+    <p>Recherche et formation en éducation permanente.</p>
+    <p><a href="https://www.arc-culture.be" target="_blank">arc-culture.be</a></p>
+</div>
+
+<!-- FRANCE -->
+<h2 id="france">Héritage français</h2>
+
+<h3>Condorcet (1792)</h3>
+<p>Premier théoricien de l'<strong>éducation tout au long de la vie</strong> comme condition de l'égalité politique. Son rapport sur l'instruction publique pose les bases de l'éducation populaire.</p>
+
+<h3>Peuple et Culture (1945)</h3>
+<p>Né dans les maquis du Vercors. Devise : <em>"Rendre la culture au peuple et le peuple à la culture"</em>.</p>
+<p>Développe la méthode de l'<strong>entraînement mental</strong> (Joffre Dumazedier) : structurer sa pensée, analyser les situations, distinguer faits et opinions.</p>
+
+<h3>ATD Quart Monde</h3>
+<p><strong>Universités populaires</strong> depuis 1972 — espaces de dialogue entre personnes en grande pauvreté et autres citoyens.</p>
+<p>Méthode du <strong>croisement des savoirs</strong> : les savoirs d'expérience des personnes pauvres ont autant de valeur que les savoirs académiques.</p>
+
+<!-- MÉTHODES -->
+<h2 id="methodes">Méthodes concrètes</h2>
+
+<div class="methods-grid">
+    <div class="method-card">
+        <h4>💬 Porteurs de paroles</h4>
+        <p>Affirmations provocatrices affichées dans l'espace public. Les passants sont invités à réagir, leurs réponses sont collectées et affichées.</p>
+        <p><strong>Objectif :</strong> Créer du débat, rendre visible la diversité des opinions.</p>
+    </div>
+    
+    <div class="method-card">
+        <h4>🚶 Débat mouvant</h4>
+        <p>Une affirmation est énoncée. Les participants se positionnent physiquement ("d'accord" d'un côté, "pas d'accord" de l'autre). Arguments échangés, possibilité de changer de camp.</p>
+        <p><strong>Objectif :</strong> Incarner le débat, visualiser les positions, faciliter l'expression.</p>
+    </div>
+    
+    <div class="method-card">
+        <h4>📖 Arpentage</h4>
+        <p>Un livre est découpé et distribué aux participants. Chacun lit sa partie (15-20 min) puis restitue au groupe. Discussion collective.</p>
+        <p><strong>Objectif :</strong> Appropriation collective, pas de hiérarchie expert/néophyte, lecture démocratisée.</p>
+    </div>
+    
+    <div class="method-card">
+        <h4>🎭 Conférences gesticulées</h4>
+        <p>Forme théâtrale mêlant vécu personnel et savoirs théoriques. Le conférencier-gesticulant incarne son propos.</p>
+        <p><strong>Réseaux :</strong> <a href="https://ardeur.net" target="_blank">L'Ardeur</a>, <a href="https://la-grenaille.org" target="_blank">La Grenaille</a> (Contrepied, Trouvaille, Orage, Engrenage).</p>
+    </div>
+    
+    <div class="method-card">
+        <h4>🔍 Enquête conscientisante</h4>
+        <p>La population enquêtée participe à la définition des questions. Les résultats sont restitués et discutés collectivement.</p>
+        <p><strong>Objectif :</strong> Renverser le rapport enquêteur/enquêté, produire du savoir utile à l'action.</p>
+    </div>
+    
+    <div class="method-card">
+        <h4>🎪 Théâtre-forum</h4>
+        <p>Scène présentant une oppression. Les "spect-acteurs" montent sur scène proposer des alternatives. Le "joker" facilite.</p>
+        <p><strong>Formations :</strong> <a href="https://www.theatredelopprime.com" target="_blank">CTO-Paris</a></p>
+    </div>
+</div>
+
+<hr style="margin:3rem 0">
+<p><strong>→ Page suivante :</strong> <a href="mobilisations.html">Mobilisations</a> — Leçons des victoires et des défaites.</p>
+
+</main>
+
+<button class="print-btn" onclick="window.print()">🖨️ Imprimer</button>
+
+</body>
+</html>

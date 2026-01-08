@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sources — Veille Citoyenne</title>
+    <meta name="description" content="Sources primaires : institutions, ONG, éducation populaire, presse d'investigation. Références vérifiables.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+    <style>
+        :root{--bg:#fafafa;--surface:#fff;--text:#1a1a1a;--muted:#666;--accent:#c41e3a;--accent2:#1a5f7a;--border:#e0e0e0}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;line-height:1.7}
+        a{color:var(--accent2)}
+        nav{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+        nav ul{max-width:1100px;margin:0 auto;display:flex;justify-content:center;gap:.5rem;padding:1rem;list-style:none;flex-wrap:wrap}
+        nav a{color:var(--text);font-weight:500;font-size:.9rem;padding:.5rem .75rem;border-radius:4px;text-decoration:none}
+        nav a:hover{background:var(--bg)}
+        nav a.current{background:var(--accent);color:#fff}
+        main{max-width:900px;margin:0 auto;padding:2rem}
+        h1{font-size:2rem;margin-bottom:.5rem}
+        .subtitle{color:var(--muted);margin-bottom:2rem;font-size:1.1rem}
+        h2{font-size:1.3rem;margin:2.5rem 0 1rem;padding-bottom:.5rem;border-bottom:2px solid var(--border)}
+        p{margin-bottom:1rem}
+        ul{margin:1rem 0 1.5rem 0;list-style:none}
+        li{margin-bottom:.75rem;padding-left:0}
+        li a{font-weight:500}
+        li span{display:block;font-size:.9rem;color:var(--muted)}
+        .source-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:2rem}
+        .source-section{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem}
+        .source-section h3{font-size:1.1rem;margin-bottom:1rem;color:var(--accent2);display:flex;align-items:center;gap:.5rem}
+        .source-section ul{margin:0}
+        .toc{background:var(--surface);border:1px solid var(--border);padding:1.5rem;border-radius:8px;margin-bottom:2rem}
+        .toc h4{margin-bottom:1rem}
+        .toc ul{margin:0;columns:2}
+        .toc li{margin-bottom:.25rem}
+        .print-btn{position:fixed;bottom:2rem;right:2rem;background:var(--accent2);color:#fff;padding:.75rem 1rem;border:none;border-radius:8px;cursor:pointer;font:inherit;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+        @media(max-width:600px){main{padding:1rem}.toc ul{columns:1}.source-grid{grid-template-columns:1fr}}
+        @media print{nav,.print-btn,.toc{display:none}}
+    </style>
+</head>
+<body>
+
+<nav>
+    <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="diagnostic.html">Diagnostic</a></li>
+        <li><a href="arsenal.html">Arsenal juridique</a></li>
+        <li><a href="edpop.html">Éducation populaire</a></li>
+        <li><a href="mobilisations.html">Mobilisations</a></li>
+        <li><a href="osint.html">Outils OSINT</a></li>
+        <li><a href="collectifs.html">Collectifs</a></li>
+        <li><a href="sources.html" class="current">Sources</a></li>
+    </ul>
+</nav>
+
+<main>
+
+<h1>📖 Sources primaires</h1>
+<p class="subtitle">Références institutionnelles, ONG, éducation populaire, presse. Tout est vérifiable.</p>
+
+<nav class="toc">
+    <h4>Sommaire</h4>
+    <ul>
+        <li><a href="#institutions">Institutions françaises</a></li>
+        <li><a href="#europe">Europe & international</a></li>
+        <li><a href="#ong">ONG & observatoires</a></li>
+        <li><a href="#edpop">Éducation populaire</a></li>
+        <li><a href="#presse">Presse d'investigation</a></li>
+        <li><a href="#belgique">Belgique</a></li>
+    </ul>
+</nav>
+
+<div class="source-grid">
+
+<!-- INSTITUTIONS -->
+<div class="source-section">
+    <h3 id="institutions">🏛️ Institutions françaises</h3>
+    <ul>
+        <li>
+            <a href="https://www.conseil-constitutionnel.fr" target="_blank">Conseil constitutionnel</a>
+            <span>Décisions QPC, contrôle de constitutionnalité</span>
+        </li>
+        <li>
+            <a href="https://www.conseil-etat.fr" target="_blank">Conseil d'État</a>
+            <span>Jurisprudence administrative, avis</span>
+        </li>
+        <li>
+            <a href="https://www.legifrance.gouv.fr" target="_blank">Légifrance</a>
+            <span>Textes de loi, codes, jurisprudence</span>
+        </li>
+        <li>
+            <a href="https://www.defenseurdesdroits.fr" target="_blank">Défenseur des droits</a>
+            <span>Rapports annuels, recommandations</span>
+        </li>
+        <li>
+            <a href="https://www.assemblee-nationale.fr" target="_blank">Assemblée nationale</a>
+            <span>Travaux parlementaires, votes</span>
+        </li>
+        <li>
+            <a href="https://www.senat.fr" target="_blank">Sénat</a>
+            <span>Rapports de commission (McKinsey...)</span>
+        </li>
+        <li>
+            <a href="https://www.cnil.fr" target="_blank">CNIL</a>
+            <span>Avis sur la protection des données</span>
+        </li>
+        <li>
+            <a href="https://www.arcom.fr" target="_blank">Arcom</a>
+            <span>Régulation audiovisuelle, pluralisme</span>
+        </li>
+    </ul>
+</div>
+
+<!-- EUROPE -->
+<div class="source-section">
+    <h3 id="europe">🇪🇺 Europe & International</h3>
+    <ul>
+        <li>
+            <a href="https://hudoc.echr.coe.int" target="_blank">HUDOC (CEDH)</a>
+            <span>Jurisprudence Cour européenne droits de l'homme</span>
+        </li>
+        <li>
+            <a href="https://www.echr.coe.int" target="_blank">Cour européenne des droits de l'homme</a>
+            <span>Informations, formulaires, statistiques</span>
+        </li>
+        <li>
+            <a href="https://eur-lex.europa.eu" target="_blank">EUR-Lex</a>
+            <span>Droit de l'Union européenne</span>
+        </li>
+        <li>
+            <a href="https://europa.eu/citizens-initiative" target="_blank">Initiative Citoyenne Européenne</a>
+            <span>ICE en cours, procédure</span>
+        </li>
+        <li>
+            <a href="https://www.ohchr.org" target="_blank">Haut-Commissariat ONU droits de l'homme</a>
+            <span>Rapports, alertes (France incluse)</span>
+        </li>
+    </ul>
+</div>
+
+<!-- ONG -->
+<div class="source-section">
+    <h3 id="ong">👁️ ONG & Observatoires</h3>
+    <ul>
+        <li>
+            <a href="https://www.amnesty.fr" target="_blank">Amnesty International France</a>
+            <span>Rapports droits humains, violences policières</span>
+        </li>
+        <li>
+            <a href="https://www.hrw.org/fr" target="_blank">Human Rights Watch</a>
+            <span>Rapports internationaux</span>
+        </li>
+        <li>
+            <a href="https://www.acatfrance.fr" target="_blank">ACAT France</a>
+            <span>Torture, violence d'État</span>
+        </li>
+        <li>
+            <a href="https://www.laquadrature.net" target="_blank">La Quadrature du Net</a>
+            <span>Libertés numériques, surveillance</span>
+        </li>
+        <li>
+            <a href="https://www.ldh-france.org" target="_blank">Ligue des Droits de l'Homme</a>
+            <span>Observatoires, rapports</span>
+        </li>
+        <li>
+            <a href="https://multinationales.org" target="_blank">Observatoire des multinationales</a>
+            <span>Enquêtes entreprises, lobbying</span>
+        </li>
+        <li>
+            <a href="https://transparency-france.org" target="_blank">Transparency International France</a>
+            <span>Corruption, lanceurs d'alerte</span>
+        </li>
+    </ul>
+</div>
+
+<!-- ÉDUCATION POPULAIRE -->
+<div class="source-section">
+    <h3 id="edpop">📚 Éducation populaire</h3>
+    <ul>
+        <li>
+            <a href="https://ardeur.net" target="_blank">L'Ardeur</a>
+            <span>Conférences gesticulées, formations</span>
+        </li>
+        <li>
+            <a href="https://la-grenaille.org" target="_blank">La Grenaille</a>
+            <span>Réseau de coopératives</span>
+        </li>
+        <li>
+            <a href="https://www.peuple-et-culture.org" target="_blank">Peuple et Culture</a>
+            <span>Mouvement historique depuis 1945</span>
+        </li>
+        <li>
+            <a href="https://www.atd-quartmonde.fr" target="_blank">ATD Quart Monde</a>
+            <span>Universités populaires</span>
+        </li>
+        <li>
+            <a href="https://www.theatredelopprime.com" target="_blank">CTO-Paris</a>
+            <span>Théâtre de l'Opprimé</span>
+        </li>
+        <li>
+            <a href="https://www.education-populaire.fr" target="_blank">education-populaire.fr</a>
+            <span>Ressources, méthodes</span>
+        </li>
+    </ul>
+</div>
+
+<!-- PRESSE -->
+<div class="source-section">
+    <h3 id="presse">📰 Presse d'investigation</h3>
+    <ul>
+        <li>
+            <a href="https://www.mediapart.fr" target="_blank">Mediapart</a>
+            <span>Investigation indépendante (payant)</span>
+        </li>
+        <li>
+            <a href="https://disclose.ngo" target="_blank">Disclose</a>
+            <span>Enquêtes non-profit</span>
+        </li>
+        <li>
+            <a href="https://www.acrimed.org" target="_blank">ACRIMED</a>
+            <span>Critique des médias</span>
+        </li>
+        <li>
+            <a href="https://basta.media" target="_blank">Basta!</a>
+            <span>Questions sociales et environnementales</span>
+        </li>
+        <li>
+            <a href="https://rapportsdeforce.fr" target="_blank">Rapports de Force</a>
+            <span>Mouvements sociaux</span>
+        </li>
+        <li>
+            <a href="https://reporterre.net" target="_blank">Reporterre</a>
+            <span>Écologie</span>
+        </li>
+        <li>
+            <a href="https://www.bellingcat.com" target="_blank">Bellingcat</a>
+            <span>Investigation OSINT internationale</span>
+        </li>
+    </ul>
+</div>
+
+<!-- BELGIQUE -->
+<div class="source-section">
+    <h3 id="belgique">🇧🇪 Belgique</h3>
+    <ul>
+        <li>
+            <a href="https://educationpermanente.cfwb.be" target="_blank">Éducation permanente CFWB</a>
+            <span>Cadre légal, associations reconnues</span>
+        </li>
+        <li>
+            <a href="https://www.pac-g.be" target="_blank">PAC</a>
+            <span>Présence et Action Culturelles</span>
+        </li>
+        <li>
+            <a href="https://www.arc-culture.be" target="_blank">ARC</a>
+            <span>Action et Recherche Culturelles</span>
+        </li>
+        <li>
+            <a href="https://www.stuut.info" target="_blank">Stuut.info</a>
+            <span>Média militant belge</span>
+        </li>
+        <li>
+            <a href="https://www.fgtb.be" target="_blank">FGTB</a>
+            <span>Syndicat socialiste belge</span>
+        </li>
+    </ul>
+</div>
+
+</div>
+
+<h2>Agrégateurs militants</h2>
+
+<ul>
+    <li>
+        <a href="https://www.infolibertaire.net" target="_blank"><strong>infoLibertaire.net</strong></a>
+        <span>Agrégateur de 107+ médias militants francophones. Mise à jour toutes les 5 minutes.</span>
+    </li>
+    <li>
+        <a href="https://www.libertaire.net" target="_blank">Libertaire.net</a>
+        <span>Forum et agenda militant</span>
+    </li>
+</ul>
+
+<h2>Références académiques</h2>
+
+<ul>
+    <li>
+        Paulo Freire, <em>Pédagogie des opprimés</em> (1968)
+        <span>3e ouvrage le plus cité en sciences humaines</span>
+    </li>
+    <li>
+        Augusto Boal, <em>Théâtre de l'Opprimé</em> (1971)
+        <span>Méthodes du théâtre-forum</span>
+    </li>
+    <li>
+        <a href="https://journals.openedition.org" target="_blank">OpenEdition</a>
+        <span>Revues académiques en accès ouvert</span>
+    </li>
+</ul>
+
+</main>
+
+<button class="print-btn" onclick="window.print()">🖨️ Imprimer</button>
+
+</body>
+</html>

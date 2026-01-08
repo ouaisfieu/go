@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outils OSINT — Veille Citoyenne</title>
+    <meta name="description" content="Investigation en sources ouvertes : tracer les lobbies, vérifier les images, suivre l'argent. Outils et exercice pratique.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+    <style>
+        :root{--bg:#fafafa;--surface:#fff;--text:#1a1a1a;--muted:#666;--accent:#c41e3a;--accent2:#1a5f7a;--border:#e0e0e0}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;line-height:1.7}
+        a{color:var(--accent2)}
+        nav{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+        nav ul{max-width:1100px;margin:0 auto;display:flex;justify-content:center;gap:.5rem;padding:1rem;list-style:none;flex-wrap:wrap}
+        nav a{color:var(--text);font-weight:500;font-size:.9rem;padding:.5rem .75rem;border-radius:4px;text-decoration:none}
+        nav a:hover{background:var(--bg)}
+        nav a.current{background:var(--accent);color:#fff}
+        main{max-width:900px;margin:0 auto;padding:2rem}
+        h1{font-size:2rem;margin-bottom:.5rem}
+        .subtitle{color:var(--muted);margin-bottom:2rem;font-size:1.1rem}
+        h2{font-size:1.5rem;margin:3rem 0 1rem;padding-bottom:.5rem;border-bottom:2px solid var(--border)}
+        h3{font-size:1.15rem;margin:2rem 0 1rem;color:var(--accent2)}
+        p{margin-bottom:1rem}
+        ul{margin:1rem 0 1.5rem 1.5rem}
+        li{margin-bottom:.5rem}
+        .box{background:var(--surface);border:1px solid var(--border);padding:1.5rem;margin:1.5rem 0;border-radius:8px}
+        .box.info{border-left:4px solid var(--accent2)}
+        .box h4{margin-bottom:.75rem;color:var(--accent2)}
+        .source{font-size:.85rem;color:var(--muted);font-style:italic}
+        .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin:1.5rem 0}
+        .tool-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;transition:border-color .2s}
+        .tool-card:hover{border-color:var(--accent2)}
+        .tool-card h4{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
+        .tool-card .icon{font-size:1.3rem}
+        .tool-card p{font-size:.9rem;color:var(--muted);margin-bottom:.75rem}
+        .tool-card a{display:inline-block;padding:.4rem .8rem;background:var(--accent2);color:#fff;border-radius:4px;font-size:.85rem;text-decoration:none}
+        .tool-card a:hover{background:#145369}
+        .toc{background:var(--surface);border:1px solid var(--border);padding:1.5rem;border-radius:8px;margin-bottom:2rem}
+        .toc h4{margin-bottom:1rem}
+        .toc ul{margin:0;columns:2}
+        .toc li{margin-bottom:.25rem}
+        .exercise{background:#e8f4f8;border:2px solid var(--accent2);padding:1.5rem;border-radius:8px;margin:2rem 0}
+        .exercise h3{margin-top:0;color:var(--accent2)}
+        .mission{background:var(--surface);border:1px solid var(--border);padding:1rem;margin:1rem 0;border-radius:8px}
+        .mission h4{margin-bottom:.5rem}
+        .mission-level{display:inline-block;padding:.2rem .5rem;border-radius:4px;font-size:.75rem;margin-left:.5rem}
+        .level-1{background:#d4edda;color:#155724}
+        .level-2{background:#fff3cd;color:#856404}
+        .level-3{background:#f8d7da;color:#721c24}
+        details{margin:1rem 0}
+        summary{cursor:pointer;font-weight:500;color:var(--accent2)}
+        .print-btn{position:fixed;bottom:2rem;right:2rem;background:var(--accent2);color:#fff;padding:.75rem 1rem;border:none;border-radius:8px;cursor:pointer;font:inherit;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+        @media(max-width:600px){main{padding:1rem}.toc ul{columns:1}}
+        @media print{nav,.print-btn,.toc{display:none}}
+    </style>
+</head>
+<body>
+
+<nav>
+    <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="diagnostic.html">Diagnostic</a></li>
+        <li><a href="arsenal.html">Arsenal juridique</a></li>
+        <li><a href="edpop.html">Éducation populaire</a></li>
+        <li><a href="mobilisations.html">Mobilisations</a></li>
+        <li><a href="osint.html" class="current">Outils OSINT</a></li>
+        <li><a href="collectifs.html">Collectifs</a></li>
+        <li><a href="sources.html">Sources</a></li>
+    </ul>
+</nav>
+
+<main>
+
+<h1>🔍 Outils OSINT</h1>
+<p class="subtitle">Investigation en sources ouvertes. Tracer les lobbies, vérifier les images, suivre l'argent.</p>
+
+<nav class="toc">
+    <h4>Sommaire</h4>
+    <ul>
+        <li><a href="#intro">Qu'est-ce que l'OSINT ?</a></li>
+        <li><a href="#politique">Politique & lobbies</a></li>
+        <li><a href="#entreprises">Entreprises & argent</a></li>
+        <li><a href="#verification">Vérification médias</a></li>
+        <li><a href="#exercice">Exercice pratique</a></li>
+    </ul>
+</nav>
+
+<!-- INTRO -->
+<h2 id="intro">Qu'est-ce que l'OSINT ?</h2>
+
+<div class="box info">
+    <p><strong>OSINT</strong> (Open Source Intelligence) = renseignement en sources ouvertes. L'art d'extraire des informations utiles à partir de données publiquement accessibles.</p>
+    <p>Utilisé par : <strong>Bellingcat</strong> (enquêtes internationales), <strong>Disclose</strong> (journalisme d'investigation), <strong>La Quadrature du Net</strong> (surveillance), les meilleures équipes d'enquête journalistique.</p>
+</div>
+
+<p><strong>Principe de base :</strong> Les informations existent, il suffit de savoir où et comment les chercher. Registres publics, réseaux sociaux, archives, bases de données ouvertes...</p>
+
+<!-- POLITIQUE -->
+<h2 id="politique">Politique & lobbies</h2>
+
+<div class="tools-grid">
+    <div class="tool-card">
+        <h4><span class="icon">🏛️</span> NosDéputés.fr</h4>
+        <p>Activité parlementaire complète : présence, votes, amendements, interventions. Qui vote quoi.</p>
+        <a href="https://www.nosdeputes.fr" target="_blank">Accéder →</a>
+    </div>
+    
+    <div class="tool-card">
+        <h4><span class="icon">📊</span> NosSénateurs.fr</h4>
+        <p>Même chose pour le Sénat. Suivi de l'activité des sénateurs.</p>
+        <a href="https://www.nossenateurs.fr" target="_blank">Accéder →</a>
+    </div>
+    
+    <div class="tool-card">
+        <h4><span class="icon">💼</span> HATVP</h4>
+        <p>Registre des représentants d'intérêts (lobbyistes). Qui influence qui, avec quels moyens.</p>
+        <a href="https://www.hatvp.fr/le-repertoire/" target="_blank">Accéder →</a>
+    </div>
+    
+    <div class="tool-card">
+        <h4><span class="icon">💰</span> HATVP - Déclarations</h4>
+        <p>Déclarations de patrimoine et d'intérêts des élus et hauts fonctionnaires.</p>
+        <a href="https://www.hatvp.fr/consulter-les-declarations/" target="_blank">Accéder →</a>
+    </div>
+</div>
+
+<!-- ENTREPRISES -->
+<h2 id="entreprises">Entreprises & argent</h2>
+
+<div class="tools-grid">
+    <div class="tool-card">
+        <h4><span class="icon">🏢</span> Pappers.fr</h4>
+        <p>Données entreprises gratuites : dirigeants, comptes annuels, liens entre sociétés, historique.</p>
+        <a href="https://www.pappers.fr" target="_blank">Accéder →</a>
+    </div>
+    
+    <div class="tool-card">
+        <h4><span class="icon">📑</span> Societe.com</h4>
+        <p>Informations légales sur les entreprises françaises. Bilans, dirigeants, établissements.</p>
+        <a href="https://www.societe.com" target="_blank">Accéder →</a>
+    </div>
+    
+    <div class="tool-card">
+        <h4><span class="icon">🔗</span> OpenCorporates</h4>
+        <p>Base mondiale de données sur les entreprises. 200+ millions d'entités dans 140 juridictions.</p>
+        <a href="https://opencorporates.com" target="_blank">Accéder →</a>
+    </div>
+    
+    <div class="tool-card">
+        <h4><span class="icon">📰</span> BOAMP</h4>
+        <p>Bulletin officiel des annonces de marchés publics. Qui obtient les contrats publics.</p>
+        <a href="https://www.boamp.fr" target="_blank">Accéder →</a>
+    </div>
+</div>
+
+<!-- VÉRIFICATION -->
+<h2 id="verification">Vérification des médias</h2>
+
+<div class="tools-grid">
+    <div class="tool-card">
+        <h4><span class="icon">📷</span> TinEye</h4>
+        <p>Recherche inversée d'images. Retrouver l'origine d'une photo, détecter les réutilisations.</p>
+        <a href="https://tineye.com" target="_blank">Accéder →</a>
+    </div>
+    
+    <div class="tool-card">
+        <h4><span class="icon">🔎</span> Google Images (inversée)</h4>
+        <p>Recherche inversée intégrée à Google. Clic droit → "Rechercher l'image avec Google".</p>
+        <a href="https://images.google.com" target="_blank">Accéder →</a>
+    </div>
+    
+    <div class="tool-card">
+        <h4><span class="icon">🎥</span> InVID / WeVerify</h4>
+        <p>Extension navigateur pour vérifier vidéos et images. Analyse des métadonnées, découpage vidéo.</p>
+        <a href="https://www.invid-project.eu/tools-and-services/invid-verification-plugin/" target="_blank">Accéder →</a>
+    </div>
+    
+    <div class="tool-card">
+        <h4><span class="icon">🔬</span> FotoForensics</h4>
+        <p>Analyse d'erreur de niveau (ELA) pour détecter les manipulations d'images.</p>
+        <a href="https://fotoforensics.com" target="_blank">Accéder →</a>
+    </div>
+    
+    <div class="tool-card">
+        <h4><span class="icon">☀️</span> SunCalc</h4>
+        <p>Position du soleil à une date/heure/lieu. Vérifier la cohérence des ombres sur une photo.</p>
+        <a href="https://www.suncalc.org" target="_blank">Accéder →</a>
+    </div>
+    
+    <div class="tool-card">
+        <h4><span class="icon">🗺️</span> Google Earth</h4>
+        <p>Géolocalisation, images satellites historiques. Comparer un lieu à différentes dates.</p>
+        <a href="https://earth.google.com" target="_blank">Accéder →</a>
+    </div>
+</div>
+
+<h3>Ressources juridiques</h3>
+
+<div class="tools-grid">
+    <div class="tool-card">
+        <h4><span class="icon">⚖️</span> HUDOC</h4>
+        <p>Jurisprudence de la CEDH. Toutes les décisions, arrêts, avis. Recherche avancée.</p>
+        <a href="https://hudoc.echr.coe.int" target="_blank">Accéder →</a>
+    </div>
+    
+    <div class="tool-card">
+        <h4><span class="icon">📜</span> Légifrance</h4>
+        <p>Textes de loi français, jurisprudence, codes. La référence officielle.</p>
+        <a href="https://www.legifrance.gouv.fr" target="_blank">Accéder →</a>
+    </div>
+    
+    <div class="tool-card">
+        <h4><span class="icon">🏛️</span> Conseil constitutionnel</h4>
+        <p>Décisions QPC, contrôle de constitutionnalité. Recherche par mot-clé.</p>
+        <a href="https://www.conseil-constitutionnel.fr/decisions" target="_blank">Accéder →</a>
+    </div>
+</div>
+
+<!-- EXERCICE -->
+<h2 id="exercice">Exercice pratique</h2>
+
+<div class="exercise">
+    <h3>🎯 4 missions pour s'entraîner</h3>
+    <p>Utilisez les outils ci-dessus pour résoudre ces enquêtes. Difficulté progressive.</p>
+    
+    <div class="mission">
+        <h4>Mission 1 <span class="mission-level level-1">Niveau 1</span></h4>
+        <p>Trouvez le député de la 3e circonscription de l'Isère qui a voté contre la ligne de son groupe sur la réforme des retraites 2023.</p>
+        <p><strong>Outils :</strong> NosDéputés.fr, site Assemblée nationale</p>
+        <details>
+            <summary>Voir la réponse</summary>
+            <p style="margin-top:.5rem"><strong>Jérémie Iordanoff</strong> (EELV). Vérifiable sur NosDéputés.fr en filtrant par circonscription et en consultant les votes sur le texte retraites.</p>
+        </details>
+    </div>
+    
+    <div class="mission">
+        <h4>Mission 2 <span class="mission-level level-2">Niveau 2</span></h4>
+        <p>Combien de représentants d'intérêts McKinsey France a-t-il déclarés au registre HATVP ?</p>
+        <p><strong>Outils :</strong> HATVP Répertoire</p>
+        <details>
+            <summary>Voir la réponse</summary>
+            <p style="margin-top:.5rem"><strong>4 à 6 représentants</strong> selon les années (chiffre variable). Recherchez "McKinsey" dans le répertoire HATVP et consultez la fiche détaillée.</p>
+        </details>
+    </div>
+    
+    <div class="mission">
+        <h4>Mission 3 <span class="mission-level level-2">Niveau 2</span></h4>
+        <p>Quel outil utilise l'analyse d'erreur de niveau (Error Level Analysis) pour détecter les manipulations d'images ?</p>
+        <p><strong>Outils :</strong> TinEye, InVID, FotoForensics</p>
+        <details>
+            <summary>Voir la réponse</summary>
+            <p style="margin-top:.5rem"><strong>FotoForensics</strong>. L'ELA révèle les zones d'une image qui ont été modifiées ou ajoutées (compression différente).</p>
+        </details>
+    </div>
+    
+    <div class="mission">
+        <h4>Mission 4 <span class="mission-level level-3">Niveau 3</span></h4>
+        <p>Une photo montre l'Assemblée nationale depuis un pont. Quel pont est-ce ?</p>
+        <p><strong>Indices :</strong> Vue frontale du Palais Bourbon, fleuve visible</p>
+        <p><strong>Outils :</strong> Google Maps, Google Earth, Street View</p>
+        <details>
+            <summary>Voir la réponse</summary>
+            <p style="margin-top:.5rem"><strong>Pont de la Concorde</strong>. Seul pont offrant une vue frontale directe sur le Palais Bourbon. Vérifiable avec Street View.</p>
+        </details>
+    </div>
+</div>
+
+<div class="box">
+    <h4>Pour aller plus loin</h4>
+    <ul>
+        <li><a href="https://www.bellingcat.com/resources/2021/11/09/first-steps-to-getting-started-in-open-source-research/" target="_blank">Bellingcat — Guide débutant OSINT</a></li>
+        <li><a href="https://osintframework.com" target="_blank">OSINT Framework</a> — Répertoire complet d'outils</li>
+        <li><a href="https://start.me/p/ZGAzN7/verification-toolset" target="_blank">Verification Toolset</a> — Boîte à outils vérification</li>
+    </ul>
+</div>
+
+<hr style="margin:3rem 0">
+<p><strong>→ Page suivante :</strong> <a href="collectifs.html">Collectifs & Réseaux</a> — Qui fait quoi en France et Belgique.</p>
+
+</main>
+
+<button class="print-btn" onclick="window.print()">🖨️ Imprimer</button>
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arsenal juridique — Veille Citoyenne</title>
+    <meta name="description" content="Outils juridiques citoyens : QPC, CEDH, état de nécessité, lanceurs d'alerte. Procédures concrètes et victoires.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚖️</text></svg>">
+    <style>
+        :root{--bg:#fafafa;--surface:#fff;--text:#1a1a1a;--muted:#666;--accent:#c41e3a;--accent2:#1a5f7a;--success:#27ae60;--border:#e0e0e0}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;line-height:1.7}
+        a{color:var(--accent2)}
+        nav{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+        nav ul{max-width:1100px;margin:0 auto;display:flex;justify-content:center;gap:.5rem;padding:1rem;list-style:none;flex-wrap:wrap}
+        nav a{color:var(--text);font-weight:500;font-size:.9rem;padding:.5rem .75rem;border-radius:4px;text-decoration:none}
+        nav a:hover{background:var(--bg)}
+        nav a.current{background:var(--accent);color:#fff}
+        main{max-width:900px;margin:0 auto;padding:2rem}
+        h1{font-size:2rem;margin-bottom:.5rem}
+        .subtitle{color:var(--muted);margin-bottom:2rem;font-size:1.1rem}
+        h2{font-size:1.5rem;margin:3rem 0 1rem;padding-bottom:.5rem;border-bottom:2px solid var(--border)}
+        h3{font-size:1.15rem;margin:2rem 0 1rem;color:var(--accent2)}
+        p{margin-bottom:1rem}
+        ul,ol{margin:1rem 0 1.5rem 1.5rem}
+        li{margin-bottom:.5rem}
+        .box{background:var(--surface);border:1px solid var(--border);padding:1.5rem;margin:1.5rem 0;border-radius:8px}
+        .box.success{border-left:4px solid var(--success);background:#f0fff4}
+        .box.info{border-left:4px solid var(--accent2)}
+        .box.warning{border-left:4px solid #f39c12;background:#fffbf0}
+        .box h4{margin-bottom:.75rem;color:var(--accent2)}
+        .source{font-size:.85rem;color:var(--muted);font-style:italic;margin-top:1rem}
+        table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.95rem}
+        th,td{padding:.75rem;text-align:left;border-bottom:1px solid var(--border)}
+        th{background:var(--bg);font-weight:600}
+        .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin:1.5rem 0}
+        .stat{background:var(--surface);border:1px solid var(--border);padding:1rem;text-align:center;border-radius:8px}
+        .stat-num{font-size:1.8rem;font-weight:700;color:var(--success)}
+        .stat-label{font-size:.8rem;color:var(--muted)}
+        .tool-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;margin:1.5rem 0}
+        .tool-card h3{margin-top:0;display:flex;align-items:center;gap:.5rem}
+        .tool-card .icon{font-size:1.5rem}
+        .fiche-link{display:inline-block;margin-top:1rem;padding:.5rem 1rem;background:var(--accent2);color:#fff;border-radius:4px;text-decoration:none;font-size:.9rem}
+        .fiche-link:hover{background:#145369}
+        .toc{background:var(--surface);border:1px solid var(--border);padding:1.5rem;border-radius:8px;margin-bottom:2rem}
+        .toc h4{margin-bottom:1rem}
+        .toc ul{margin:0;columns:2}
+        .toc li{margin-bottom:.25rem}
+        .print-btn{position:fixed;bottom:2rem;right:2rem;background:var(--accent2);color:#fff;padding:.75rem 1rem;border:none;border-radius:8px;cursor:pointer;font:inherit;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+        @media(max-width:600px){main{padding:1rem}.toc ul{columns:1}}
+        @media print{nav,.print-btn,.toc,.fiche-link{display:none}}
+    </style>
+</head>
+<body>
+
+<nav>
+    <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="diagnostic.html">Diagnostic</a></li>
+        <li><a href="arsenal.html" class="current">Arsenal juridique</a></li>
+        <li><a href="edpop.html">Éducation populaire</a></li>
+        <li><a href="mobilisations.html">Mobilisations</a></li>
+        <li><a href="osint.html">Outils OSINT</a></li>
+        <li><a href="collectifs.html">Collectifs</a></li>
+        <li><a href="sources.html">Sources</a></li>
+    </ul>
+</nav>
+
+<main>
+
+<h1>⚖️ Arsenal juridique citoyen</h1>
+<p class="subtitle">Les outils qui fonctionnent. Procédures concrètes et victoires documentées.</p>
+
+<nav class="toc">
+    <h4>Sommaire</h4>
+    <ul>
+        <li><a href="#qpc">QPC (~35% succès)</a></li>
+        <li><a href="#cedh">CEDH (736 condamnations)</a></li>
+        <li><a href="#necessite">État de nécessité</a></li>
+        <li><a href="#lanceurs">Lanceurs d'alerte</a></li>
+        <li><a href="#victoires">Victoires récentes</a></li>
+    </ul>
+</nav>
+
+<!-- QPC -->
+<h2 id="qpc">Question Prioritaire de Constitutionnalité (QPC)</h2>
+
+<div class="stats">
+    <div class="stat"><div class="stat-num">~35%</div><div class="stat-label">Taux de succès</div></div>
+    <div class="stat"><div class="stat-num">6 mois</div><div class="stat-label">Délai maximum</div></div>
+    <div class="stat"><div class="stat-num">0€</div><div class="stat-label">Coût (hors avocat)</div></div>
+</div>
+
+<p>La QPC permet à tout justiciable de contester la constitutionnalité d'une loi devant le Conseil constitutionnel. C'est <strong>l'outil juridique citoyen le plus efficace</strong>.</p>
+
+<div class="box info">
+    <h4>Conditions</h4>
+    <ol>
+        <li>Être partie à un procès (tribunal, cour d'appel, cassation)</li>
+        <li>La disposition contestée doit être applicable au litige</li>
+        <li>La question ne doit pas avoir déjà été tranchée (sauf changement de circonstances)</li>
+        <li>La question doit être "sérieuse"</li>
+    </ol>
+</div>
+
+<h3>Victoires emblématiques</h3>
+
+<table>
+    <tr><th>Date</th><th>Affaire</th><th>Résultat</th></tr>
+    <tr><td>2018</td><td>Cédric Herrou (aide aux migrants)</td><td><strong>Principe de fraternité</strong> reconnu comme valeur constitutionnelle</td></tr>
+    <tr><td>2010</td><td>Garde à vue</td><td>36 personnes font tomber l'ancienne procédure</td></tr>
+    <tr><td>2023</td><td>Activation téléphones</td><td>Activation à distance par la police <strong>censurée</strong></td></tr>
+    <tr><td>2024</td><td>Loi Immigration</td><td><strong>32 articles sur 86 censurés</strong></td></tr>
+</table>
+
+<a href="fiches/qpc.html" class="fiche-link">📄 Fiche pratique QPC →</a>
+
+<!-- CEDH -->
+<h2 id="cedh">Cour Européenne des Droits de l'Homme (CEDH)</h2>
+
+<div class="stats">
+    <div class="stat"><div class="stat-num">736</div><div class="stat-label">Condamnations France</div></div>
+    <div class="stat"><div class="stat-num">4 mois</div><div class="stat-label">Délai de saisine</div></div>
+    <div class="stat"><div class="stat-num">47</div><div class="stat-label">États membres</div></div>
+</div>
+
+<p>La CEDH peut être saisie par tout individu victime d'une violation de la Convention européenne des droits de l'homme. Ses arrêts sont contraignants.</p>
+
+<div class="box warning">
+    <h4>⚠️ Condition essentielle</h4>
+    <p>Vous devez avoir <strong>épuisé toutes les voies de recours internes</strong> (tribunaux français jusqu'à la Cour de cassation ou le Conseil d'État) avant de saisir la CEDH.</p>
+    <p><strong>Délai : 4 mois</strong> après la décision interne définitive.</p>
+</div>
+
+<h3>Condamnations emblématiques de la France</h3>
+
+<table>
+    <tr><th>Affaire</th><th>Date</th><th>Motif</th></tr>
+    <tr><td><strong>J.M.B. c. France</strong></td><td>2020</td><td>Conditions de détention indignes — arrêt pilote sur la surpopulation carcérale</td></tr>
+    <tr><td><strong>Baldassi c. France</strong></td><td>2020</td><td>Militants BDS condamnés — l'appel au boycott relève de la liberté d'expression</td></tr>
+    <tr><td><strong>Castellani c. France</strong></td><td>Divers</td><td>Violences policières</td></tr>
+</table>
+
+<a href="fiches/cedh.html" class="fiche-link">📄 Fiche pratique CEDH →</a>
+
+<!-- ÉTAT DE NÉCESSITÉ -->
+<h2 id="necessite">État de nécessité climatique</h2>
+
+<div class="stats">
+    <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Relaxes décrocheurs</div></div>
+    <div class="stat"><div class="stat-num">2023</div><div class="stat-label">Cour de cassation</div></div>
+    <div class="stat"><div class="stat-num">Art. 122-7</div><div class="stat-label">Code pénal</div></div>
+</div>
+
+<div class="box info">
+    <h4>Article 122-7 du Code pénal</h4>
+    <p><em>"N'est pas pénalement responsable la personne qui, face à un danger actuel ou imminent qui menace elle-même, autrui ou un bien, accomplit un acte nécessaire à la sauvegarde de la personne ou du bien, sauf s'il y a disproportion entre les moyens employés et la gravité de la menace."</em></p>
+</div>
+
+<h3>Jurisprudence favorable</h3>
+
+<div class="box success">
+    <h4>Décrocheurs de portraits Macron</h4>
+    <p>Plus de <strong>15 relaxes sur ~60 procès</strong>. La Cour de cassation (28 mars 2023) a confirmé définitivement la validité de cette défense.</p>
+</div>
+
+<div class="box success">
+    <h4>Extinction Rebellion La Rochelle (avril 2024)</h4>
+    <p>Reconnaissance de l'état de nécessité climatique : <em>"L'urgence climatique est un danger actuel et imminent"</em>.</p>
+</div>
+
+<a href="fiches/necessite.html" class="fiche-link">📄 Fiche pratique État de nécessité →</a>
+
+<!-- LANCEURS D'ALERTE -->
+<h2 id="lanceurs">Protection des lanceurs d'alerte</h2>
+
+<p>La <strong>loi Waserman (21 mars 2022)</strong> a considérablement renforcé la protection des lanceurs d'alerte.</p>
+
+<div class="box success">
+    <h4>Améliorations majeures</h4>
+    <ul>
+        <li><strong>Fin de la hiérarchie des signalements :</strong> Plus besoin de signaler en interne d'abord</li>
+        <li><strong>Immunité pénale complète</strong> si bonne foi</li>
+        <li><strong>Protection des "facilitateurs"</strong> (personnes aidant le lanceur)</li>
+        <li><strong>Amende de 60 000€</strong> contre les représailles</li>
+        <li><strong>Nullité des mesures de représailles</strong> (licenciement, etc.)</li>
+    </ul>
+</div>
+
+<h3>Canaux de signalement</h3>
+
+<ol>
+    <li><strong>Interne :</strong> Au sein de l'organisation</li>
+    <li><strong>Externe :</strong> Défenseur des droits, autorités judiciaires, Autorités administratives (CNIL, AMF, etc.)</li>
+    <li><strong>Public :</strong> Médias — en dernier recours ou si danger grave et imminent</li>
+</ol>
+
+<a href="fiches/lanceurs.html" class="fiche-link">📄 Fiche pratique Lanceurs d'alerte →</a>
+
+<!-- VICTOIRES RÉCENTES -->
+<h2 id="victoires">Victoires juridiques récentes</h2>
+
+<div class="tool-card">
+    <h3><span class="icon">✅</span> Soulèvements de la Terre (9 novembre 2023)</h3>
+    <p>Le Conseil d'État a <strong>annulé la dissolution</strong> du mouvement, jugeant la mesure disproportionnée malgré des "provocations à des agissements violents contre les biens".</p>
+    <p><strong>Victoire juridique majeure pour le mouvement écologiste.</strong></p>
+    <p class="source">Source : Conseil d'État</p>
+</div>
+
+<div class="tool-card">
+    <h3><span class="icon">✅</span> L'Affaire du Siècle (2021)</h3>
+    <p><strong>3 février 2021 :</strong> État reconnu responsable de "carences fautives" en matière climatique.</p>
+    <p><strong>14 octobre 2021 :</strong> Condamné à réparer le dépassement du budget carbone.</p>
+    <p>Portée par 4 ONG : Oxfam, Notre Affaire à Tous, FNH, Greenpeace.</p>
+    <p class="source">Source : Tribunal administratif de Paris</p>
+</div>
+
+<div class="tool-card">
+    <h3><span class="icon">✅</span> Loi Sécurité Globale (2021)</h3>
+    <p>L'article 24 (interdiction de filmer la police) et les dispositions sur les drones ont été <strong>censurés par le Conseil constitutionnel</strong> après mobilisation massive.</p>
+    <p class="source">Source : Conseil constitutionnel, décision 2021-817 DC</p>
+</div>
+
+<hr style="margin:3rem 0">
+<p><strong>→ Page suivante :</strong> <a href="edpop.html">Éducation populaire</a> — Méthodes de conscientisation et d'empouvoirement.</p>
+
+</main>
+
+<button class="print-btn" onclick="window.print()">🖨️ Imprimer</button>
+
+</body>
+</html>
