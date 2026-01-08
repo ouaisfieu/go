@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VÉNUS Terminal</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◈</text></svg>">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap');
+        :root{--bg:#0a0a0c;--surface:#111114;--border:#222228;--green:#33ff33;--red:#ff3366;--blue:#00aaff;--yellow:#ffcc00;--text:#e0e0e0;--muted:#666}
+        *{margin:0;padding:0;box-sizing:border-box}
+        html,body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;min-height:100vh}
+        
+        /* CRT */
+        .crt{position:fixed;inset:0;pointer-events:none;z-index:10000}
+        .crt::before{content:'';position:absolute;inset:0;background:linear-gradient(transparent 50%,rgba(0,0,0,0.03) 50%);background-size:100% 3px}
+        .crt::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 0%,rgba(0,0,0,0.15) 100%)}
+        
+        /* Chrome */
+        .chrome{background:linear-gradient(180deg,#2a2a2a,#1a1a1a);padding:.6rem 1rem;display:flex;align-items:center;gap:.5rem;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+        .dot{width:12px;height:12px;border-radius:50%}
+        .dot.r{background:#ff5f56}.dot.y{background:#ffbd2e}.dot.g{background:#27c93f}
+        .chrome-title{flex:1;text-align:center;font-size:.75rem;color:var(--muted)}
+        .chrome-status{display:flex;align-items:center;gap:.5rem;font-size:.7rem}
+        .pulse{width:8px;height:8px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+        @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(51,255,51,.5)}50%{box-shadow:0 0 0 5px transparent}}
+        
+        /* Terminal */
+        #terminal{padding:1.5rem;min-height:calc(100vh - 120px);font-size:clamp(.8rem,2vw,.95rem);line-height:1.7}
+        .line{margin-bottom:.15rem;word-wrap:break-word}
+        .line.prompt{color:var(--blue)}
+        .line.system{color:var(--muted)}
+        .line.error{color:var(--red)}
+        .line.success{color:var(--green)}
+        .line.warning{color:var(--yellow)}
+        .line.data{color:var(--green)}
+        .line.highlight{background:rgba(51,255,51,.08);padding:.5rem;border-left:3px solid var(--green);margin:.5rem 0}
+        .line.urgent{background:rgba(255,51,102,.1);padding:.5rem;border-left:3px solid var(--red);margin:.5rem 0}
+        .line.ascii{font-size:clamp(.3rem,.9vw,.5rem);line-height:1.1;color:var(--red)}
+        .line a{color:var(--blue)}
+        
+        /* Input */
+        .input-area{display:flex;align-items:center;padding:1rem 1.5rem;background:linear-gradient(transparent,rgba(0,0,0,.5));position:sticky;bottom:0;gap:.5rem}
+        .input-area span{color:var(--blue)}
+        #cmd{flex:1;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:4px;padding:.75rem 1rem;color:var(--green);font:inherit;outline:none}
+        #cmd:focus{border-color:var(--green);box-shadow:0 0 10px rgba(51,255,51,.2)}
+        
+        /* HUD */
+        #hud{position:fixed;top:50px;right:1rem;z-index:500}
+        .hud-box{background:rgba(0,0,0,.9);border:1px solid var(--border);padding:.5rem 1rem;font-size:.75rem;display:flex;align-items:center;gap:.5rem}
+        .hud-num{color:var(--green);font-weight:bold;font-size:1.2rem}
+        
+        /* Achievement */
+        #ach{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);background:linear-gradient(135deg,#1a1a2e,#0a0a0f);border:2px solid var(--yellow);padding:2rem 3rem;text-align:center;z-index:2000;opacity:0;transition:all .5s cubic-bezier(.34,1.56,.64,1)}
+        #ach.show{transform:translate(-50%,-50%) scale(1);opacity:1}
+        .ach-icon{font-size:3rem;margin-bottom:1rem}
+        .ach-title{color:var(--yellow);font-size:.8rem;text-transform:uppercase;letter-spacing:3px;margin-bottom:.5rem}
+        .ach-name{font-size:1.5rem;font-weight:bold;margin-bottom:.5rem}
+        .ach-desc{color:var(--muted);font-size:.85rem}
+        
+        /* Doc viewer */
+        #docview{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:1000;padding:1rem;overflow-y:auto}
+        #docview.show{display:block}
+        .doc-close{position:fixed;top:1rem;right:1rem;background:var(--red);color:#fff;border:none;padding:.5rem 1rem;font-family:inherit;cursor:pointer;z-index:1001}
+        .doc-frame{max-width:750px;margin:2rem auto;background:#f5f0e1;color:#1a1a1a;padding:clamp(1.5rem,5vw,3rem);font-family:'Courier New',monospace;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+        .doc-frame::before{content:'CONFIDENTIEL';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-25deg);font-size:clamp(1.5rem,6vw,3rem);color:rgba(200,0,0,.06);font-weight:bold;pointer-events:none}
+        .doc-stamp{background:#cc0000;color:#fff;padding:.2rem .6rem;font-size:.65rem;display:inline-block;margin-bottom:1rem;font-weight:bold}
+        .doc-title{font-size:clamp(.9rem,2.5vw,1.1rem);font-weight:bold;margin-bottom:.5rem}
+        .doc-meta{font-size:.7rem;color:#666;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid #ccc}
+        .doc-body{line-height:1.8;font-size:clamp(.75rem,1.8vw,.9rem)}
+        .doc-body p{margin-bottom:.75rem;text-align:justify}
+        .doc-body h3{margin:1.25rem 0 .5rem;color:#990000;font-size:.95rem}
+        .doc-body ul{margin:.5rem 0 1rem 1.5rem}
+        .doc-body li{margin-bottom:.3rem}
+        .redacted{background:#000;color:transparent;padding:0 .3rem;user-select:none}
+        .source{font-size:.7rem;color:#888;font-style:italic}
+        
+        /* Audio toggle */
+        #audio-btn{position:fixed;bottom:1rem;left:1rem;background:rgba(0,0,0,.8);border:1px solid var(--border);color:var(--muted);width:40px;height:40px;border-radius:50%;cursor:pointer;z-index:1000;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+        #audio-btn:hover{border-color:var(--green);color:var(--green)}
+        #audio-btn.muted{color:var(--red);border-color:var(--red)}
+        
+        /* Nav links */
+        .nav-links{position:fixed;bottom:1rem;right:1rem;display:flex;gap:.5rem;z-index:100}
+        .nav-links a{background:rgba(0,0,0,.8);border:1px solid var(--border);color:var(--muted);padding:.5rem 1rem;font-size:.7rem;text-decoration:none}
+        .nav-links a:hover{border-color:var(--green);color:var(--green)}
+        
+        @media(max-width:600px){.chrome-title,.nav-links{display:none}#terminal{padding:1rem}.input-area{padding:.5rem 1rem}}
+    </style>
+</head>
+<body>
+<div class="crt"></div>
+<div class="chrome">
+    <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+    <div class="chrome-title">VÉNUS TERMINAL v3.7.2 — Connexion chiffrée E2E</div>
+    <div class="chrome-status"><div class="pulse"></div><span id="cells">47 cellules</span></div>
+</div>
+<div id="terminal"></div>
+<div class="input-area"><span>λ</span><input type="text" id="cmd" placeholder="Entrez une commande..." autocomplete="off" spellcheck="false"></div>
+<div id="hud"><div class="hud-box"><span>NIV.</span><span class="hud-num" id="lvl">1</span><span>/5</span></div></div>
+<div id="ach"><div class="ach-icon" id="ach-i">🔓</div><div class="ach-title">Achievement</div><div class="ach-name" id="ach-n">—</div><div class="ach-desc" id="ach-d">—</div></div>
+<div id="docview"><button class="doc-close" onclick="closeDoc()">✕ FERMER</button><div id="doc-content"></div></div>
+<button id="audio-btn" title="Audio">🔊</button>
+<div class="nav-links"><a href="ressources.html">📚 Ressources</a><a href="carte.html">🗺️ Carte</a></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// AUDIO
+// ═══════════════════════════════════════════════════════════════════
+const A={ctx:null,muted:false,
+init(){if(!this.ctx)try{this.ctx=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}},
+tone(f,d,t='sine',v=.1){if(this.muted||!this.ctx)return;const o=this.ctx.createOscillator(),g=this.ctx.createGain();o.type=t;o.frequency.value=f;g.gain.value=v;g.gain.exponentialRampToValueAtTime(.001,this.ctx.currentTime+d);o.connect(g);g.connect(this.ctx.destination);o.start();o.stop(this.ctx.currentTime+d)},
+ok(){this.tone(523,.1);setTimeout(()=>this.tone(659,.1),100);setTimeout(()=>this.tone(784,.2),200)},
+err(){this.tone(200,.2,'sawtooth',.1)},
+type(){this.tone(800+Math.random()*400,.02,'square',.02)},
+toggle(){this.muted=!this.muted;const b=document.getElementById('audio-btn');b.textContent=this.muted?'🔇':'🔊';b.classList.toggle('muted',this.muted)}
+};
+
+// ═══════════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════════
+const S={level:1,test:null,hist:[],hIdx:-1,ach:new Set(),
+save(){try{localStorage.setItem('venus',JSON.stringify({l:this.level,a:[...this.ach]}))}catch(e){}},
+load(){try{const d=JSON.parse(localStorage.getItem('venus'));if(d){this.level=d.l||1;this.ach=new Set(d.a||[]);return true}}catch(e){}return false}
+};
+
+// ═══════════════════════════════════════════════════════════════════
+// ACHIEVEMENTS
+// ═══════════════════════════════════════════════════════════════════
+const ACH={
+list:{entry:{i:'🚪',n:'Initiée',d:'Accès au terminal'},lv2:{i:'📊',n:'Analyste',d:'Niveau 2 — Diagnostic'},lv3:{i:'⚖️',n:'Juriste',d:'Niveau 3 — Arsenal'},lv4:{i:'🔍',n:'Investigateur',d:'Niveau 4 — OSINT'},lv5:{i:'◈',n:'Opérateur',d:'Niveau 5 — Accès complet'},explorer:{i:'🗺️',n:'Explorateur',d:'Page cachée trouvée'},decoder:{i:'🔐',n:'Cryptanalyste',d:'Message décodé'}},
+unlock(id){if(S.ach.has(id))return;S.ach.add(id);S.save();const a=this.list[id];if(!a)return;A.ok();document.getElementById('ach-i').textContent=a.i;document.getElementById('ach-n').textContent=a.n;document.getElementById('ach-d').textContent=a.d;const p=document.getElementById('ach');p.classList.add('show');setTimeout(()=>p.classList.remove('show'),3000)}
+};
+
+// ═══════════════════════════════════════════════════════════════════
+// TERMINAL
+// ═══════════════════════════════════════════════════════════════════
+const T=document.getElementById('terminal');
+const I=document.getElementById('cmd');
+
+function print(t,c=''){const d=document.createElement('div');d.className='line '+c;d.innerHTML=t;T.appendChild(d);T.scrollTop=T.scrollHeight;if(c!=='system')A.type()}
+function updateHUD(){document.getElementById('lvl').textContent=S.level}
+
+// ═══════════════════════════════════════════════════════════════════
+// DOCUMENTS - ALL RESEARCH DATA INTEGRATED
+// ═══════════════════════════════════════════════════════════════════
+const DOCS={
+memo:`<div class="doc-frame"><span class="doc-stamp">INTERNE — VÉNUS</span><div class="doc-title">MÉMO DU FONDATEUR</div><div class="doc-meta">Auteur: <span class="redacted">████████</span> • Réf: V-INIT-001 • Nov. 2019</div><div class="doc-body">
+<p>Si vous lisez ce message, c'est que vous avez trouvé l'entrée.</p>
+<p>Le réseau VÉNUS est une <strong>méthode</strong>, pas une organisation. Une architecture de coordination décentralisée entre cellules autonomes de veille citoyenne.</p>
+<p>Nous ne vous demandons pas de croire. Nous vous demandons de <strong>vérifier</strong>. Chaque affirmation dans nos dossiers est sourcée.</p>
+<p>Notre postulat fondamental:</p>
+<p class="highlight" style="background:rgba(0,0,0,.05);padding:1rem;border-left:3px solid #990000;font-style:italic">"Le pouvoir se prend. Il ne se demande pas."</p>
+<p>Ce terminal est votre formation. Complétez les niveaux. Apprenez les outils. Puis transmettez.</p>
+<p style="text-align:right;margin-top:2rem">— <span class="redacted">████</span>, Cellule fondatrice<br>Paris, 17 novembre 2019</p>
+</div></div>`,
+
+situation:`<div class="doc-frame"><span class="doc-stamp">CONFIDENTIEL — ANALYSE</span><div class="doc-title">DIAGNOSTIC SYSTÉMIQUE 2024</div><div class="doc-meta">Réf: V-DIAG-042 • Mise à jour: Décembre 2024</div><div class="doc-body">
+<h3>1. HYPER-PRÉSIDENTIALISATION</h3>
+<p><strong>Article 49.3:</strong> utilisé <strong>23 fois</strong> sous Élisabeth Borne — record absolu depuis Michel Rocard (28 au total). La réforme des retraites 2023 adoptée malgré <strong>72% d'opposition</strong> populaire.</p>
+<p><strong>Précédent historique:</strong> Le 4 décembre 2024, le gouvernement Barnier est tombé par <strong>331 voix</strong> — première motion de censure aboutie après un 49.3 dans l'histoire de la Ve République.</p>
+<p class="source">Sources: Assemblée nationale, AFP, Le Monde</p>
+
+<h3>2. RÉPRESSION DOCUMENTÉE</h3>
+<p><strong>Gilets Jaunes (2018-2019):</strong></p>
+<ul>
+<li><strong>24-25 personnes éborgnées</strong> (perte d'un œil)</li>
+<li><strong>5 mains arrachées</strong> par grenades GLI-F4</li>
+<li><strong>1 décès:</strong> Zineb Redouane, 80 ans, grenade lacrymogène au visage</li>
+<li><strong>12 900+ tirs de LBD</strong> en 6 mois</li>
+<li><strong>10 718 gardes à vue</strong>, 2 000+ condamnations</li>
+</ul>
+<p class="source">Sources: Défenseur des droits, ACAT, Amnesty International, ONU (Michelle Bachelet, mars 2019)</p>
+
+<h3>3. CONCENTRATION MÉDIATIQUE</h3>
+<p><strong>9 milliardaires contrôlent 80% des médias français:</strong></p>
+<ul>
+<li><strong>Bolloré:</strong> Canal+, CNews, C8, Europe 1, JDD, Hachette</li>
+<li><strong>Arnault (LVMH):</strong> Les Échos, Le Parisien, Paris Match</li>
+<li><strong>Saadé (CMA-CGM):</strong> BFM, RMC, La Provence</li>
+</ul>
+<p>CNews: simple "mise en garde" de l'Arcom pour manquement au pluralisme, avant renouvellement TNT (juillet 2024).</p>
+<p class="source">Sources: ACRIMED, Observatoire des multinationales, Arcom</p>
+
+<h3>4. AFFAIRES D'ÉTAT</h3>
+<ul>
+<li><strong>McKinsey (Rapport Sénat mars 2022):</strong> 1+ milliard € de dépenses conseil en 2021 (doublé depuis 2018). McKinsey: <strong>0€ d'impôt sur les sociétés</strong> depuis 10+ ans malgré 329M€ CA</li>
+<li><strong>Uber Files (2022):</strong> 34 échanges documentés Uber/Élysée. Macron: "très fier" de son action</li>
+<li><strong>Alstom/GE (2014):</strong> Cession turbines nucléaires Arabelle pour 12,35Mds€ — rachetées 10 ans plus tard par EDF pour 1,2Md€</li>
+</ul>
+<p class="source">Sources: Sénat, ICIJ, Mediapart, Le Monde</p>
+
+<h3>5. FAILLES EXPLOITABLES</h3>
+<p>Le système contient ses propres brèches:</p>
+<ul>
+<li><strong>QPC:</strong> ~35% de taux de succès</li>
+<li><strong>CEDH:</strong> 736 condamnations de la France</li>
+<li><strong>État de nécessité climatique:</strong> 15+ relaxes</li>
+<li><strong>Conseil d'État:</strong> Dissolution SLT annulée (nov. 2023)</li>
+</ul>
+</div></div>`,
+
+qpc:`<div class="doc-frame"><span class="doc-stamp">FORMATION — ARSENAL</span><div class="doc-title">GUIDE QPC</div><div class="doc-meta">Question Prioritaire de Constitutionnalité</div><div class="doc-body">
+<h3>DÉFINITION</h3>
+<p>Permet à tout justiciable de contester la constitutionnalité d'une loi devant le Conseil constitutionnel.</p>
+
+<h3>STATISTIQUES</h3>
+<ul>
+<li><strong>Taux de succès:</strong> ~35% depuis 2010</li>
+<li><strong>Délai:</strong> 6 mois maximum</li>
+<li><strong>Coût:</strong> 0€ (hors avocat)</li>
+</ul>
+
+<h3>VICTOIRES CITOYENNES</h3>
+<ul>
+<li><strong>2018 — Principe de fraternité:</strong> Cédric Herrou fait consacrer la fraternité comme principe constitutionnel. Création d'une nouvelle liberté fondamentale.</li>
+<li><strong>2021 — Sécurité Globale:</strong> Article 24 (interdiction filmer police) censuré après mobilisation massive</li>
+<li><strong>2023 — Activation téléphones:</strong> Activation à distance censurée</li>
+<li><strong>2024 — Loi Immigration:</strong> 32 articles sur 86 censurés</li>
+<li><strong>2010 — Garde à vue:</strong> 36 personnes font tomber l'ancienne procédure</li>
+</ul>
+
+<h3>PROCÉDURE</h3>
+<ol>
+<li>Au cours de tout procès, demander au juge de transmettre une QPC</li>
+<li>La juridiction transmet (ou non) au Conseil d'État/Cour de cassation</li>
+<li>Si transmise, le Conseil constitutionnel statue sous 3 mois</li>
+</ol>
+
+<p><strong>Ressource:</strong> <a href="https://qpc360.conseil-constitutionnel.fr" target="_blank">qpc360.conseil-constitutionnel.fr</a></p>
+</div></div>`,
+
+cedh:`<div class="doc-frame"><span class="doc-stamp">FORMATION — ARSENAL</span><div class="doc-title">GUIDE CEDH</div><div class="doc-meta">Cour Européenne des Droits de l'Homme</div><div class="doc-body">
+<h3>LA FRANCE CONDAMNÉE</h3>
+<p><strong>736 condamnations</strong> depuis 1959 — parmi les États les plus condamnés d'Europe.</p>
+
+<h3>CONDAMNATIONS EMBLÉMATIQUES</h3>
+<ul>
+<li><strong>J.M.B. c. France (2020):</strong> Arrêt pilote sur les conditions de détention indignes — surpopulation carcérale</li>
+<li><strong>Baldassi c. France (2020):</strong> Condamnée pour avoir poursuivi des militants BDS — l'appel au boycott relève de la liberté d'expression</li>
+<li><strong>Castellani, Chebab, Boukrourou:</strong> Multiples condamnations pour violences policières</li>
+</ul>
+
+<h3>PROCÉDURE</h3>
+<ul>
+<li><strong>Délai:</strong> 4 mois après épuisement des recours internes</li>
+<li><strong>Conditions:</strong> Avoir épuisé les voies de recours nationales</li>
+<li><strong>Coût:</strong> Gratuit (aide juridictionnelle possible)</li>
+</ul>
+
+<p><strong>Base de données:</strong> <a href="https://hudoc.echr.coe.int" target="_blank">HUDOC</a></p>
+</div></div>`,
+
+necessite:`<div class="doc-frame"><span class="doc-stamp">FORMATION — ARSENAL</span><div class="doc-title">ÉTAT DE NÉCESSITÉ CLIMATIQUE</div><div class="doc-meta">Article 122-7 du Code pénal</div><div class="doc-body">
+<h3>PRINCIPE</h3>
+<p>L'article 122-7 exonère une personne face à un "danger actuel ou imminent" menaçant elle-même, autrui ou un bien.</p>
+
+<h3>JURISPRUDENCE FAVORABLE</h3>
+<ul>
+<li><strong>Décrocheurs de portraits Macron:</strong> 15+ relaxes sur ~60 procès. Cour de cassation (28 mars 2023): confirmation définitive</li>
+<li><strong>Extinction Rebellion La Rochelle (avril 2024):</strong> Reconnaissance explicite — "L'urgence climatique est un danger actuel et imminent"</li>
+<li><strong>Faucheurs d'OGM (TGI Orléans, 2005):</strong> Relaxe de 49 personnes (infirmée en appel)</li>
+</ul>
+
+<h3>L'AFFAIRE DU SIÈCLE</h3>
+<ul>
+<li><strong>3 février 2021:</strong> État reconnu responsable de "carences fautives"</li>
+<li><strong>14 octobre 2021:</strong> Condamné à réparer le dépassement du budget carbone</li>
+<li>Portée par Oxfam, Notre Affaire à Tous, FNH, Greenpeace</li>
+</ul>
+
+<h3>SOULÈVEMENTS DE LA TERRE</h3>
+<p>Le Conseil d'État a <strong>annulé la dissolution</strong> du mouvement (9 novembre 2023), jugeant la mesure disproportionnée. <strong>Victoire juridique majeure.</strong></p>
+</div></div>`,
+
+osint:`<div class="doc-frame"><span class="doc-stamp">FORMATION — OSINT</span><div class="doc-title">GUIDE OSINT</div><div class="doc-meta">Open Source Intelligence — Renseignement en sources ouvertes</div><div class="doc-body">
+<h3>DÉFINITION</h3>
+<p>L'OSINT consiste à collecter et analyser des informations accessibles publiquement. C'est ce que fait Bellingcat pour identifier les auteurs de crimes de guerre.</p>
+
+<h3>OUTILS DE GÉOLOCALISATION</h3>
+<ul>
+<li><strong>Google Earth Pro:</strong> Imagerie satellite historique (gratuit)</li>
+<li><strong>SunCalc:</strong> Position du soleil à une date/heure donnée — analyse des ombres</li>
+<li><strong>Sentinel Hub:</strong> Images satellites en temps quasi-réel</li>
+<li><strong>PeakVisor:</strong> Identification des montagnes en arrière-plan</li>
+</ul>
+
+<h3>VÉRIFICATION D'IMAGES</h3>
+<ul>
+<li><strong>TinEye:</strong> Recherche inversée d'images</li>
+<li><strong>InVID/WeVerify:</strong> Extension navigateur pour analyser vidéos</li>
+<li><strong>FotoForensics:</strong> Détection de manipulations (ELA)</li>
+<li><strong>Jeffrey's Exif Viewer:</strong> Métadonnées des photos</li>
+</ul>
+
+<h3>DONNÉES FRANCE</h3>
+<ul>
+<li><strong>NosDéputés.fr:</strong> Activité parlementaire, votes, amendements</li>
+<li><strong>HATVP:</strong> Registre des lobbyistes, déclarations d'intérêts</li>
+<li><strong>Pappers.fr:</strong> Données entreprises, dirigeants, bilans</li>
+<li><strong>Data.gouv.fr:</strong> Open data gouvernemental</li>
+</ul>
+
+<h3>RESSOURCES</h3>
+<ul>
+<li><a href="https://www.bellingcat.com/resources/" target="_blank">Bellingcat Toolkit</a></li>
+<li><a href="https://disclose.ngo" target="_blank">Disclose (ONG investigation)</a></li>
+<li><a href="https://www.regardscitoyens.org" target="_blank">Regards Citoyens</a></li>
+</ul>
+</div></div>`,
+
+edpop:`<div class="doc-frame"><span class="doc-stamp">FORMATION — MÉTHODES</span><div class="doc-title">ÉDUCATION POPULAIRE</div><div class="doc-meta">Outils d'empouvoirement collectif</div><div class="doc-body">
+<h3>PAULO FREIRE</h3>
+<p><em>Pédagogie des opprimés</em> (1968) — 3e ouvrage le plus cité en sciences humaines.</p>
+<ul>
+<li><strong>Conscientisation:</strong> Passage de la conscience naïve à la conscience critique</li>
+<li><strong>Pédagogie bancaire vs dialogique:</strong> L'élève n'est pas un récipient à remplir</li>
+<li><strong>Praxis:</strong> Union de l'action et de la réflexion</li>
+</ul>
+<p>"Personne ne libère autrui, personne ne se libère seul, les hommes se libèrent ensemble."</p>
+
+<h3>AUGUSTO BOAL</h3>
+<p><strong>Théâtre de l'Opprimé:</strong></p>
+<ul>
+<li><strong>Théâtre-forum:</strong> Spectacle présentant une oppression. Le "joker" invite les "spect-acteurs" à monter sur scène proposer des alternatives</li>
+<li><strong>Théâtre législatif:</strong> Les propositions du public transformées en projets de loi (Rio, 1992-1997)</li>
+</ul>
+
+<h3>MÉTHODES CONCRÈTES</h3>
+<ul>
+<li><strong>Porteurs de paroles:</strong> Affirmations provocatrices dans l'espace public, passants invités à réagir</li>
+<li><strong>Débat mouvant:</strong> Positionnement physique "d'accord/pas d'accord"</li>
+<li><strong>Arpentage:</strong> Livre découpé et distribué, chacun restitue sa partie</li>
+<li><strong>Conférences gesticulées:</strong> Forme théâtrale mêlant vécu personnel et savoirs théoriques</li>
+</ul>
+
+<h3>MODÈLE BELGE</h3>
+<p>Décret 2003 (Fédération Wallonie-Bruxelles): <strong>280 associations reconnues, 2 300 travailleurs</strong>. Objectifs officiels: "prise de conscience critique", "participation active", "émancipation". Ce financement structurel n'existe pas en France.</p>
+
+<h3>RÉSEAUX ACTIFS</h3>
+<ul>
+<li><strong>L'Ardeur:</strong> Conférences gesticulées (Franck Lepage, Bernard Friot)</li>
+<li><strong>La Grenaille:</strong> Coopératives d'éducation populaire</li>
+<li><strong>Peuple et Culture:</strong> Depuis 1945, né dans les maquis du Vercors</li>
+<li><strong>ATD Quart Monde:</strong> Universités populaires, croisement des savoirs</li>
+</ul>
+</div></div>`,
+
+mobilisations:`<div class="doc-frame"><span class="doc-stamp">ANALYSE — STRATÉGIE</span><div class="doc-title">MOBILISATIONS VICTORIEUSES</div><div class="doc-meta">Leçons de 1995 et du CPE</div><div class="doc-body">
+<h3>1995: VICTOIRE TOTALE</h3>
+<p><strong>3 semaines de grève</strong>, transports bloqués, <strong>2 millions de manifestants</strong> le 12 décembre. Résultat: <strong>retrait de la réforme des retraites</strong>.</p>
+<p>Facteurs clés:</p>
+<ul>
+<li>Grève <strong>reconductible</strong> (pas des journées espacées)</li>
+<li><strong>Blocage économique réel</strong> (SNCF/RATP à l'arrêt)</li>
+<li>Unité syndicale CGT + FO</li>
+<li>Assemblées générales décisionnelles quotidiennes</li>
+</ul>
+
+<h3>CPE 2006: CONVERGENCE</h3>
+<p><strong>10 avril 2006:</strong> Retrait du Contrat Première Embauche. 83% d'opposition. Quasi-totalité des universités bloquées.</p>
+
+<h3>POURQUOI 2023 A ÉCHOUÉ</h3>
+<table style="width:100%;border-collapse:collapse;font-size:.8rem;margin:1rem 0">
+<tr style="background:#eee"><th style="padding:.5rem;border:1px solid #ccc">1995 (victoire)</th><th style="padding:.5rem;border:1px solid #ccc">2023 (échec)</th></tr>
+<tr><td style="padding:.5rem;border:1px solid #ccc">Grève reconductible 3 semaines</td><td style="padding:.5rem;border:1px solid #ccc">Journées d'action espacées</td></tr>
+<tr><td style="padding:.5rem;border:1px solid #ccc">Transports totalement bloqués</td><td style="padding:.5rem;border:1px solid #ccc">Perturbations gérables</td></tr>
+<tr><td style="padding:.5rem;border:1px solid #ccc">Droite divisée</td><td style="padding:.5rem;border:1px solid #ccc">Macron soutenu par LR</td></tr>
+<tr><td style="padding:.5rem;border:1px solid #ccc">AG avec pouvoir d'escalade</td><td style="padding:.5rem;border:1px solid #ccc">Calendrier fixé par directions</td></tr>
+</table>
+<p><strong>Enseignement:</strong> Les manifestations massives ne suffisent plus. Le pouvoir a appris les leçons de 1995.</p>
+</div></div>`,
+
+securite:`<div class="doc-frame"><span class="doc-stamp">FORMATION — OPSEC</span><div class="doc-title">SÉCURITÉ OPÉRATIONNELLE</div><div class="doc-meta">Culture de sécurité numérique</div><div class="doc-body">
+<h3>COMMUNICATIONS</h3>
+<table style="width:100%;border-collapse:collapse;font-size:.8rem;margin:1rem 0">
+<tr style="background:#eee"><th style="padding:.5rem;border:1px solid #ccc">Usage</th><th style="padding:.5rem;border:1px solid #ccc">Outil</th><th style="padding:.5rem;border:1px solid #ccc">Statut</th></tr>
+<tr><td style="padding:.5rem;border:1px solid #ccc">Quotidien</td><td style="padding:.5rem;border:1px solid #ccc">Signal</td><td style="padding:.5rem;border:1px solid #ccc;color:green">✓ Recommandé</td></tr>
+<tr><td style="padding:.5rem;border:1px solid #ccc">Coordination</td><td style="padding:.5rem;border:1px solid #ccc">Matrix/Element</td><td style="padding:.5rem;border:1px solid #ccc;color:green">✓ Recommandé</td></tr>
+<tr><td style="padding:.5rem;border:1px solid #ccc">Critique</td><td style="padding:.5rem;border:1px solid #ccc">Briar (P2P)</td><td style="padding:.5rem;border:1px solid #ccc;color:green">✓ Très sûr</td></tr>
+<tr><td style="padding:.5rem;border:1px solid #ccc">—</td><td style="padding:.5rem;border:1px solid #ccc">WhatsApp</td><td style="padding:.5rem;border:1px solid #ccc;color:red">✗ Interdit</td></tr>
+<tr><td style="padding:.5rem;border:1px solid #ccc">—</td><td style="padding:.5rem;border:1px solid #ccc">Telegram</td><td style="padding:.5rem;border:1px solid #ccc;color:red">✗ Interdit</td></tr>
+</table>
+
+<h3>EN GARDE À VUE</h3>
+<p style="background:#ffeeee;padding:1rem;border-left:3px solid #cc0000"><strong>DROITS ABSOLUS:</strong></p>
+<ul>
+<li><strong>Droit au silence:</strong> Vous n'êtes JAMAIS obligé de répondre</li>
+<li><strong>Avocat:</strong> Demandez-le immédiatement, dès la première heure</li>
+<li><strong>Code téléphone:</strong> Vous n'êtes PAS obligé de le donner</li>
+<li><strong>ADN/empreintes:</strong> Refus possible (amende 500€ max)</li>
+</ul>
+
+<h3>RESSOURCE</h3>
+<p><a href="https://www.laquadrature.net/guide-garde-a-vue/" target="_blank">Guide garde à vue — La Quadrature du Net</a></p>
+</div></div>`
+};
+
+function showDoc(id){if(!DOCS[id])return;document.getElementById('doc-content').innerHTML=DOCS[id];document.getElementById('docview').classList.add('show')}
+function closeDoc(){document.getElementById('docview').classList.remove('show')}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDoc()});
+
+// ═══════════════════════════════════════════════════════════════════
+// COMMANDS
+// ═══════════════════════════════════════════════════════════════════
+I.addEventListener('keydown',async e=>{
+    if(e.key==='Enter'){const c=I.value.trim();I.value='';if(c){S.hist.push(c);S.hIdx=S.hist.length;print('λ '+c,'prompt');await exec(c.toLowerCase())}}
+    if(e.key==='ArrowUp'){e.preventDefault();if(S.hIdx>0)I.value=S.hist[--S.hIdx]}
+    if(e.key==='ArrowDown'){e.preventDefault();if(S.hIdx<S.hist.length-1)I.value=S.hist[++S.hIdx];else{S.hIdx=S.hist.length;I.value=''}}
+});
+
+async function exec(cmd){
+    const[c,...a]=cmd.split(' ');const arg=a.join(' ');
+    const cmds={
+        aide:cmdHelp,help:cmdHelp,'?':cmdHelp,
+        clear:()=>T.innerHTML='',cls:()=>T.innerHTML='',
+        dossiers:cmdDossiers,ls:cmdDossiers,dir:cmdDossiers,
+        ouvrir:()=>cmdOuvrir(arg),open:()=>cmdOuvrir(arg),cd:()=>cmdOuvrir(arg),
+        lire:()=>cmdLire(arg),read:()=>cmdLire(arg),cat:()=>cmdLire(arg),
+        repondre:()=>cmdRepondre(arg),r:()=>cmdRepondre(arg),answer:()=>cmdRepondre(arg),
+        decoder:()=>cmdDecoder(arg),decode:()=>cmdDecoder(arg),
+        reseau:cmdReseau,network:cmdReseau,map:cmdReseau,
+        mission:cmdMission,
+        secret:cmdSecret,secrets:cmdSecret,hidden:cmdSecret,
+        indice:cmdHint,hint:cmdHint,
+        stat:cmdStats,stats:cmdStats,
+        sources:cmdSources
+    };
+    if(cmds[c])await cmds[c]();else{A.err();print('Commande inconnue: '+c,'error');print('Tapez "aide" pour la liste','system')}
+}
+
+function cmdHelp(){
+    print('');
+    print('═══════════════════════════════════════','system');
+    print('COMMANDES VÉNUS','success');
+    print('═══════════════════════════════════════','system');
+    print('');
+    print('<span style="color:var(--yellow)">Navigation:</span>');
+    print('  aide         Affiche cette aide');
+    print('  dossiers     Liste les dossiers accessibles');
+    print('  ouvrir [ID]  Ouvre un dossier (INIT/DIAG/ARSL/OSNT/CELL)');
+    print('  lire [doc]   Lit un document');
+    print('  clear        Efface l\'écran');
+    print('');
+    print('<span style="color:var(--yellow)">Progression:</span>');
+    print('  repondre [x] Répond à une question');
+    print('  decoder [m]  Décode un message Base64');
+    print('  indice       Demande un indice');
+    print('');
+    print('<span style="color:var(--yellow)">Niveau 5:</span>');
+    print('  reseau       Architecture du réseau');
+    print('  mission      Votre mission');
+    print('  secret       Pages cachées');
+    print('  sources      Toutes les sources');
+    print('  stats        Statistiques clés');
+    print('');
+}
+
+function cmdDossiers(){
+    print('');
+    print('ARCHIVES VÉNUS','success');
+    print('─────────────────────────────────────','system');
+    const ds=[{id:'INIT',n:'Protocole d\'initiation',l:1},{id:'DIAG',n:'Diagnostic systémique',l:2},{id:'ARSL',n:'Arsenal juridique',l:3},{id:'OSNT',n:'Formation OSINT',l:4},{id:'CELL',n:'Structure cellulaire',l:5}];
+    for(const d of ds)print(`[${d.id}] ${d.n} — ${S.level>=d.l?'<span class="success">✓</span>':'<span class="warning">🔒 Niv.'+d.l+'</span>'}`);
+    print('');
+    print('→ ouvrir [ID]','system');
+}
+
+function cmdOuvrir(id){
+    if(!id){print('Usage: ouvrir [ID]','error');return}
+    const map={init:[1,dInit],diag:[2,dDiag],arsl:[3,dArsl],osnt:[4,dOsnt],cell:[5,dCell]};
+    const d=map[id.toLowerCase()];
+    if(!d){A.err();print('Dossier inconnu: '+id,'error');return}
+    if(S.level<d[0]){A.err();print('⛔ Niveau '+d[0]+' requis','error');return}
+    d[1]()
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// DOSSIERS
+// ═══════════════════════════════════════════════════════════════════
+function dInit(){
+    print('');
+    print('╔════════════════════════════════════════════════════════════╗','success');
+    print('║  INIT — PROTOCOLE D\'INITIATION                             ║','success');
+    print('╚════════════════════════════════════════════════════════════╝','success');
+    print('');
+    print('DOCUMENTS DISPONIBLES:','warning');
+    print('  [1] memo          Message du fondateur');
+    print('  [2] situation     Diagnostic 2024 complet');
+    print('  [3] test          Test de vérification → Niveau 2');
+    print('');
+    print('Commande: lire [nom]','system');
+}
+
+function dDiag(){
+    print('');
+    print('╔════════════════════════════════════════════════════════════╗','success');
+    print('║  DIAG — DIAGNOSTIC SYSTÉMIQUE                              ║','success');
+    print('╚════════════════════════════════════════════════════════════╝','success');
+    print('');
+    print('┌─ DONNÉES CLÉS ───────────────────────────────────────────┐','data');
+    print('│ 49.3 sous Borne: 23 (record)                             │','data');
+    print('│ Opposition retraites 2023: 72%                           │','data');
+    print('│ Censure Barnier: 331 voix (4 déc. 2024)                  │','data');
+    print('│ Éborgnés GJ: 24-25 | Mains arrachées: 5                  │','data');
+    print('│ Tirs LBD: 12 900+ en 6 mois                              │','data');
+    print('│ Médias: 9 milliardaires = 80%                            │','data');
+    print('│ McKinsey: 1Md€/an, 0€ impôts                             │','data');
+    print('└────────────────────────────────────────────────────────────┘','data');
+    print('');
+    print('QUESTION NIVEAU 3:','warning');
+    print('Quel mécanisme juridique (3 lettres) a permis de censurer');
+    print('32 articles de la loi Immigration en janvier 2024 ?');
+    print('');
+    print('→ repondre [réponse]','system');
+    S.test='diag'
+}
+
+function dArsl(){
+    print('');
+    print('╔════════════════════════════════════════════════════════════╗','success');
+    print('║  ARSL — ARSENAL JURIDIQUE                                  ║','success');
+    print('╚════════════════════════════════════════════════════════════╝','success');
+    print('');
+    print('DOCUMENTS:','warning');
+    print('  lire qpc        Guide QPC (35% succès)');
+    print('  lire cedh       Guide CEDH (736 condamnations)');
+    print('  lire necessite  État de nécessité climatique');
+    print('');
+    print('┌─ OUTILS FONCTIONNELS ─────────────────────────────────────┐','data');
+    print('│ QPC: ~35% succès | 6 mois | 0€                           │','data');
+    print('│ CEDH: 736 condamnations France | 4 mois délai            │','data');
+    print('│ État nécessité: 15+ relaxes décrocheurs                  │','data');
+    print('│ Lanceur alerte: Loi Waserman 2022 (immunité pénale)      │','data');
+    print('│ SLT: Dissolution annulée CE (9 nov. 2023)                │','data');
+    print('└────────────────────────────────────────────────────────────┘','data');
+    print('');
+    print('QUESTION NIVEAU 4:','warning');
+    print('Quel mouvement écologiste a vu sa dissolution annulée');
+    print('par le Conseil d\'État en novembre 2023 ?');
+    print('');
+    print('→ repondre [nom]','system');
+    S.test='arsl'
+}
+
+function dOsnt(){
+    print('');
+    print('╔════════════════════════════════════════════════════════════╗','success');
+    print('║  OSNT — FORMATION OSINT                                    ║','success');
+    print('╚════════════════════════════════════════════════════════════╝','success');
+    print('');
+    print('OSINT = Open Source Intelligence','');
+    print('Renseignement en sources ouvertes. Ce que fait Bellingcat.','');
+    print('');
+    print('DOCUMENTS:','warning');
+    print('  lire osint      Guide complet OSINT');
+    print('  lire edpop      Éducation populaire');
+    print('  lire mobilisations  Leçons 1995/CPE');
+    print('  lire securite   Sécurité opérationnelle');
+    print('');
+    print('┌─ OUTILS ──────────────────────────────────────────────────┐','data');
+    print('│ Géoloc: SunCalc, Google Earth, Sentinel Hub              │','data');
+    print('│ Vérif:  TinEye, InVID, FotoForensics                     │','data');
+    print('│ France: NosDéputés.fr, HATVP, Pappers                    │','data');
+    print('└────────────────────────────────────────────────────────────┘','data');
+    print('');
+    print('DÉFI FINAL:','warning');
+    print('Décodez ce message Base64 pour accéder au niveau 5:');
+    print('');
+    print('  Q0VMTFVMRSBWw4lOVVM=','highlight');
+    print('');
+    print('→ decoder [message]  puis  repondre [résultat]','system');
+    S.test='osnt'
+}
+
+function dCell(){
+    print('');
+    print('╔════════════════════════════════════════════════════════════╗','success');
+    print('║  CELL — STRUCTURE CELLULAIRE                               ║','success');
+    print('╚════════════════════════════════════════════════════════════╝','success');
+    print('');
+    print('Bienvenue au cœur du réseau, opérateur.','success');
+    print('');
+    print('Commandes débloquées:','warning');
+    print('  reseau    Architecture complète');
+    print('  mission   Votre mission');
+    print('  secret    Pages cachées');
+    print('  sources   Toutes les sources');
+    print('  stats     Statistiques compilées');
+    print('');
+    ACH.unlock('lv5')
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// LIRE
+// ═══════════════════════════════════════════════════════════════════
+function cmdLire(d){
+    if(!d){print('Usage: lire [document]','error');return}
+    const docs={
+        '1':'memo',memo:'memo',
+        '2':'situation',situation:'situation',
+        '3':'test',test:'test',
+        qpc:'qpc',cedh:'cedh',necessite:'necessite',
+        osint:'osint',edpop:'edpop',mobilisations:'mobilisations',securite:'securite'
+    };
+    const id=docs[d.toLowerCase()];
+    if(id==='test'){startTest();return}
+    if(id&&DOCS[id]){showDoc(id);return}
+    A.err();print('Document inconnu: '+d,'error')
+}
+
+function startTest(){
+    print('');
+    print('═══════════════════════════════════════','warning');
+    print('TEST DE VÉRIFICATION — NIVEAU 1','warning');
+    print('═══════════════════════════════════════','warning');
+    print('');
+    print('Ces questions vérifient que vous avez lu les documents.','');
+    print('');
+    print('Q1/3: Combien de fois le 49.3 a-t-il été utilisé sous Borne ?','success');
+    print('(Juste le nombre)');
+    print('');
+    print('→ repondre [nombre]','system');
+    S.test='q1'
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// RÉPONSES
+// ═══════════════════════════════════════════════════════════════════
+function cmdRepondre(a){
+    if(!a){print('Usage: repondre [réponse]','error');return}
+    a=a.trim().toLowerCase();
+    
+    if(S.test==='q1'){
+        if(a==='23'){A.ok();print('✓ CORRECT — Record absolu','success');print('');print('Q2/3: Combien de voix ont voté la censure Barnier le 4 décembre 2024 ?','success');S.test='q2'}
+        else{A.err();print('✗ Incorrect. Indice: record historique, plus que Rocard.','error')}
+    }
+    else if(S.test==='q2'){
+        if(a==='331'){A.ok();print('✓ CORRECT — Première censure après 49.3 de la Ve République','success');print('');print('Q3/3: Quel pourcentage de la population était opposé à la réforme des retraites 2023 ?','success');S.test='q3'}
+        else{A.err();print('✗ Incorrect. C\'est un nombre à 3 chiffres, plus de 300.','error')}
+    }
+    else if(S.test==='q3'){
+        if(['72','70','71','73','74'].includes(a)){A.ok();print('✓ CORRECT','success');print('');print('════════════════════════════════════════','success');print('🔓 NIVEAU 2 DÉBLOQUÉ — DIAGNOSTIC','success');print('════════════════════════════════════════','success');print('');print('→ ouvrir DIAG','system');S.level=2;S.test=null;updateHUD();S.save();ACH.unlock('lv2')}
+        else{A.err();print('✗ Incorrect. Entre 70% et 75%.','error')}
+    }
+    else if(S.test==='diag'){
+        if(a==='qpc'){A.ok();print('✓ CORRECT — Question Prioritaire de Constitutionnalité','success');print('');print('════════════════════════════════════════','success');print('🔓 NIVEAU 3 DÉBLOQUÉ — ARSENAL','success');print('════════════════════════════════════════','success');S.level=3;S.test=null;updateHUD();S.save();ACH.unlock('lv3')}
+        else{A.err();print('✗ Incorrect. 3 lettres, permet de contester une loi...','error')}
+    }
+    else if(S.test==='arsl'){
+        if(a.includes('soulevements')||a.includes('soulèvements')||a.includes('terre')||a==='slt'){A.ok();print('✓ CORRECT — Les Soulèvements de la Terre','success');print('Dissolution annulée par le Conseil d\'État le 9 novembre 2023.','');print('');print('════════════════════════════════════════','success');print('🔓 NIVEAU 4 DÉBLOQUÉ — OSINT','success');print('════════════════════════════════════════','success');S.level=4;S.test=null;updateHUD();S.save();ACH.unlock('lv4')}
+        else{A.err();print('✗ Incorrect. Méga-bassines, Sainte-Soline...','error')}
+    }
+    else if(S.test==='osnt'){
+        if(a.includes('venus')||a.includes('vénus')||a.includes('cellule')){A.ok();print('✓ CORRECT — CELLULE VÉNUS','success');print('');print('════════════════════════════════════════','success');print('◈ NIVEAU 5 DÉBLOQUÉ — ACCÈS COMPLET','success');print('════════════════════════════════════════','success');print('');print('Bienvenue dans le réseau.','');print('Commandes: reseau, mission, secret, sources','warning');S.level=5;S.test=null;updateHUD();S.save();ACH.unlock('lv5')}
+        else{A.err();print('✗ Incorrect. Décodez d\'abord avec: decoder [message]','error')}
+    }
+    else{print('Aucun test en cours. Ouvrez un dossier.','system')}
+}
+
+function cmdDecoder(m){
+    if(!m){print('Usage: decoder [message Base64]','error');return}
+    try{const d=decodeURIComponent(escape(atob(m)));A.ok();print('Décodage réussi: '+d,'success');ACH.unlock('decoder')}
+    catch{A.err();print('Erreur de décodage. Vérifiez le format.','error')}
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// NIVEAU 5
+// ═══════════════════════════════════════════════════════════════════
+function cmdReseau(){
+    if(S.level<5){A.err();print('⛔ Niveau 5 requis','error');return}
+    print('');
+    print('ARCHITECTURE DU RÉSEAU VÉNUS','success');
+    print('');
+    print('                    ┌───────────────┐','data');
+    print('                    │     MACRO     │','data');
+    print('                    │   Interface   │','data');
+    print('                    │  européenne   │','data');
+    print('                    └───────┬───────┘','data');
+    print('                            │','data');
+    print('         ┌──────────────────┼──────────────────┐','data');
+    print('         │                  │                  │','data');
+    print('    ┌────┴────┐       ┌────┴────┐       ┌────┴────┐','data');
+    print('    │  MÉSO   │       │  MÉSO   │       │  MÉSO   │','data');
+    print('    │ Région  │       │ Région  │       │ Région  │','data');
+    print('    └────┬────┘       └────┬────┘       └────┬────┘','data');
+    print('         │                 │                 │','data');
+    print('    ┌─┬──┴─┬─┐       ┌─┬──┴─┬─┐       ┌─┬──┴─┬─┐','data');
+    print('   [μ][μ] [μ][μ]   [μ][μ] [μ][μ]   [μ][μ] [μ][μ]','data');
+    print('');
+    print('   [μ] = Cellule MICRO (5-15 personnes)','system');
+    print('');
+    print('PRINCIPES:','warning');
+    print('  • Décentralisation — Aucun centre, aucun chef');
+    print('  • Compartimentation — Chacun sait ce qu\'il doit savoir');
+    print('  • Résilience — Si un nœud tombe, le réseau survit');
+    print('  • Interopérabilité — Signal (micro), Matrix (méso), Tor (macro)');
+    print('');
+}
+
+function cmdMission(){
+    if(S.level<5){A.err();print('⛔ Niveau 5 requis','error');return}
+    print('');
+    print('════════════════════════════════════════════════════════════','warning');
+    print('VOTRE MISSION','warning');
+    print('════════════════════════════════════════════════════════════','warning');
+    print('');
+    print('1. APPRENDRE — Les dossiers contiennent les outils.');
+    print('2. DOCUMENTER — Chaque abus filmé = arme juridique.');
+    print('3. FORMER — Transmettez. L\'éducation populaire est contagieuse.');
+    print('4. ORGANISER — Créez ou rejoignez une cellule locale.');
+    print('5. AGIR — Le savoir sans action est stérile.');
+    print('');
+    print('"Personne ne libère autrui, personne ne se libère seul,','highlight');
+    print('les hommes se libèrent ensemble." — Paulo Freire','highlight');
+    print('');
+    print('Le réseau VÉNUS n\'existe pas.','system');
+    print('Mais tout le reste est réel.','');
+    print('');
+    print('→ Consultez ressources.html pour les liens réels','system');
+}
+
+function cmdSecret(){
+    if(S.level<5){A.err();print('⛔ Niveau 5 requis','error');return}
+    print('');
+    print('PAGES CACHÉES','warning');
+    print('──────────────────────────────────────────────────','system');
+    print('');
+    print('  journal.html         Notes de L., fondateur');
+    print('  signal.html          Conversation Signal interceptée');
+    print('  carte.html           Carte interactive des cellules');
+    print('  ressources.html      Documentation + liens réels');
+    print('  exercice.html        Exercice pratique OSINT');
+    print('  leak_ministere.html  Document ministériel');
+    print('  leak_mail.html       Email gouvernemental');
+    print('  final.html           Message final');
+    print('');
+    print('Ouvrez ces fichiers dans votre navigateur.','system');
+    ACH.unlock('explorer')
+}
+
+function cmdSources(){
+    if(S.level<5){A.err();print('⛔ Niveau 5 requis','error');return}
+    print('');
+    print('SOURCES PRIMAIRES','success');
+    print('──────────────────────────────────────────────────','system');
+    print('');
+    print('<span style="color:var(--yellow)">Institutionnelles:</span>');
+    print('  • Conseil constitutionnel (QPC) — conseil-constitutionnel.fr');
+    print('  • Conseil d\'État — conseil-etat.fr');
+    print('  • Assemblée nationale — assemblee-nationale.fr');
+    print('  • Sénat (rapports) — senat.fr');
+    print('  • CEDH (HUDOC) — hudoc.echr.coe.int');
+    print('  • Défenseur des droits — defenseurdesdroits.fr');
+    print('');
+    print('<span style="color:var(--yellow)">ONG & Investigation:</span>');
+    print('  • Amnesty International France');
+    print('  • ACAT (Action des chrétiens pour l\'abolition de la torture)');
+    print('  • La Quadrature du Net — laquadrature.net');
+    print('  • Disclose — disclose.ngo');
+    print('  • Mediapart');
+    print('');
+    print('<span style="color:var(--yellow)">Données ouvertes:</span>');
+    print('  • NosDéputés.fr — nosdeputes.fr');
+    print('  • Regards Citoyens — regardscitoyens.org');
+    print('  • HATVP (lobbyistes) — hatvp.fr');
+    print('  • Pappers.fr (entreprises)');
+    print('');
+}
+
+function cmdStats(){
+    if(S.level<5){A.err();print('⛔ Niveau 5 requis','error');return}
+    print('');
+    print('STATISTIQUES CLÉS (toutes sourcées)','success');
+    print('──────────────────────────────────────────────────','system');
+    print('');
+    print('┌─ DÉMOCRATIE ────────────────────────────────────┐','data');
+    print('│ 49.3 sous Borne: 23 (record Ve République)      │','data');
+    print('│ Opposition retraites 2023: 72%                  │','data');
+    print('│ Censure Barnier: 331 voix (4 déc. 2024)         │','data');
+    print('│ RIP ADP: 1,09M signatures / 4,87M requises      │','data');
+    print('└─────────────────────────────────────────────────┘','data');
+    print('');
+    print('┌─ RÉPRESSION GJ ─────────────────────────────────┐','data');
+    print('│ Éborgnés: 24-25                                 │','data');
+    print('│ Mains arrachées: 5                              │','data');
+    print('│ Tirs LBD: 12 900+ (6 mois)                      │','data');
+    print('│ Gardes à vue: 10 718                            │','data');
+    print('│ Décès: 1 (Zineb Redouane, 80 ans)               │','data');
+    print('└─────────────────────────────────────────────────┘','data');
+    print('');
+    print('┌─ CONTRE-POUVOIRS ───────────────────────────────┐','data');
+    print('│ QPC: ~35% succès depuis 2010                    │','data');
+    print('│ CEDH: 736 condamnations France                  │','data');
+    print('│ Relaxes décrocheurs: 15+/60                     │','data');
+    print('│ Loi Immigration: 32/86 articles censurés        │','data');
+    print('└─────────────────────────────────────────────────┘','data');
+    print('');
+    print('┌─ MÉDIAS & ARGENT ───────────────────────────────┐','data');
+    print('│ Concentration: 9 milliardaires = 80%            │','data');
+    print('│ McKinsey: 1+ Md€/an, 0€ impôts (10 ans)         │','data');
+    print('│ Alstom: 12,35 Md€ → racheté 1,2 Md€             │','data');
+    print('└─────────────────────────────────────────────────┘','data');
+    print('');
+}
+
+function cmdHint(){
+    const h={1:'Tapez "ouvrir INIT" puis "lire test"',2:'3 lettres: Q_C. Permet de contester une loi.',3:'Méga-bassines + dissolution annulée. Commence par "Soulèvements"',4:'decoder Q0VMTFVMRSBWw4lOVVM= puis repondre avec le résultat',5:'Explorez: reseau, mission, secret, sources, stats'};
+    print('💡 '+h[S.level],'warning')
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════════
+function init(){
+    A.init();
+    S.load();
+    updateHUD();
+    ACH.unlock('entry');
+    
+    print(`
+██╗   ██╗███████╗███╗   ██╗██╗   ██╗███████╗
+██║   ██║██╔════╝████╗  ██║██║   ██║██╔════╝
+██║   ██║█████╗  ██╔██╗ ██║██║   ██║███████╗
+╚██╗ ██╔╝██╔══╝  ██║╚██╗██║██║   ██║╚════██║
+ ╚████╔╝ ███████╗██║ ╚████║╚██████╔╝███████║
+  ╚═══╝  ╚══════╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝`,'ascii');
+    print('       RÉSEAU DE VEILLE CITOYENNE — MARCONIE','system');
+    print('');
+    print('Bienvenue, opérateur. Niveau actuel: '+S.level+'/5','success');
+    print('');
+    print('Tapez <span style="color:var(--yellow)">aide</span> pour commencer.','');
+    print('Tapez <span style="color:var(--yellow)">dossiers</span> pour voir les archives.','');
+    print('');
+    
+    I.focus();
+}
+
+document.getElementById('audio-btn').onclick=()=>A.toggle();
+document.body.onclick=()=>I.focus();
+init();
+
+console.log('%c◈ VÉNUS','color:#ff3366;font-size:32px;font-weight:bold');
+console.log('%cRéseau de Veille Citoyenne','color:#33ff33');
+console.log('%cTout est réel. Sauf le réseau.','color:#888');
+</script>
+</body>
+</html>

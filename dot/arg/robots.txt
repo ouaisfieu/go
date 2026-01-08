@@ -1,0 +1,17 @@
+# VÉNUS Network — robots.txt
+# Si vous lisez ceci, vous savez déjà chercher.
+
+User-agent: *
+Disallow: /admin/
+Disallow: /logs/
+Disallow: /.secret
+Disallow: /.2024-12-04
+
+# Le pouvoir se prend. Il ne se demande pas.
+
+# Hint: Q0VMTFVMRSBWw4lOVVM=
+# (Base64 n'est pas du chiffrement)
+
+# Coordonnées de la prochaine réunion:
+# 48.8697°N, 2.3783°E
+# "Les étoiles sont alignées ce soir."
