@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VÉNUS — Documentation</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&family=Space+Grotesk:wght@400;600;700&display=swap');
+        :root{--bg:#0a0a0c;--surface:#111114;--border:#222;--green:#33ff33;--red:#ff3366;--blue:#00aaff;--yellow:#ffcc00;--text:#e0e0e0;--muted:#888}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;line-height:1.8}
+        a{color:var(--blue)}
+        
+        .nav{position:sticky;top:0;background:rgba(10,10,12,.95);backdrop-filter:blur(10px);padding:1rem 2rem;display:flex;gap:1.5rem;border-bottom:1px solid var(--border);z-index:100;flex-wrap:wrap}
+        .nav a{color:var(--muted);text-decoration:none;font-size:.85rem}
+        .nav a:hover{color:var(--green)}
+        .nav .logo{color:var(--green);font-weight:700;margin-right:auto}
+        
+        main{max-width:900px;margin:0 auto;padding:2rem}
+        h1{font-size:2.5rem;margin-bottom:.5rem;color:var(--green)}
+        h2{font-size:1.5rem;margin:3rem 0 1rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);color:var(--text)}
+        h3{font-size:1.1rem;margin:2rem 0 .75rem;color:var(--yellow)}
+        p{margin-bottom:1rem}
+        
+        .intro{font-size:1.1rem;color:var(--muted);margin-bottom:2rem;padding:1.5rem;background:var(--surface);border-left:4px solid var(--green)}
+        
+        .data-box{background:var(--surface);padding:1.5rem;margin:1.5rem 0;border-left:4px solid var(--green)}
+        .data-box.warning{border-color:var(--red)}
+        .data-box h4{color:var(--green);margin-bottom:.75rem;font-size:1rem}
+        .data-box.warning h4{color:var(--red)}
+        .data-box ul{margin-left:1.5rem}
+        .data-box li{margin-bottom:.5rem}
+        
+        .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1.5rem 0}
+        .stat-card{background:var(--surface);padding:1.25rem;text-align:center}
+        .stat-card .num{font-size:2rem;font-weight:700;color:var(--green);font-family:'JetBrains Mono',monospace}
+        .stat-card .label{font-size:.8rem;color:var(--muted);margin-top:.5rem}
+        
+        .source{font-size:.8rem;color:var(--muted);font-style:italic;margin-top:.5rem}
+        
+        table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.9rem}
+        th,td{padding:.75rem;text-align:left;border-bottom:1px solid var(--border)}
+        th{color:var(--yellow);font-weight:600}
+        
+        .toc{background:var(--surface);padding:1.5rem;margin-bottom:2rem}
+        .toc h3{margin-top:0;color:var(--green)}
+        .toc ul{columns:2;column-gap:2rem}
+        .toc li{margin-bottom:.5rem}
+        .toc a{color:var(--text);text-decoration:none}
+        .toc a:hover{color:var(--green)}
+        
+        .link-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin:1.5rem 0}
+        .link-card{background:var(--surface);padding:1rem;border:1px solid var(--border)}
+        .link-card:hover{border-color:var(--green)}
+        .link-card h4{color:var(--green);font-size:.9rem;margin-bottom:.5rem}
+        .link-card p{font-size:.8rem;color:var(--muted);margin:0}
+        
+        @media(max-width:600px){main{padding:1rem}.toc ul{columns:1}}
+    </style>
+</head>
+<body>
+
+<nav class="nav">
+    <a href="index.html" class="logo">◈ VÉNUS</a>
+    <a href="terminal.html">Terminal</a>
+    <a href="carte.html">Carte</a>
+    <a href="journal.html">Journal</a>
+    <a href="exercice.html">Exercice OSINT</a>
+</nav>
+
+<main>
+<h1>Documentation Complète</h1>
+<p class="intro">Cette page compile toutes les données factuelles, sourcées et vérifiables, utilisées dans l'ARG VÉNUS. Chaque chiffre est réel. Seul le réseau est fictif.</p>
+
+<nav class="toc">
+    <h3>Sommaire</h3>
+    <ul>
+        <li><a href="#democratie">1. Failles démocratiques</a></li>
+        <li><a href="#repression">2. Répression documentée</a></li>
+        <li><a href="#arsenal">3. Arsenal juridique</a></li>
+        <li><a href="#medias">4. Concentration médiatique</a></li>
+        <li><a href="#affaires">5. Affaires d'État</a></li>
+        <li><a href="#edpop">6. Éducation populaire</a></li>
+        <li><a href="#victoires">7. Mobilisations victorieuses</a></li>
+        <li><a href="#outils">8. Outils OSINT</a></li>
+        <li><a href="#sources">9. Sources primaires</a></li>
+    </ul>
+</nav>
+
+<!-- SECTION 1 -->
+<h2 id="democratie">1. Failles démocratiques françaises</h2>
+
+<h3>Article 49.3 — Le passage en force</h3>
+<p>Permet d'adopter une loi sans vote si aucune motion de censure n'aboutit dans les 24h.</p>
+
+<div class="stat-grid">
+    <div class="stat-card"><div class="num">23</div><div class="label">49.3 sous Élisabeth Borne</div></div>
+    <div class="stat-card"><div class="num">28</div><div class="label">Record Ve République (Rocard inclus)</div></div>
+    <div class="stat-card"><div class="num">72%</div><div class="label">Opposition retraites 2023</div></div>
+    <div class="stat-card"><div class="num">331</div><div class="label">Voix censure Barnier (4 déc. 2024)</div></div>
+</div>
+
+<div class="data-box">
+    <h4>Précédent historique</h4>
+    <p>Le 4 décembre 2024, le gouvernement Barnier est tombé par <strong>331 voix</strong> — première motion de censure aboutie après un 49.3 dans l'histoire de la Ve République. Preuve que le mécanisme peut être retourné.</p>
+    <p class="source">Source: Assemblée nationale, AFP</p>
+</div>
+
+<h3>RIP — Le référendum impossible</h3>
+<p>Le Référendum d'Initiative Partagée (article 11) requiert:</p>
+<ul>
+    <li>1/5 des parlementaires (185 députés/sénateurs)</li>
+    <li>1/10 des électeurs (~4,87 millions de signatures)</li>
+    <li>9 mois pour collecter</li>
+    <li>Même atteint, le Parlement peut bloquer en "examinant" le texte</li>
+</ul>
+<div class="data-box">
+    <h4>RIP ADP (2019-2020)</h4>
+    <p>1,09 million de soutiens collectés — moins d'un quart du seuil requis — dans l'indifférence médiatique.</p>
+    <p class="source">Source: Ministère de l'Intérieur</p>
+</div>
+
+<!-- SECTION 2 -->
+<h2 id="repression">2. Répression documentée</h2>
+
+<h3>Gilets Jaunes (2018-2019)</h3>
+<div class="data-box warning">
+    <h4>Bilan des blessures</h4>
+    <ul>
+        <li><strong>24-25 personnes éborgnées</strong> (perte d'un œil)</li>
+        <li><strong>5 mains arrachées</strong> par grenades GLI-F4</li>
+        <li><strong>1 décès:</strong> Zineb Redouane, 80 ans, grenade lacrymogène au visage (Marseille)</li>
+        <li><strong>12 900+ tirs de LBD</strong> en 6 mois</li>
+        <li><strong>10 718 gardes à vue</strong></li>
+        <li><strong>2 000+ condamnations</strong></li>
+    </ul>
+    <p class="source">Sources: Défenseur des droits, ACAT, Amnesty International, ONU (Michelle Bachelet, mars 2019)</p>
+</div>
+
+<h3>Lois sécuritaires</h3>
+<table>
+    <tr><th>Loi</th><th>Date</th><th>Contenu</th></tr>
+    <tr><td>État d'urgence</td><td>Nov. 2015 - Nov. 2017</td><td>2 ans de régime d'exception</td></tr>
+    <tr><td>SILT</td><td>Oct. 2017</td><td>Mesures d'exception dans le droit commun</td></tr>
+    <tr><td>Renseignement</td><td>2015</td><td>Boîtes noires, IMSI-catchers, surveillance de masse</td></tr>
+    <tr><td>Sécurité Globale</td><td>2021</td><td>Art. 24 censuré après mobilisation</td></tr>
+    <tr><td>JO 2024</td><td>2023</td><td>1er pays UE à légaliser vidéosurveillance algorithmique</td></tr>
+</table>
+
+<!-- SECTION 3 -->
+<h2 id="arsenal">3. Arsenal juridique citoyen</h2>
+
+<h3>QPC — Question Prioritaire de Constitutionnalité</h3>
+<div class="stat-grid">
+    <div class="stat-card"><div class="num">~35%</div><div class="label">Taux de succès depuis 2010</div></div>
+    <div class="stat-card"><div class="num">6 mois</div><div class="label">Délai maximum</div></div>
+    <div class="stat-card"><div class="num">0€</div><div class="label">Coût (hors avocat)</div></div>
+</div>
+
+<div class="data-box">
+    <h4>Victoires citoyennes</h4>
+    <ul>
+        <li><strong>2018 — Principe de fraternité:</strong> Cédric Herrou fait consacrer la fraternité comme principe constitutionnel</li>
+        <li><strong>2021 — Sécurité Globale:</strong> Article 24 censuré</li>
+        <li><strong>2023 — Activation téléphones:</strong> Activation à distance censurée</li>
+        <li><strong>2024 — Loi Immigration:</strong> 32 articles sur 86 censurés</li>
+        <li><strong>2010 — Garde à vue:</strong> 36 personnes font tomber l'ancienne procédure</li>
+    </ul>
+    <p class="source">Source: Conseil constitutionnel (qpc360.conseil-constitutionnel.fr)</p>
+</div>
+
+<h3>CEDH — Cour Européenne des Droits de l'Homme</h3>
+<div class="stat-grid">
+    <div class="stat-card"><div class="num">736</div><div class="label">Condamnations de la France</div></div>
+    <div class="stat-card"><div class="num">4 mois</div><div class="label">Délai après recours internes</div></div>
+</div>
+
+<div class="data-box">
+    <h4>Condamnations emblématiques</h4>
+    <ul>
+        <li><strong>J.M.B. c. France (2020):</strong> Conditions de détention indignes — surpopulation carcérale</li>
+        <li><strong>Baldassi c. France (2020):</strong> Appel au boycott (BDS) = liberté d'expression</li>
+        <li><strong>Castellani, Chebab, Boukrourou:</strong> Violences policières</li>
+    </ul>
+    <p class="source">Source: HUDOC (hudoc.echr.coe.int)</p>
+</div>
+
+<h3>État de nécessité climatique</h3>
+<p>Article 122-7 du Code pénal: exonération face à un "danger actuel ou imminent".</p>
+<div class="data-box">
+    <h4>Jurisprudence favorable</h4>
+    <ul>
+        <li><strong>Décrocheurs de portraits:</strong> 15+ relaxes sur ~60 procès. Cour de cassation (28 mars 2023): confirmation définitive</li>
+        <li><strong>XR La Rochelle (avril 2024):</strong> "L'urgence climatique est un danger actuel et imminent"</li>
+        <li><strong>Affaire du Siècle (2021):</strong> État condamné pour inaction climatique</li>
+        <li><strong>SLT (9 nov. 2023):</strong> Dissolution annulée par le Conseil d'État</li>
+    </ul>
+</div>
+
+<h3>Lanceurs d'alerte — Loi Waserman (mars 2022)</h3>
+<ul>
+    <li>Fin de la hiérarchie des signalements</li>
+    <li>Immunité pénale complète si bonne foi</li>
+    <li>Protection des "facilitateurs"</li>
+    <li>Amende de 60 000€ contre les représailles</li>
+</ul>
+
+<!-- SECTION 4 -->
+<h2 id="medias">4. Concentration médiatique</h2>
+
+<p><strong>9 milliardaires contrôlent ~80% des médias français.</strong></p>
+
+<table>
+    <tr><th>Propriétaire</th><th>Médias</th></tr>
+    <tr><td>Vincent Bolloré</td><td>Canal+, CNews, C8, Europe 1, JDD, Prisma Media, Hachette</td></tr>
+    <tr><td>Bernard Arnault (LVMH)</td><td>Les Échos, Le Parisien, Paris Match</td></tr>
+    <tr><td>Rodolphe Saadé (CMA-CGM)</td><td>BFM, RMC, La Provence (ex-Drahi)</td></tr>
+    <tr><td>Xavier Niel</td><td>Le Monde (actionnaire), Mediawan</td></tr>
+    <tr><td>Famille Dassault</td><td>Le Figaro</td></tr>
+</table>
+
+<div class="data-box">
+    <h4>Cas documentés</h4>
+    <ul>
+        <li><strong>i-Télé (2016):</strong> Grève de 31 jours contre la bollorisation</li>
+        <li><strong>JDD (2023):</strong> Nomination Geoffroy Lejeune → départs massifs</li>
+        <li><strong>CNews (2024):</strong> Simple "mise en garde" de l'Arcom pour manquement au pluralisme, avant renouvellement TNT</li>
+    </ul>
+    <p class="source">Sources: ACRIMED, Observatoire des multinationales, Arcom</p>
+</div>
+
+<!-- SECTION 5 -->
+<h2 id="affaires">5. Affaires d'État</h2>
+
+<div class="data-box">
+    <h4>McKinsey (Rapport Sénat, mars 2022)</h4>
+    <ul>
+        <li><strong>1+ milliard €</strong> de dépenses de conseil en 2021 (doublé depuis 2018)</li>
+        <li>McKinsey: <strong>0€ d'impôt sur les sociétés en France</strong> depuis au moins 10 ans, malgré 329M€ de CA</li>
+        <li>3 enquêtes judiciaires ouvertes</li>
+    </ul>
+    <p class="source">Source: Sénat — Commission d'enquête "Un phénomène tentaculaire"</p>
+</div>
+
+<div class="data-box">
+    <h4>Alstom/General Electric (2014)</h4>
+    <ul>
+        <li>Macron ministre valide la cession des turbines nucléaires Arabelle</li>
+        <li>Prix: <strong>12,35 milliards €</strong></li>
+        <li>Rachetées 10 ans plus tard par EDF pour <strong>1,2 milliard €</strong></li>
+        <li>Plus de 5 000 emplois supprimés</li>
+    </ul>
+</div>
+
+<div class="data-box">
+    <h4>Uber Files (2022)</h4>
+    <ul>
+        <li><strong>34 échanges documentés</strong> entre Uber et l'Élysée</li>
+        <li>Macron: "très fier" de son action</li>
+    </ul>
+    <p class="source">Source: ICIJ, Le Monde, The Guardian</p>
+</div>
+
+<div class="data-box">
+    <h4>Benalla (2018-2024)</h4>
+    <ul>
+        <li>Chargé de mission frappant des manifestants (1er mai 2018)</li>
+        <li>Couvert par l'Élysée pendant des mois</li>
+        <li>Condamné à 3 ans dont 1 ferme</li>
+    </ul>
+</div>
+
+<!-- SECTION 6 -->
+<h2 id="edpop">6. Éducation populaire</h2>
+
+<h3>Paulo Freire — Pédagogie des opprimés (1968)</h3>
+<p>3e ouvrage le plus cité en sciences humaines mondiales.</p>
+<ul>
+    <li><strong>Conscientisation:</strong> passage de la conscience naïve à la conscience critique</li>
+    <li><strong>Pédagogie bancaire vs dialogique:</strong> l'élève n'est pas un récipient à remplir</li>
+    <li><strong>Praxis:</strong> union indissociable de l'action et de la réflexion</li>
+</ul>
+<blockquote style="border-left:3px solid var(--yellow);padding-left:1rem;margin:1rem 0;color:var(--muted);font-style:italic">"Personne ne libère autrui, personne ne se libère seul, les hommes se libèrent ensemble."</blockquote>
+
+<h3>Augusto Boal — Théâtre de l'Opprimé</h3>
+<ul>
+    <li><strong>Théâtre-forum:</strong> Le "joker" invite les "spect-acteurs" à monter sur scène proposer des alternatives</li>
+    <li><strong>Théâtre législatif:</strong> Propositions du public transformées en projets de loi (Rio, 1992-1997)</li>
+    <li><strong>CTO-Paris:</strong> 100-150 créations par an</li>
+</ul>
+
+<h3>Méthodes concrètes</h3>
+<ul>
+    <li><strong>Porteurs de paroles:</strong> Affirmations provocatrices dans l'espace public</li>
+    <li><strong>Débat mouvant:</strong> Positionnement physique "d'accord/pas d'accord"</li>
+    <li><strong>Arpentage:</strong> Livre découpé et distribué, chacun restitue sa partie</li>
+    <li><strong>Conférences gesticulées:</strong> Vécu personnel + savoirs théoriques</li>
+</ul>
+
+<h3>Modèle belge d'éducation permanente</h3>
+<div class="data-box">
+    <h4>Décret 2003 (Fédération Wallonie-Bruxelles)</h4>
+    <ul>
+        <li><strong>280 associations reconnues</strong></li>
+        <li><strong>2 300 travailleurs</strong></li>
+        <li>Objectifs: "prise de conscience critique", "participation active", "émancipation"</li>
+        <li>Ce financement structurel n'existe pas en France</li>
+    </ul>
+    <p class="source">Source: educationpermanente.cfwb.be</p>
+</div>
+
+<!-- SECTION 7 -->
+<h2 id="victoires">7. Mobilisations victorieuses</h2>
+
+<h3>1995 — Victoire totale</h3>
+<ul>
+    <li><strong>3 semaines de grève</strong> reconductible</li>
+    <li>Transports totalement bloqués (SNCF/RATP à l'arrêt)</li>
+    <li><strong>2 millions de manifestants</strong> le 12 décembre</li>
+    <li>Résultat: <strong>retrait de la réforme des retraites</strong></li>
+</ul>
+<p><strong>Facteurs clés:</strong> Grève reconductible (pas des journées espacées), blocage économique réel, unité syndicale, AG quotidiennes.</p>
+
+<h3>CPE 2006 — Convergence étudiants-salariés</h3>
+<ul>
+    <li><strong>10 avril 2006:</strong> Retrait du Contrat Première Embauche</li>
+    <li>83% d'opposition (sondage CSA)</li>
+    <li>Quasi-totalité des universités bloquées</li>
+</ul>
+
+<h3>Pourquoi 2023 a échoué</h3>
+<table>
+    <tr><th>1995 (victoire)</th><th>2023 (échec)</th></tr>
+    <tr><td>Grève reconductible 3 semaines</td><td>Journées d'action espacées</td></tr>
+    <tr><td>Transports totalement bloqués</td><td>Perturbations gérables</td></tr>
+    <tr><td>Droite divisée</td><td>Macron soutenu par LR</td></tr>
+    <tr><td>AG avec pouvoir d'escalade</td><td>Calendrier fixé par directions syndicales</td></tr>
+</table>
+
+<h3>Notre-Dame-des-Landes (2018)</h3>
+<p>Abandon du projet d'aéroport après des décennies de lutte. Aujourd'hui: ~200 habitants, 15 projets agricoles régularisés.</p>
+
+<!-- SECTION 8 -->
+<h2 id="outils">8. Outils OSINT</h2>
+
+<div class="link-grid">
+    <a href="https://earth.google.com" target="_blank" class="link-card">
+        <h4>Google Earth Pro</h4>
+        <p>Imagerie satellite historique (gratuit)</p>
+    </a>
+    <a href="https://suncalc.org" target="_blank" class="link-card">
+        <h4>SunCalc</h4>
+        <p>Position du soleil — analyse des ombres</p>
+    </a>
+    <a href="https://tineye.com" target="_blank" class="link-card">
+        <h4>TinEye</h4>
+        <p>Recherche inversée d'images</p>
+    </a>
+    <a href="https://www.invid-project.eu" target="_blank" class="link-card">
+        <h4>InVID/WeVerify</h4>
+        <p>Extension navigateur pour vidéos</p>
+    </a>
+    <a href="https://www.nosdeputes.fr" target="_blank" class="link-card">
+        <h4>NosDéputés.fr</h4>
+        <p>Activité parlementaire, votes</p>
+    </a>
+    <a href="https://www.hatvp.fr" target="_blank" class="link-card">
+        <h4>HATVP</h4>
+        <p>Registre des lobbyistes</p>
+    </a>
+    <a href="https://pappers.fr" target="_blank" class="link-card">
+        <h4>Pappers.fr</h4>
+        <p>Données entreprises</p>
+    </a>
+    <a href="https://www.bellingcat.com/resources" target="_blank" class="link-card">
+        <h4>Bellingcat Toolkit</h4>
+        <p>Outils d'investigation</p>
+    </a>
+</div>
+
+<!-- SECTION 9 -->
+<h2 id="sources">9. Sources primaires</h2>
+
+<h3>Institutionnelles</h3>
+<ul>
+    <li><a href="https://www.conseil-constitutionnel.fr" target="_blank">Conseil constitutionnel</a> — Décisions QPC</li>
+    <li><a href="https://www.conseil-etat.fr" target="_blank">Conseil d'État</a></li>
+    <li><a href="https://www.assemblee-nationale.fr" target="_blank">Assemblée nationale</a></li>
+    <li><a href="https://www.senat.fr" target="_blank">Sénat</a> — Rapports de commission</li>
+    <li><a href="https://hudoc.echr.coe.int" target="_blank">HUDOC</a> — Jurisprudence CEDH</li>
+    <li><a href="https://www.defenseurdesdroits.fr" target="_blank">Défenseur des droits</a></li>
+</ul>
+
+<h3>ONG & Investigation</h3>
+<ul>
+    <li><a href="https://www.amnesty.fr" target="_blank">Amnesty International France</a></li>
+    <li><a href="https://www.acatfrance.fr" target="_blank">ACAT</a> (Action des chrétiens pour l'abolition de la torture)</li>
+    <li><a href="https://www.laquadrature.net" target="_blank">La Quadrature du Net</a></li>
+    <li><a href="https://disclose.ngo" target="_blank">Disclose</a></li>
+    <li><a href="https://www.mediapart.fr" target="_blank">Mediapart</a></li>
+    <li><a href="https://www.regardscitoyens.org" target="_blank">Regards Citoyens</a></li>
+</ul>
+
+<h3>Éducation populaire</h3>
+<ul>
+    <li><a href="https://www.ardeur.net" target="_blank">L'Ardeur</a> — Conférences gesticulées</li>
+    <li><a href="https://la-trouvaille.org" target="_blank">La Trouvaille</a> — Coopérative d'éducation populaire</li>
+    <li><a href="https://www.peuple-et-culture.org" target="_blank">Peuple et Culture</a></li>
+    <li><a href="https://www.pac-g.be" target="_blank">PAC Belgique</a></li>
+</ul>
+
+<h3>Collectifs actifs</h3>
+<ul>
+    <li><a href="https://anv-cop21.org" target="_blank">ANV-COP21 / Bascules</a></li>
+    <li><a href="https://lessoulevementsdelaterre.org" target="_blank">Soulèvements de la Terre</a></li>
+    <li><a href="https://extinctionrebellion.fr" target="_blank">Extinction Rebellion France</a></li>
+    <li><a href="https://france.attac.org" target="_blank">Attac France</a></li>
+</ul>
+
+<div style="margin-top:4rem;padding:2rem;background:var(--surface);text-align:center">
+    <p style="color:var(--muted);margin:0">Tout est sourcé. Rien n'est inventé.</p>
+    <p style="color:var(--muted);margin:.5rem 0 0;font-size:.85rem">"Le pouvoir se prend. Il ne se demande pas."</p>
+</div>
+</main>
+</body>
+</html>
