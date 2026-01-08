@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veille Citoyenne — Ressources pour l'action collective</title>
+    <meta name="description" content="Kit d'éducation populaire pour l'empouvoirement citoyen. Failles démocratiques, arsenal juridique, méthodes d'action. Tout est sourcé.">
+    <meta property="og:title" content="Veille Citoyenne — Ressources pour l'action collective">
+    <meta property="og:description" content="Kit d'éducation populaire : failles démocratiques, arsenal juridique, outils OSINT, méthodes d'action collective. France & Belgique.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✊</text></svg>">
+    <style>
+        :root{--bg:#fafafa;--surface:#fff;--text:#1a1a1a;--muted:#666;--accent:#c41e3a;--accent2:#1a5f7a;--border:#e0e0e0;--highlight:#fff3cd}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;line-height:1.7}
+        a{color:var(--accent2);text-decoration:none}
+        a:hover{text-decoration:underline}
+        
+        /* Header */
+        header{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);color:#fff;padding:3rem 2rem;text-align:center}
+        .header-content{max-width:900px;margin:0 auto}
+        h1{font-size:2.5rem;font-weight:700;margin-bottom:.5rem}
+        h1 .highlight{color:#ff6b6b}
+        .tagline{font-size:1.15rem;opacity:.9;margin-bottom:1.5rem}
+        .badges{display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap}
+        .badge{background:rgba(255,255,255,.15);padding:.4rem .9rem;border-radius:2rem;font-size:.85rem}
+        
+        /* Nav */
+        nav{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+        nav ul{max-width:1100px;margin:0 auto;display:flex;justify-content:center;gap:.5rem;padding:1rem;list-style:none;flex-wrap:wrap}
+        nav a{color:var(--text);font-weight:500;font-size:.9rem;padding:.5rem .75rem;border-radius:4px;transition:background .2s}
+        nav a:hover{background:var(--bg);text-decoration:none}
+        nav a.current{background:var(--accent);color:#fff}
+        
+        /* Main */
+        main{max-width:1100px;margin:0 auto;padding:2rem}
+        
+        /* Intro */
+        .intro{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--accent);padding:1.5rem 2rem;margin-bottom:3rem;border-radius:0 8px 8px 0}
+        .intro p{margin-bottom:.75rem}
+        .intro strong{color:var(--accent)}
+        
+        /* Sections grid */
+        .sections{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;margin-bottom:3rem}
+        .section-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;transition:all .2s}
+        .section-card:hover{border-color:var(--accent2);box-shadow:0 4px 12px rgba(0,0,0,.08)}
+        .section-card h2{font-size:1.25rem;margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem}
+        .section-card .icon{font-size:1.4rem}
+        .section-card p{color:var(--muted);font-size:.95rem;margin-bottom:1rem}
+        .section-card ul{font-size:.9rem;margin-left:1.25rem;color:var(--muted)}
+        .section-card li{margin-bottom:.25rem}
+        .section-link{display:inline-block;margin-top:1rem;padding:.5rem 1rem;background:var(--accent2);color:#fff;border-radius:4px;font-size:.9rem;font-weight:500}
+        .section-link:hover{background:#145369;text-decoration:none}
+        
+        /* Stats banner */
+        .stats-banner{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:2rem;margin-bottom:3rem}
+        .stats-banner h2{text-align:center;margin-bottom:1.5rem;font-size:1.3rem}
+        .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1.5rem}
+        .stat{text-align:center}
+        .stat-num{font-size:2rem;font-weight:700;color:var(--accent)}
+        .stat-label{font-size:.8rem;color:var(--muted)}
+        .stat-source{font-size:.7rem;color:#999;margin-top:.25rem}
+        
+        /* Alert box */
+        .alert{background:var(--highlight);border:1px solid #ffc107;padding:1rem 1.5rem;border-radius:8px;margin-bottom:2rem}
+        .alert strong{color:#856404}
+        
+        /* Footer */
+        footer{background:#1a1a2e;color:#fff;padding:3rem 2rem;margin-top:4rem}
+        .footer-content{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem}
+        .footer-section h3{font-size:1rem;margin-bottom:1rem;color:#ff6b6b}
+        .footer-section p,.footer-section li{font-size:.9rem;opacity:.8;margin-bottom:.5rem}
+        .footer-section ul{list-style:none}
+        .footer-section a{color:#fff;opacity:.8}
+        .footer-section a:hover{opacity:1}
+        .footer-bottom{max-width:1100px;margin:2rem auto 0;padding-top:2rem;border-top:1px solid rgba(255,255,255,.1);text-align:center;font-size:.85rem;opacity:.6}
+        
+        @media(max-width:600px){
+            header{padding:2rem 1rem}
+            h1{font-size:1.8rem}
+            main{padding:1rem}
+            nav ul{gap:.25rem}
+            nav a{padding:.4rem .5rem;font-size:.8rem}
+        }
+        @media print{
+            nav,footer{display:none}
+            .section-card{break-inside:avoid}
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-content">
+        <h1>Veille <span class="highlight">Citoyenne</span></h1>
+        <p class="tagline">Ressources d'éducation populaire pour l'action collective — France & Belgique</p>
+        <div class="badges">
+            <span class="badge">📚 100% sourcé</span>
+            <span class="badge">🇫🇷 🇧🇪 Franco-belge</span>
+            <span class="badge">🔓 Licence libre</span>
+            <span class="badge">📱 Hors ligne</span>
+        </div>
+    </div>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="index.html" class="current">Accueil</a></li>
+        <li><a href="diagnostic.html">Diagnostic</a></li>
+        <li><a href="arsenal.html">Arsenal juridique</a></li>
+        <li><a href="edpop.html">Éducation populaire</a></li>
+        <li><a href="mobilisations.html">Mobilisations</a></li>
+        <li><a href="osint.html">Outils OSINT</a></li>
+        <li><a href="collectifs.html">Collectifs</a></li>
+        <li><a href="sources.html">Sources</a></li>
+    </ul>
+</nav>
+
+<main>
+
+<div class="intro">
+    <p><strong>Ce site est un outil pour les collectifs militants.</strong> Il compile des ressources vérifiées sur les failles démocratiques, les outils juridiques, et les méthodes d'éducation populaire.</p>
+    <p>Objectif : <strong>le pouvoir d'agir individuel et collectif</strong>. Chaque donnée est sourcée. Utilisez, adaptez, diffusez.</p>
+</div>
+
+<div class="stats-banner">
+    <h2>Chiffres clés — Tout est documenté</h2>
+    <div class="stats-grid">
+        <div class="stat">
+            <div class="stat-num">23</div>
+            <div class="stat-label">49.3 sous Borne</div>
+            <div class="stat-source">Assemblée nationale</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">331</div>
+            <div class="stat-label">Voix censure Barnier</div>
+            <div class="stat-source">4 déc. 2024</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">~35%</div>
+            <div class="stat-label">Succès QPC</div>
+            <div class="stat-source">Conseil constit.</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">736</div>
+            <div class="stat-label">Condamnations CEDH</div>
+            <div class="stat-source">HUDOC</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">24</div>
+            <div class="stat-label">Éborgnés GJ</div>
+            <div class="stat-source">ACAT, Défenseur droits</div>
+        </div>
+        <div class="stat">
+            <div class="stat-num">280</div>
+            <div class="stat-label">Assos éduc. perm. 🇧🇪</div>
+            <div class="stat-source">CFWB</div>
+        </div>
+    </div>
+</div>
+
+<section class="sections">
+    
+    <article class="section-card">
+        <h2><span class="icon">📊</span> Diagnostic</h2>
+        <p>État des lieux documenté de la Ve République : concentration du pouvoir, répression, médias, affaires.</p>
+        <ul>
+            <li>49.3 : anatomie du passage en force</li>
+            <li>Bilan Gilets Jaunes (sources officielles)</li>
+            <li>Concentration médiatique</li>
+            <li>Affaires McKinsey, Benalla, Alstom</li>
+        </ul>
+        <a href="diagnostic.html" class="section-link">Consulter →</a>
+    </article>
+    
+    <article class="section-card">
+        <h2><span class="icon">⚖️</span> Arsenal juridique</h2>
+        <p>Les outils qui fonctionnent : QPC, CEDH, état de nécessité, lanceurs d'alerte. Procédures concrètes.</p>
+        <ul>
+            <li>QPC : ~35% de succès, gratuit</li>
+            <li>CEDH : 736 condamnations de la France</li>
+            <li>État de nécessité climatique : 15+ relaxes</li>
+            <li>Loi Waserman : protection renforcée</li>
+        </ul>
+        <a href="arsenal.html" class="section-link">Consulter →</a>
+    </article>
+    
+    <article class="section-card">
+        <h2><span class="icon">📚</span> Éducation populaire</h2>
+        <p>Freire, Boal, modèle belge. Méthodes concrètes de conscientisation et d'empouvoirement.</p>
+        <ul>
+            <li>Pédagogie des opprimés</li>
+            <li>Théâtre-forum et théâtre législatif</li>
+            <li>Modèle belge (280 assos, 2300 travailleurs)</li>
+            <li>Outils : arpentage, débat mouvant, porteurs de paroles</li>
+        </ul>
+        <a href="edpop.html" class="section-link">Consulter →</a>
+    </article>
+    
+    <article class="section-card">
+        <h2><span class="icon">✊</span> Mobilisations</h2>
+        <p>Leçons des victoires et des défaites : 1995, CPE 2006, retraites 2023. Pourquoi ça marche ou pas.</p>
+        <ul>
+            <li>1995 : grève reconductible, victoire totale</li>
+            <li>2023 : pourquoi l'échec malgré les records</li>
+            <li>Notre-Dame-des-Landes : victoire juridique</li>
+            <li>Soulèvements : dissolution annulée</li>
+        </ul>
+        <a href="mobilisations.html" class="section-link">Consulter →</a>
+    </article>
+    
+    <article class="section-card">
+        <h2><span class="icon">🔍</span> Outils OSINT</h2>
+        <p>Investigation en sources ouvertes : tracer les lobbies, vérifier les images, suivre l'argent.</p>
+        <ul>
+            <li>NosDéputés.fr : votes et activité</li>
+            <li>HATVP : registre des lobbyistes</li>
+            <li>Pappers.fr : données entreprises</li>
+            <li>Exercice pratique (4 missions)</li>
+        </ul>
+        <a href="osint.html" class="section-link">Consulter →</a>
+    </article>
+    
+    <article class="section-card">
+        <h2><span class="icon">🤝</span> Collectifs & Réseaux</h2>
+        <p>Cartographie des organisations actives en France et Belgique. Qui fait quoi, comment les contacter.</p>
+        <ul>
+            <li>ANV-COP21, Soulèvements, XR, Attac</li>
+            <li>Éducation populaire : Ardeur, Grenaille</li>
+            <li>Belgique : PAC, ARC, Stuut</li>
+            <li>Agrégateurs : infoLibertaire.net</li>
+        </ul>
+        <a href="collectifs.html" class="section-link">Consulter →</a>
+    </article>
+    
+</section>
+
+<div class="alert">
+    <strong>💡 Utilisation :</strong> Ce site fonctionne entièrement hors ligne une fois téléchargé. Chaque page est imprimable (Ctrl+P). Les fiches pratiques sont dans le dossier <code>/fiches</code>. Licence CC BY-SA 4.0.
+</div>
+
+</main>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>À propos</h3>
+            <p>Veille Citoyenne est un outil d'éducation populaire. Tout le contenu est sourcé à partir de documents officiels, rapports d'ONG, et sources journalistiques vérifiées.</p>
+            <p>Objectif : l'empouvoirement citoyen et le pouvoir d'agir collectif.</p>
+        </div>
+        <div class="footer-section">
+            <h3>Fiches pratiques</h3>
+            <ul>
+                <li><a href="fiches/qpc.html">Fiche QPC</a></li>
+                <li><a href="fiches/cedh.html">Fiche CEDH</a></li>
+                <li><a href="fiches/necessite.html">Fiche État de nécessité</a></li>
+                <li><a href="fiches/lanceurs.html">Fiche Lanceurs d'alerte</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Écosystème</h3>
+            <ul>
+                <li><a href="https://www.infolibertaire.net" target="_blank">infoLibertaire.net</a></li>
+                <li><a href="https://www.libertaire.net" target="_blank">Libertaire.net</a></li>
+                <li><a href="https://www.pac-g.be" target="_blank">PAC Belgique</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>Veille Citoyenne — Licence CC BY-SA 4.0 — Utilisez, adaptez, diffusez</p>
+    </div>
+</footer>
+
+</body>
+</html>

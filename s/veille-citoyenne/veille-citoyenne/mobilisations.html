@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobilisations — Veille Citoyenne</title>
+    <meta name="description" content="Leçons des victoires et des défaites : 1995, CPE 2006, retraites 2023, ZAD. Pourquoi ça marche ou pas.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✊</text></svg>">
+    <style>
+        :root{--bg:#fafafa;--surface:#fff;--text:#1a1a1a;--muted:#666;--accent:#c41e3a;--accent2:#1a5f7a;--success:#27ae60;--warning:#f39c12;--border:#e0e0e0}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;line-height:1.7}
+        a{color:var(--accent2)}
+        nav{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+        nav ul{max-width:1100px;margin:0 auto;display:flex;justify-content:center;gap:.5rem;padding:1rem;list-style:none;flex-wrap:wrap}
+        nav a{color:var(--text);font-weight:500;font-size:.9rem;padding:.5rem .75rem;border-radius:4px;text-decoration:none}
+        nav a:hover{background:var(--bg)}
+        nav a.current{background:var(--accent);color:#fff}
+        main{max-width:900px;margin:0 auto;padding:2rem}
+        h1{font-size:2rem;margin-bottom:.5rem}
+        .subtitle{color:var(--muted);margin-bottom:2rem;font-size:1.1rem}
+        h2{font-size:1.5rem;margin:3rem 0 1rem;padding-bottom:.5rem;border-bottom:2px solid var(--border)}
+        h3{font-size:1.15rem;margin:2rem 0 1rem;color:var(--accent2)}
+        p{margin-bottom:1rem}
+        ul,ol{margin:1rem 0 1.5rem 1.5rem}
+        li{margin-bottom:.5rem}
+        .box{background:var(--surface);border:1px solid var(--border);padding:1.5rem;margin:1.5rem 0;border-radius:8px}
+        .box.success{border-left:4px solid var(--success);background:#f0fff4}
+        .box.warning{border-left:4px solid var(--warning);background:#fffbf0}
+        .box.failure{border-left:4px solid var(--accent);background:#fff5f5}
+        .box h4{margin-bottom:.75rem}
+        .source{font-size:.85rem;color:var(--muted);font-style:italic;margin-top:1rem}
+        table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.9rem}
+        th,td{padding:.75rem;text-align:left;border-bottom:1px solid var(--border)}
+        th{background:var(--bg);font-weight:600}
+        .compare-table th:first-child{width:50%}
+        .compare-table .victory{color:var(--success);font-weight:600}
+        .compare-table .defeat{color:var(--accent);font-weight:600}
+        .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin:1.5rem 0}
+        .stat{background:var(--surface);border:1px solid var(--border);padding:1rem;text-align:center;border-radius:8px}
+        .stat-num{font-size:1.8rem;font-weight:700;color:var(--success)}
+        .stat-label{font-size:.8rem;color:var(--muted)}
+        .toc{background:var(--surface);border:1px solid var(--border);padding:1.5rem;border-radius:8px;margin-bottom:2rem}
+        .toc h4{margin-bottom:1rem}
+        .toc ul{margin:0;columns:2}
+        .toc li{margin-bottom:.25rem}
+        .lesson{background:#e8f4f8;padding:1rem 1.5rem;border-radius:8px;margin:1.5rem 0}
+        .lesson strong{color:var(--accent2)}
+        .print-btn{position:fixed;bottom:2rem;right:2rem;background:var(--accent2);color:#fff;padding:.75rem 1rem;border:none;border-radius:8px;cursor:pointer;font:inherit;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+        @media(max-width:600px){main{padding:1rem}.toc ul{columns:1}}
+        @media print{nav,.print-btn,.toc{display:none}}
+    </style>
+</head>
+<body>
+
+<nav>
+    <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="diagnostic.html">Diagnostic</a></li>
+        <li><a href="arsenal.html">Arsenal juridique</a></li>
+        <li><a href="edpop.html">Éducation populaire</a></li>
+        <li><a href="mobilisations.html" class="current">Mobilisations</a></li>
+        <li><a href="osint.html">Outils OSINT</a></li>
+        <li><a href="collectifs.html">Collectifs</a></li>
+        <li><a href="sources.html">Sources</a></li>
+    </ul>
+</nav>
+
+<main>
+
+<h1>✊ Mobilisations</h1>
+<p class="subtitle">Leçons des victoires et des défaites. Pourquoi ça marche — ou pas.</p>
+
+<nav class="toc">
+    <h4>Sommaire</h4>
+    <ul>
+        <li><a href="#1995">1995 : Victoire totale</a></li>
+        <li><a href="#2006">CPE 2006 : Convergence</a></li>
+        <li><a href="#2023">2023 : L'échec malgré les records</a></li>
+        <li><a href="#comparaison">Comparaison 1995 vs 2023</a></li>
+        <li><a href="#zad">ZAD et municipalisme</a></li>
+        <li><a href="#juridique">Victoires juridiques</a></li>
+    </ul>
+</nav>
+
+<!-- 1995 -->
+<h2 id="1995">1995 : Victoire totale</h2>
+
+<div class="stats">
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label">Semaines de grève</div></div>
+    <div class="stat"><div class="stat-num">2M</div><div class="stat-label">Manifestants (12 déc.)</div></div>
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Retrait obtenu</div></div>
+</div>
+
+<div class="box success">
+    <h4>Résultat : Retrait total de la réforme</h4>
+    <p>Le gouvernement Juppé retire son projet de réforme des retraites de la fonction publique et de la Sécurité sociale.</p>
+</div>
+
+<h3>Facteurs de succès</h3>
+
+<ul>
+    <li><strong>Grève reconductible</strong> — Pas des journées d'action espacées, mais une grève continue pendant 3 semaines</li>
+    <li><strong>Blocage économique réel</strong> — SNCF et RATP totalement à l'arrêt. Impossible de l'ignorer</li>
+    <li><strong>Unité syndicale</strong> — CGT + FO + autres syndicats soudés</li>
+    <li><strong>Soutien populaire jamais retourné</strong> — Malgré les perturbations, l'opinion reste favorable aux grévistes</li>
+    <li><strong>Assemblées générales décisionnelles</strong> — Quotidiennes, avec pouvoir réel sur la suite du mouvement</li>
+</ul>
+
+<!-- 2006 -->
+<h2 id="2006">CPE 2006 : Convergence étudiants-salariés</h2>
+
+<div class="box success">
+    <h4>10 avril 2006 : Retrait du CPE</h4>
+    <p>Le Contrat Première Embauche est retiré après 3 mois de mobilisation. <strong>83% d'opposition</strong> au maintien du CPE (sondage CSA).</p>
+</div>
+
+<h3>Facteurs de succès</h3>
+
+<ul>
+    <li><strong>Quasi-totalité des universités bloquées</strong></li>
+    <li><strong>Coordination nationale étudiante</strong> — Structure horizontale et réactive</li>
+    <li><strong>Intersyndicale soudée</strong> — Étudiants + salariés</li>
+    <li><strong>Durée</strong> — 3 mois de mobilisation continue</li>
+</ul>
+
+<!-- 2023 -->
+<h2 id="2023">2023 : L'échec malgré les records</h2>
+
+<div class="stats">
+    <div class="stat"><div class="stat-num" style="color:var(--accent)">3,5M</div><div class="stat-label">Record historique (manifs)</div></div>
+    <div class="stat"><div class="stat-num" style="color:var(--accent)">72%</div><div class="stat-label">Opposition populaire</div></div>
+    <div class="stat"><div class="stat-num" style="color:var(--accent)">0</div><div class="stat-label">Retrait obtenu</div></div>
+</div>
+
+<div class="box failure">
+    <h4>Résultat : Réforme adoptée malgré tout</h4>
+    <p>Malgré des records historiques de mobilisation et une opposition massive, la réforme des retraites est adoptée via le 49.3.</p>
+</div>
+
+<h3>Pourquoi l'échec ?</h3>
+
+<ul>
+    <li><strong>Journées d'action espacées</strong> — Pas de grève reconductible généralisée</li>
+    <li><strong>Perturbations gérables</strong> — Le blocage économique n'a jamais atteint le niveau de 1995</li>
+    <li><strong>Calendrier fixé par les directions syndicales</strong> — Pas d'escalade décidée à la base</li>
+    <li><strong>49.3 disponible</strong> — Le gouvernement avait cette arme constitutionnelle</li>
+    <li><strong>Assemblées générales sans pouvoir réel</strong> — Décisions prises au sommet</li>
+</ul>
+
+<!-- COMPARAISON -->
+<h2 id="comparaison">Comparaison 1995 vs 2023</h2>
+
+<table class="compare-table">
+    <tr>
+        <th class="victory">1995 (victoire)</th>
+        <th class="defeat">2023 (échec)</th>
+    </tr>
+    <tr>
+        <td>Grève reconductible 3 semaines</td>
+        <td>Journées d'action espacées</td>
+    </tr>
+    <tr>
+        <td>Transports totalement bloqués</td>
+        <td>Perturbations gérables</td>
+    </tr>
+    <tr>
+        <td>AG quotidiennes avec pouvoir d'escalade</td>
+        <td>Calendrier fixé par directions syndicales</td>
+    </tr>
+    <tr>
+        <td>Pas de 49.3 disponible (réforme budgétaire)</td>
+        <td>49.3 utilisé</td>
+    </tr>
+    <tr>
+        <td>Droite divisée</td>
+        <td>Macron soutenu par LR</td>
+    </tr>
+    <tr>
+        <td>Gouvernement isolé</td>
+        <td>Verrouillage institutionnel</td>
+    </tr>
+</table>
+
+<div class="lesson">
+    <strong>Enseignement :</strong> Les manifestations massives ne suffisent plus. Le pouvoir a appris les leçons de 1995 et dispose d'outils institutionnels de contournement. Seule une <strong>grève reconductible</strong> avec <strong>blocage économique réel</strong> crée un rapport de force suffisant.
+</div>
+
+<!-- ZAD -->
+<h2 id="zad">ZAD et municipalisme</h2>
+
+<h3>Notre-Dame-des-Landes : Victoire emblématique</h3>
+
+<div class="box success">
+    <h4>17 janvier 2018 : Abandon du projet d'aéroport</h4>
+    <p>Après des <strong>décennies de lutte</strong>, le gouvernement annonce l'abandon du projet.</p>
+    <p><strong>Aujourd'hui :</strong> ~200 habitants, 15 projets agricoles régularisés, baux emphytéotiques signés (2025).</p>
+</div>
+
+<h3>Tactiques</h3>
+<ul>
+    <li><strong>Conventions d'occupation précaire</strong> — Légalisation progressive</li>
+    <li><strong>Demandes de baux ruraux</strong> — Utilisation du droit existant</li>
+    <li><strong>Négociation collective avec l'État</strong> — Rapport de force + dialogue</li>
+    <li><strong>Pression médiatique continue</strong> — Maintien de l'attention publique</li>
+</ul>
+
+<h3>Saillans : Démocratie participative réelle</h3>
+
+<div class="box">
+    <p>Commune de 1 300 habitants (Drôme), gouvernance participative 2014-2020.</p>
+    <p><strong>670 habitants ont participé au moins une fois</strong> — 50% de la population.</p>
+    <p>Modèle consulté par <strong>730 communes françaises</strong>.</p>
+</div>
+
+<h3>Maires anti-pesticides : Désobéissance institutionnelle</h3>
+
+<div class="box warning">
+    <p>Plus de <strong>120 arrêtés municipaux anti-pesticides</strong> en 2019-2020.</p>
+    <p><strong>Conseil d'État (31 décembre 2020) :</strong> Les maires ne peuvent pas prendre ces arrêtés (police spéciale de l'État).</p>
+    <p><strong>Mais :</strong> La mobilisation a créé le débat public et fait avancer la prise de conscience.</p>
+</div>
+
+<!-- VICTOIRES JURIDIQUES -->
+<h2 id="juridique">Victoires juridiques</h2>
+
+<div class="box success">
+    <h4>Soulèvements de la Terre (9 novembre 2023)</h4>
+    <p>Le Conseil d'État <strong>annule la dissolution</strong> du mouvement, jugeant la mesure disproportionnée.</p>
+    <p class="source">Source : Conseil d'État</p>
+</div>
+
+<div class="box success">
+    <h4>L'Affaire du Siècle (2021)</h4>
+    <p>L'État reconnu responsable de "carences fautives" en matière climatique et <strong>condamné à réparer le dépassement du budget carbone</strong>.</p>
+    <p class="source">Source : Tribunal administratif de Paris</p>
+</div>
+
+<div class="box success">
+    <h4>Censure Barnier (4 décembre 2024)</h4>
+    <p>Première motion de censure aboutie après un 49.3 dans l'histoire de la Ve République. <strong>331 voix</strong>.</p>
+    <p>Preuve que même les verrouillages institutionnels peuvent être retournés.</p>
+</div>
+
+<div class="lesson">
+    <strong>Enseignement :</strong> L'action juridique complète l'action collective. QPC, CEDH, recours au Conseil d'État sont des leviers réels — à condition de les utiliser stratégiquement et collectivement.
+</div>
+
+<hr style="margin:3rem 0">
+<p><strong>→ Page suivante :</strong> <a href="osint.html">Outils OSINT</a> — Investigation en sources ouvertes.</p>
+
+</main>
+
+<button class="print-btn" onclick="window.print()">🖨️ Imprimer</button>
+
+</body>
+</html>
