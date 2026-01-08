@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiche QPC — Veille Citoyenne</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:system-ui,sans-serif;line-height:1.6;max-width:800px;margin:0 auto;padding:2rem;color:#1a1a1a}
+        h1{font-size:1.8rem;margin-bottom:.5rem;color:#0055a4}
+        .subtitle{color:#666;margin-bottom:2rem}
+        h2{font-size:1.2rem;margin:2rem 0 1rem;padding-bottom:.5rem;border-bottom:2px solid #eee}
+        h3{font-size:1rem;margin:1.5rem 0 .75rem;color:#1a5f7a}
+        p{margin-bottom:1rem}
+        ul,ol{margin:1rem 0 1rem 1.5rem}
+        li{margin-bottom:.5rem}
+        .box{background:#f5f5f5;padding:1.25rem;margin:1.5rem 0;border-radius:6px;border-left:4px solid #1a5f7a}
+        .box.success{border-color:#27ae60;background:#f0fff4}
+        .box.warning{border-color:#e74c3c;background:#fff5f5}
+        table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.9rem}
+        th,td{padding:.6rem;text-align:left;border-bottom:1px solid #ddd}
+        th{background:#f5f5f5}
+        .stats{display:flex;gap:2rem;margin:1.5rem 0;flex-wrap:wrap}
+        .stat{text-align:center}
+        .stat-num{font-size:2rem;font-weight:700;color:#27ae60}
+        .stat-label{font-size:.8rem;color:#666}
+        .source{font-size:.85rem;color:#666;font-style:italic}
+        .nav{margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid #eee}
+        .nav a{color:#1a5f7a;margin-right:1rem}
+        .print-btn{background:#1a5f7a;color:#fff;padding:.5rem 1rem;border:none;border-radius:4px;cursor:pointer;font:inherit}
+        @media print{.nav,.print-btn{display:none}}
+    </style>
+</head>
+<body>
+
+<nav class="nav">
+    <a href="index.html">← Accueil</a>
+    <a href="arsenal.html">← Arsenal juridique</a>
+    <button class="print-btn" onclick="window.print()">🖨️ Imprimer</button>
+</nav>
+
+<h1>📋 Question Prioritaire de Constitutionnalité</h1>
+<p class="subtitle">L'outil juridique citoyen le plus efficace</p>
+
+<div class="stats">
+    <div class="stat"><div class="stat-num">~35%</div><div class="stat-label">Taux de succès</div></div>
+    <div class="stat"><div class="stat-num">6 mois</div><div class="stat-label">Délai max</div></div>
+    <div class="stat"><div class="stat-num">0€</div><div class="stat-label">Coût (hors avocat)</div></div>
+</div>
+
+<h2>Qu'est-ce que c'est ?</h2>
+<p>La QPC permet à tout justiciable de contester la constitutionnalité d'une loi déjà en vigueur. Si le Conseil constitutionnel juge la loi contraire à la Constitution, elle est abrogée.</p>
+
+<h2>Conditions de recevabilité</h2>
+<ol>
+    <li><strong>Être partie à un procès</strong> — Tribunal, cour d'appel, cassation</li>
+    <li><strong>La disposition doit être applicable au litige</strong></li>
+    <li><strong>Question non déjà tranchée</strong> (sauf changement de circonstances)</li>
+    <li><strong>Question "sérieuse"</strong> — Pas manifestement infondée</li>
+</ol>
+
+<h2>Procédure</h2>
+
+<div class="box">
+    <h3>1. Soulever la QPC</h3>
+    <p>Mémoire <strong>distinct et motivé</strong>. Peut être soulevée à tout moment de la procédure.</p>
+</div>
+
+<div class="box">
+    <h3>2. Filtrage juridiction</h3>
+    <p>Le juge vérifie les conditions et transmet (ou non) à la Cour de cassation ou Conseil d'État.</p>
+</div>
+
+<div class="box">
+    <h3>3. Filtrage cours suprêmes</h3>
+    <p><strong>3 mois</strong> pour décider de renvoyer au Conseil constitutionnel.</p>
+</div>
+
+<div class="box">
+    <h3>4. Décision</h3>
+    <p>Le Conseil constitutionnel a <strong>3 mois</strong> pour statuer. Conformité ou abrogation.</p>
+</div>
+
+<h2>Victoires emblématiques</h2>
+
+<table>
+    <tr><th>Date</th><th>Affaire</th><th>Résultat</th></tr>
+    <tr><td>2018</td><td>Cédric Herrou</td><td><strong>Principe de fraternité</strong> reconnu</td></tr>
+    <tr><td>2010</td><td>Garde à vue</td><td>Ancienne procédure annulée</td></tr>
+    <tr><td>2023</td><td>Activation téléphones</td><td>Activation à distance <strong>censurée</strong></td></tr>
+    <tr><td>2024</td><td>Loi Immigration</td><td><strong>32 articles sur 86 censurés</strong></td></tr>
+</table>
+
+<h2>Droits invocables</h2>
+<ul>
+    <li>Liberté d'expression, de réunion, de manifestation</li>
+    <li>Droit au respect de la vie privée</li>
+    <li>Principe d'égalité devant la loi</li>
+    <li>Liberté individuelle, sûreté</li>
+    <li>Principe de fraternité (depuis 2018)</li>
+    <li>Droit à un environnement sain</li>
+</ul>
+
+<div class="box warning">
+    <strong>⚠️ Important :</strong> La QPC doit être dans un <strong>mémoire distinct</strong>. Mélangée avec d'autres arguments = irrecevable.
+</div>
+
+<h2>Ressources</h2>
+<ul>
+    <li><a href="https://www.conseil-constitutionnel.fr/la-qpc" target="_blank">Conseil constitutionnel — La QPC</a></li>
+    <li><a href="https://qpc360.conseil-constitutionnel.fr" target="_blank">QPC 360 — Statistiques</a></li>
+</ul>
+
+<p class="source">Sources : Conseil constitutionnel, QPC360</p>
+
+</body>
+</html>
