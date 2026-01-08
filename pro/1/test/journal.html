@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal de L.</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:#1a1814;min-height:100vh;padding:2rem;font-family:'Special Elite',monospace}
+        
+        .nav{position:fixed;top:0;left:0;right:0;background:rgba(26,24,20,.95);padding:.75rem 1.5rem;display:flex;gap:1.5rem;border-bottom:1px solid #333;z-index:100}
+        .nav a{color:#666;text-decoration:none;font-size:.8rem;font-family:monospace}
+        .nav a:hover{color:#33ff33}
+        .nav .logo{color:#33ff33;font-weight:700;margin-right:auto}
+        
+        .journal{max-width:700px;margin:4rem auto 2rem;background:#f5f0e1;padding:clamp(2rem,5vw,4rem);box-shadow:0 10px 40px rgba(0,0,0,.5);position:relative}
+        .journal::before{content:'';position:absolute;left:60px;top:0;bottom:0;width:2px;background:#cc9999;opacity:.3}
+        
+        h1{font-size:1.5rem;color:#333;margin-bottom:2rem;text-align:center;border-bottom:1px solid #ccc;padding-bottom:1rem}
+        
+        .entry{margin-bottom:2.5rem;padding-left:50px;position:relative}
+        .entry-date{position:absolute;left:0;top:0;font-size:.7rem;color:#999;writing-mode:vertical-rl;transform:rotate(180deg)}
+        .entry p{color:#333;line-height:2;margin-bottom:1rem;text-align:justify}
+        .entry p:first-of-type::first-letter{font-size:1.5em;color:#990000}
+        
+        .redacted{background:#333;color:transparent;padding:0 .5rem;user-select:none}
+        .highlight{background:rgba(255,255,0,.3);padding:0 2px}
+        .note{font-size:.85rem;color:#666;font-style:italic;border-left:3px solid #990000;padding-left:1rem;margin:1rem 0}
+        
+        .stamp{position:absolute;top:20px;right:20px;color:#cc0000;font-size:.7rem;border:2px solid #cc0000;padding:5px 10px;transform:rotate(15deg);opacity:.6}
+        
+        .torn{position:relative;margin:2rem 0}
+        .torn::before,.torn::after{content:'';position:absolute;left:0;right:0;height:20px;background:linear-gradient(135deg,#f5f0e1 25%,transparent 25%),linear-gradient(225deg,#f5f0e1 25%,transparent 25%);background-size:20px 20px}
+        .torn::before{top:-20px}
+        .torn::after{bottom:-20px;transform:rotate(180deg)}
+        
+        @media(max-width:600px){.entry{padding-left:30px}.entry-date{display:none}}
+    </style>
+</head>
+<body>
+
+<nav class="nav">
+    <a href="index.html" class="logo">◈ VÉNUS</a>
+    <a href="terminal.html">Terminal</a>
+    <a href="ressources.html">Documentation</a>
+    <a href="carte.html">Carte</a>
+</nav>
+
+<div class="journal">
+    <span class="stamp">PERSONNEL</span>
+    
+    <h1>Notes de L.</h1>
+    
+    <div class="entry">
+        <span class="entry-date">17 NOV 2019</span>
+        <p>Première réunion ce soir. Nous étions sept. Sept personnes qui ne se connaissaient pas il y a trois mois et qui partagent maintenant quelque chose de plus fort que la plupart des amitiés. Une méthode. Une conviction.</p>
+        <p>Le local était glauque — un arrière-salle de bar à Belleville, murs jaunes, néons qui grésillent. Mais quand M. a posé le premier document sur la table — le rapport du Sénat sur McKinsey — j'ai compris que ce n'était pas une réunion comme les autres.</p>
+        <p class="note">"On ne va pas se contenter de râler. On va documenter, sourcer, archiver. Et ensuite on va transmettre."</p>
+        <p>C'est là que le nom est apparu. VÉNUS. Pas pour la déesse. Pour l'étoile du matin. Celle qui annonce l'aube.</p>
+    </div>
+    
+    <div class="entry">
+        <span class="entry-date">8 DÉC 2019</span>
+        <p>Premier anniversaire des Gilets Jaunes. J'ai passé la journée à compiler les chiffres. <span class="highlight">24 éborgnés. 5 mains arrachées.</span> Zineb Redouane, 80 ans. Chaque nom est une personne. Chaque chiffre est une vie.</p>
+        <p>K. m'a demandé pourquoi je m'infligeais ça. "Parce que quelqu'un doit se souvenir. Parce que si on ne documente pas, ils réécriront l'histoire."</p>
+    </div>
+    
+    <div class="entry">
+        <span class="entry-date">15 MARS 2020</span>
+        <p>Confinement. Les réunions physiques sont suspendues. Mais le travail continue. Signal. Cryptpad. Matrix. Nous avons appris plus sur la sécurité numérique en trois semaines qu'en trois ans.</p>
+        <p>J'ai relu Freire cette nuit. "Personne ne libère autrui, personne ne se libère seul, les hommes se libèrent ensemble." Ça résonne différemment quand on est enfermé chez soi.</p>
+    </div>
+    
+    <div class="entry">
+        <span class="entry-date">2 MARS 2022</span>
+        <p>Le rapport McKinsey du Sénat est sorti. <span class="highlight">1 milliard d'euros. Zéro impôt.</span> Tout ce que nous avions documenté depuis des mois, validé par une commission parlementaire. J'aurais dû être content. Je suis juste fatigué.</p>
+        <p>M. dit qu'on doit passer à la phase suivante. Plus de documentation. De la transmission. "L'éducation populaire, c'est contagieux. Mais faut commencer quelque part."</p>
+    </div>
+    
+    <div class="entry">
+        <span class="entry-date">19 JANVIER 2023</span>
+        <p>Première manif retraites. 1,1 million selon les syndicats. Le mouvement a quelque chose de différent cette fois. Plus déterminé. Plus méthodique. Les AG fonctionnent.</p>
+        <p>Mais je vois déjà les limites. Les journ&eacute;es d'action espacées. Le calendrier contrôlé par les directions syndicales. Ce n'est pas 1995. Ils ont appris.</p>
+    </div>
+    
+    <div class="entry">
+        <span class="entry-date">16 MARS 2023</span>
+        <p>49.3. Vingt-troisième fois sous Borne. La réforme passe sans vote malgré 72% d'opposition. Les gens crient, cassent, pleurent. Et demain, tout le monde retournera au travail.</p>
+        <p class="note">J'ai relu mes notes de 2019. "Le système contient ses propres brèches." Je le crois toujours. Mais il faut plus de temps. Plus de méthode. Plus de monde.</p>
+    </div>
+    
+    <div class="entry">
+        <span class="entry-date">9 NOVEMBRE 2023</span>
+        <p><span class="highlight">Le Conseil d'État annule la dissolution des Soulèvements de la Terre.</span> Darmanin a perdu. La justice peut encore fonctionner, parfois, quand on la pousse.</p>
+        <p>K. a ouvert une bouteille. C'était la première fois que je la voyais sourire depuis des mois.</p>
+    </div>
+    
+    <div class="entry">
+        <span class="entry-date">4 DÉCEMBRE 2024</span>
+        <p><span class="highlight">331 voix.</span> Barnier est tombé. Première motion de censure après un 49.3 de l'histoire de la Ve République. Je n'arrive pas à y croire.</p>
+        <p>Ce n'est pas une victoire. C'est une brèche. Une preuve que le système peut se retourner contre lui-même si on trouve les bons leviers.</p>
+        <p>M. a dit quelque chose ce soir que je n'oublierai pas : "On ne fait pas la révolution. On prépare les gens à la faire eux-mêmes."</p>
+    </div>
+    
+    <div class="torn"></div>
+    
+    <div class="entry">
+        <span class="entry-date">1 JANVIER 2025</span>
+        <p>47 cellules actives maintenant. De Paris à <span class="redacted">████████</span>, en passant par <span class="redacted">██████</span> et <span class="redacted">███████</span>. Le réseau grandit. Les méthodes se transmettent.</p>
+        <p>Je ne sais pas si ce que nous faisons changera quoi que ce soit. Mais je sais que le silence est une forme de complicité. Et que le savoir, une fois partagé, ne peut plus être repris.</p>
+        <p style="text-align:right;margin-top:2rem;color:#666">— L.<br><span style="font-size:.8rem">Quelque part en Marconie</span></p>
+    </div>
+</div>
+
+</body>
+</html>

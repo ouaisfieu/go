@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VÉNUS — Message Final</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        :root{--bg:#0a0a0c;--green:#33ff33;--text:#e0e0e0;--muted:#666}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:var(--bg);color:var(--text);font-family:'JetBrains Mono',monospace;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:2rem}
+        
+        .container{max-width:700px;text-align:center}
+        .logo{font-size:4rem;margin-bottom:2rem;animation:pulse 3s infinite}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+        
+        h1{font-size:2rem;margin-bottom:1rem;color:var(--green)}
+        .subtitle{color:var(--muted);margin-bottom:3rem}
+        
+        .message{text-align:left;line-height:2;margin-bottom:3rem}
+        .message p{margin-bottom:1.5rem}
+        
+        .quote{border-left:3px solid var(--green);padding-left:1.5rem;margin:2rem 0;color:var(--muted);font-style:italic}
+        
+        .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin:2rem 0;text-align:center}
+        .stat{background:rgba(51,255,51,.05);padding:1rem}
+        .stat-num{font-size:1.5rem;color:var(--green);font-weight:700}
+        .stat-label{font-size:.7rem;color:var(--muted);margin-top:.25rem}
+        
+        .cta{margin-top:3rem}
+        .cta a{display:inline-block;margin:.5rem;padding:1rem 2rem;border:1px solid var(--green);color:var(--green);text-decoration:none}
+        .cta a:hover{background:var(--green);color:var(--bg)}
+        
+        .footer{margin-top:4rem;color:var(--muted);font-size:.8rem}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo">◈</div>
+    <h1>MESSAGE FINAL</h1>
+    <p class="subtitle">À l'attention de l'opérateur qui a complété la formation</p>
+    
+    <div class="message">
+        <p>Si vous lisez ceci, vous avez parcouru les archives, résolu les énigmes, et compris les mécanismes.</p>
+        
+        <p>Vous savez maintenant que le <strong>49.3 a été utilisé 23 fois sous Borne</strong>, mais que la <strong>censure Barnier</strong> prouve qu'il peut être retourné. Vous connaissez le taux de succès des <strong>QPC (35%)</strong>, les <strong>736 condamnations CEDH</strong>, l'état de nécessité climatique reconnu par les tribunaux.</p>
+        
+        <p>Vous avez vu les chiffres des <strong>Gilets Jaunes</strong> — les éborgnés, les mains arrachées, les gardes à vue. Vous avez lu les rapports sur <strong>McKinsey</strong>, <strong>Alstom</strong>, les <strong>Uber Files</strong>.</p>
+        
+        <p>Et vous avez découvert les outils : l'OSINT, l'éducation populaire, les méthodes de Freire et Boal, les leçons de 1995.</p>
+        
+        <div class="quote">
+            "Personne ne libère autrui, personne ne se libère seul, les hommes se libèrent ensemble."<br>
+            — Paulo Freire
+        </div>
+        
+        <p>Le réseau VÉNUS n'existe pas.</p>
+        
+        <p><strong>Mais tout le reste est réel.</strong></p>
+        
+        <p>Chaque chiffre cité est sourcé. Chaque mécanisme décrit est fonctionnel. Chaque outil mentionné existe et peut être utilisé.</p>
+        
+        <p>Cet ARG n'était pas un jeu. C'était une formation déguisée. Un outil d'éducation populaire sous forme de rabbit hole.</p>
+        
+        <p>La question maintenant est simple :</p>
+        
+        <p style="text-align:center;font-size:1.2rem;color:var(--green);margin:2rem 0"><strong>Qu'allez-vous en faire ?</strong></p>
+    </div>
+    
+    <div class="stats">
+        <div class="stat"><div class="stat-num">35%</div><div class="stat-label">QPC gagnées</div></div>
+        <div class="stat"><div class="stat-num">736</div><div class="stat-label">CEDH condamnations</div></div>
+        <div class="stat"><div class="stat-num">331</div><div class="stat-label">voix censure</div></div>
+        <div class="stat"><div class="stat-num">∞</div><div class="stat-label">possibilités</div></div>
+    </div>
+    
+    <div class="cta">
+        <a href="ressources.html">📚 Revoir les sources</a>
+        <a href="exercice.html">🔍 Pratiquer l'OSINT</a>
+        <a href="index.html">◈ Retour</a>
+    </div>
+    
+    <div class="footer">
+        <p>VÉNUS — Réseau de Veille Citoyenne</p>
+        <p style="margin-top:.5rem">"Le pouvoir se prend. Il ne se demande pas."</p>
+    </div>
+</div>
+
+</body>
+</html>

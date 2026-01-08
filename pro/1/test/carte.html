@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VÉNUS — Carte du Réseau</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        :root{--bg:#0a0a0c;--green:#33ff33;--red:#ff3366;--blue:#00aaff;--yellow:#ffcc00;--muted:#666}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:var(--bg);color:#e0e0e0;font-family:'JetBrains Mono',monospace;min-height:100vh;overflow:hidden}
+        
+        .nav{position:fixed;top:0;left:0;right:0;background:rgba(10,10,12,.95);padding:.75rem 1.5rem;display:flex;gap:1.5rem;border-bottom:1px solid #222;z-index:100}
+        .nav a{color:var(--muted);text-decoration:none;font-size:.8rem}
+        .nav a:hover{color:var(--green)}
+        .nav .logo{color:var(--green);font-weight:700;margin-right:auto}
+        
+        .map-container{position:fixed;inset:0;top:50px;display:flex;align-items:center;justify-content:center}
+        
+        .france-map{position:relative;width:min(80vw,600px);height:min(80vh,700px)}
+        
+        /* Points des cellules */
+        .cell{position:absolute;cursor:pointer}
+        .cell-dot{width:12px;height:12px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;position:relative}
+        .cell-dot::before{content:'';position:absolute;inset:-4px;border:1px solid var(--green);border-radius:50%;opacity:.5}
+        .cell.inactive .cell-dot{background:var(--muted);animation:none}
+        .cell.inactive .cell-dot::before{border-color:var(--muted)}
+        .cell.alert .cell-dot{background:var(--red);animation:alert 1s infinite}
+        @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(51,255,51,.5)}50%{box-shadow:0 0 0 8px transparent}}
+        @keyframes alert{0%,100%{opacity:1}50%{opacity:.3}}
+        
+        .cell-label{position:absolute;left:20px;top:-5px;font-size:.7rem;white-space:nowrap;opacity:0;transition:opacity .2s;background:var(--bg);padding:2px 6px}
+        .cell:hover .cell-label{opacity:1}
+        
+        /* Lignes de connexion */
+        .connections{position:absolute;inset:0;pointer-events:none}
+        .connections line{stroke:var(--green);stroke-width:1;opacity:.2}
+        
+        /* Info panel */
+        .info-panel{position:fixed;bottom:2rem;left:2rem;background:rgba(0,0,0,.9);border:1px solid #333;padding:1.5rem;max-width:350px;display:none}
+        .info-panel.active{display:block}
+        .info-panel h3{color:var(--green);font-size:1rem;margin-bottom:.75rem}
+        .info-panel p{font-size:.8rem;color:var(--muted);line-height:1.6;margin-bottom:.5rem}
+        .info-panel .status{display:inline-block;padding:2px 8px;font-size:.65rem;margin-top:.5rem}
+        .info-panel .status.active{background:var(--green);color:var(--bg)}
+        .info-panel .status.standby{background:var(--yellow);color:var(--bg)}
+        .info-panel .status.offline{background:var(--muted);color:#fff}
+        .info-close{position:absolute;top:.5rem;right:.5rem;background:none;border:none;color:var(--muted);cursor:pointer;font-size:1.2rem}
+        
+        /* Légende */
+        .legend{position:fixed;top:70px;right:2rem;font-size:.7rem}
+        .legend div{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
+        .legend-dot{width:10px;height:10px;border-radius:50%}
+        .legend-dot.g{background:var(--green)}
+        .legend-dot.y{background:var(--yellow)}
+        .legend-dot.r{background:var(--red)}
+        .legend-dot.m{background:var(--muted)}
+        
+        /* Stats */
+        .stats{position:fixed;bottom:2rem;right:2rem;text-align:right;font-size:.75rem;color:var(--muted)}
+        .stats .num{color:var(--green);font-size:1.5rem;font-weight:700}
+    </style>
+</head>
+<body>
+
+<nav class="nav">
+    <a href="index.html" class="logo">◈ VÉNUS</a>
+    <a href="terminal.html">Terminal</a>
+    <a href="ressources.html">Documentation</a>
+    <a href="journal.html">Journal</a>
+</nav>
+
+<div class="legend">
+    <div><span class="legend-dot g"></span> Cellule active</div>
+    <div><span class="legend-dot y"></span> En veille</div>
+    <div><span class="legend-dot r"></span> Alerte</div>
+    <div><span class="legend-dot m"></span> Hors ligne</div>
+</div>
+
+<div class="map-container">
+    <div class="france-map" id="map">
+        <svg class="connections" viewBox="0 0 600 700">
+            <line x1="270" y1="100" x2="480" y2="180"/>
+            <line x1="480" y1="180" x2="520" y2="350"/>
+            <line x1="520" y1="350" x2="420" y2="550"/>
+            <line x1="420" y1="550" x2="280" y2="580"/>
+            <line x1="280" y1="580" x2="150" y2="480"/>
+            <line x1="150" y1="480" x2="100" y2="320"/>
+            <line x1="100" y1="320" x2="180" y2="200"/>
+            <line x1="180" y1="200" x2="270" y2="100"/>
+            <line x1="300" y1="280" x2="270" y2="100"/>
+            <line x1="300" y1="280" x2="480" y2="180"/>
+            <line x1="300" y1="280" x2="520" y2="350"/>
+            <line x1="300" y1="280" x2="150" y2="480"/>
+        </svg>
+        
+        <!-- Cellules -->
+        <div class="cell" style="left:43%;top:12%" data-id="paris">
+            <div class="cell-dot"></div>
+            <div class="cell-label">PARIS-α</div>
+        </div>
+        <div class="cell" style="left:78%;top:24%" data-id="strasbourg">
+            <div class="cell-dot"></div>
+            <div class="cell-label">STRASBOURG-γ</div>
+        </div>
+        <div class="cell" style="left:85%;top:48%" data-id="lyon">
+            <div class="cell-dot"></div>
+            <div class="cell-label">LYON-δ</div>
+        </div>
+        <div class="cell alert" style="left:68%;top:78%" data-id="marseille">
+            <div class="cell-dot"></div>
+            <div class="cell-label">MARSEILLE-ε</div>
+        </div>
+        <div class="cell" style="left:44%;top:82%" data-id="toulouse">
+            <div class="cell-dot"></div>
+            <div class="cell-label">TOULOUSE-ζ</div>
+        </div>
+        <div class="cell inactive" style="left:22%;top:67%" data-id="bordeaux">
+            <div class="cell-dot"></div>
+            <div class="cell-label">BORDEAUX-η</div>
+        </div>
+        <div class="cell" style="left:14%;top:44%" data-id="nantes">
+            <div class="cell-dot"></div>
+            <div class="cell-label">NANTES-θ</div>
+        </div>
+        <div class="cell" style="left:28%;top:27%" data-id="rennes">
+            <div class="cell-dot"></div>
+            <div class="cell-label">RENNES-ι</div>
+        </div>
+        <div class="cell" style="left:48%;top:38%" data-id="central">
+            <div class="cell-dot" style="width:16px;height:16px;background:var(--blue)"></div>
+            <div class="cell-label" style="color:var(--blue)">NEXUS-Ω</div>
+        </div>
+    </div>
+</div>
+
+<div class="info-panel" id="info">
+    <button class="info-close" onclick="closeInfo()">×</button>
+    <h3 id="info-name">—</h3>
+    <p id="info-desc">—</p>
+    <p id="info-members">—</p>
+    <span class="status" id="info-status">—</span>
+</div>
+
+<div class="stats">
+    <div class="num" id="total-cells">47</div>
+    <div>cellules actives</div>
+    <div style="margin-top:.5rem;color:var(--green)">↑ 3 cette semaine</div>
+</div>
+
+<script>
+const cells = {
+    paris: {name:'PARIS-α',desc:'Cellule fondatrice. Coordination nationale. Spécialisation: OSINT médias et lobbies.',members:'12-15 opérateurs',status:'active'},
+    strasbourg: {name:'STRASBOURG-γ',desc:'Interface européenne. Veille CEDH et institutions UE. Liaison avec partenaires belges et allemands.',members:'8-10 opérateurs',status:'active'},
+    lyon: {name:'LYON-δ',desc:'Pôle juridique. Documentation QPC et recours collectifs. Formation avocats militants.',members:'10-12 opérateurs',status:'active'},
+    marseille: {name:'MARSEILLE-ε',desc:'ALERTE: Surveillance accrue détectée. Protocole OPSEC renforcé. Activités réduites.',members:'6-8 opérateurs',status:'alert'},
+    toulouse: {name:'TOULOUSE-ζ',desc:'Éducation populaire. Conférences gesticulées, théâtre-forum. Liaison réseau Ardeur.',members:'15-20 opérateurs',status:'active'},
+    bordeaux: {name:'BORDEAUX-η',desc:'Cellule en restructuration suite à départs. Recrutement en cours.',members:'3-5 opérateurs',status:'offline'},
+    nantes: {name:'NANTES-θ',desc:'Spécialisation ZAD et municipalisme. Documentation Notre-Dame-des-Landes. Archivage.',members:'8-10 opérateurs',status:'active'},
+    rennes: {name:'RENNES-ι',desc:'Pôle numérique. Hébergement infrastructure, formation sécurité, développement outils.',members:'5-7 opérateurs',status:'active'},
+    central: {name:'NEXUS-Ω',desc:'Nœud de coordination. Aucune opération directe. Transmission inter-cellules uniquement.',members:'[CLASSIFIÉ]',status:'standby'}
+};
+
+document.querySelectorAll('.cell').forEach(cell => {
+    cell.addEventListener('click', () => {
+        const id = cell.dataset.id;
+        const data = cells[id];
+        if (!data) return;
+        
+        document.getElementById('info-name').textContent = data.name;
+        document.getElementById('info-desc').textContent = data.desc;
+        document.getElementById('info-members').textContent = data.members;
+        
+        const status = document.getElementById('info-status');
+        status.textContent = data.status === 'active' ? 'OPÉRATIONNEL' : 
+                            data.status === 'alert' ? 'ALERTE' : 
+                            data.status === 'standby' ? 'VEILLE' : 'HORS LIGNE';
+        status.className = 'status ' + (data.status === 'alert' ? 'offline' : data.status);
+        
+        document.getElementById('info').classList.add('active');
+    });
+});
+
+function closeInfo() {
+    document.getElementById('info').classList.remove('active');
+}
+
+// Easter egg: Konami code reveals hidden cell
+let konamiProgress = 0;
+const konami = [38,38,40,40,37,39,37,39,66,65];
+document.addEventListener('keydown', e => {
+    if (e.keyCode === konami[konamiProgress]) {
+        konamiProgress++;
+        if (konamiProgress === konami.length) {
+            alert('◈ CELLULE FANTÔME RÉVÉLÉE\n\nBRUXELLES-Ψ\nStatut: [DONNÉES EFFACÉES]\n\n"Les étoiles sont alignées ce soir."');
+            konamiProgress = 0;
+        }
+    } else {
+        konamiProgress = 0;
+    }
+});
+</script>
+</body>
+</html>
