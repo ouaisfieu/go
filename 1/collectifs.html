@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collectifs & Réseaux — Veille Citoyenne</title>
+    <meta name="description" content="Cartographie des organisations actives en France et Belgique. Écologie, droits, éducation populaire, médias.">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤝</text></svg>">
+    <style>
+        :root{--bg:#fafafa;--surface:#fff;--text:#1a1a1a;--muted:#666;--accent:#c41e3a;--accent2:#1a5f7a;--border:#e0e0e0;--france:#0055a4;--belgium:#fdda24}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,sans-serif;line-height:1.7}
+        a{color:var(--accent2)}
+        nav{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+        nav ul{max-width:1100px;margin:0 auto;display:flex;justify-content:center;gap:.5rem;padding:1rem;list-style:none;flex-wrap:wrap}
+        nav a{color:var(--text);font-weight:500;font-size:.9rem;padding:.5rem .75rem;border-radius:4px;text-decoration:none}
+        nav a:hover{background:var(--bg)}
+        nav a.current{background:var(--accent);color:#fff}
+        main{max-width:1000px;margin:0 auto;padding:2rem}
+        h1{font-size:2rem;margin-bottom:.5rem}
+        .subtitle{color:var(--muted);margin-bottom:2rem;font-size:1.1rem}
+        h2{font-size:1.5rem;margin:3rem 0 1rem;padding-bottom:.5rem;border-bottom:2px solid var(--border);display:flex;align-items:center;gap:.5rem}
+        h3{font-size:1.15rem;margin:2rem 0 1rem;color:var(--accent2)}
+        p{margin-bottom:1rem}
+        .flag{font-size:1.2rem}
+        .orgs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1rem;margin:1.5rem 0}
+        .org-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.25rem;transition:border-color .2s}
+        .org-card:hover{border-color:var(--accent2)}
+        .org-card h4{margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem}
+        .org-card p{font-size:.9rem;color:var(--muted);margin-bottom:.75rem}
+        .org-card .tags{display:flex;flex-wrap:wrap;gap:.25rem;margin-bottom:.75rem}
+        .org-card .tag{background:var(--bg);padding:.2rem .5rem;border-radius:4px;font-size:.75rem;color:var(--muted)}
+        .org-card a{font-size:.9rem}
+        .box{background:var(--surface);border:1px solid var(--border);padding:1.5rem;margin:1.5rem 0;border-radius:8px}
+        .box.highlight{border-left:4px solid var(--accent2);background:#f0f7fa}
+        .box h4{margin-bottom:.75rem;color:var(--accent2)}
+        .toc{background:var(--surface);border:1px solid var(--border);padding:1.5rem;border-radius:8px;margin-bottom:2rem}
+        .toc h4{margin-bottom:1rem}
+        .toc ul{margin:0;columns:2}
+        .toc li{margin-bottom:.25rem}
+        .print-btn{position:fixed;bottom:2rem;right:2rem;background:var(--accent2);color:#fff;padding:.75rem 1rem;border:none;border-radius:8px;cursor:pointer;font:inherit;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+        @media(max-width:600px){main{padding:1rem}.toc ul{columns:1}.orgs-grid{grid-template-columns:1fr}}
+        @media print{nav,.print-btn,.toc{display:none}}
+    </style>
+</head>
+<body>
+
+<nav>
+    <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="diagnostic.html">Diagnostic</a></li>
+        <li><a href="arsenal.html">Arsenal juridique</a></li>
+        <li><a href="edpop.html">Éducation populaire</a></li>
+        <li><a href="mobilisations.html">Mobilisations</a></li>
+        <li><a href="osint.html">Outils OSINT</a></li>
+        <li><a href="collectifs.html" class="current">Collectifs</a></li>
+        <li><a href="sources.html">Sources</a></li>
+    </ul>
+</nav>
+
+<main>
+
+<h1>🤝 Collectifs & Réseaux</h1>
+<p class="subtitle">Cartographie des organisations actives. France & Belgique.</p>
+
+<nav class="toc">
+    <h4>Sommaire</h4>
+    <ul>
+        <li><a href="#ecologie">Écologie & climat 🇫🇷</a></li>
+        <li><a href="#droits">Droits & libertés 🇫🇷</a></li>
+        <li><a href="#edpop-fr">Éducation populaire 🇫🇷</a></li>
+        <li><a href="#belgique">Belgique 🇧🇪</a></li>
+        <li><a href="#medias">Médias & agrégateurs</a></li>
+    </ul>
+</nav>
+
+<!-- ÉCOLOGIE -->
+<h2 id="ecologie"><span class="flag">🇫🇷</span> Écologie & Climat</h2>
+
+<div class="orgs-grid">
+    <div class="org-card">
+        <h4>ANV-COP21 / Bascules</h4>
+        <div class="tags">
+            <span class="tag">Action non-violente</span>
+            <span class="tag">Formation</span>
+            <span class="tag">Soutien juridique</span>
+        </div>
+        <p>Formation à l'action non-violente, soutien juridique. Plus de 150 décrochages de portraits coordonnés.</p>
+        <a href="https://anv-cop21.org" target="_blank">anv-cop21.org →</a>
+    </div>
+    
+    <div class="org-card">
+        <h4>Soulèvements de la Terre</h4>
+        <div class="tags">
+            <span class="tag">Mégabassines</span>
+            <span class="tag">Bétonisation</span>
+            <span class="tag">Action directe</span>
+        </div>
+        <p>Lutte contre les mégabassines et la bétonisation. Dissolution tentée puis annulée par le Conseil d'État (nov. 2023).</p>
+        <a href="https://lessoulevementsdelaterre.org" target="_blank">lessoulevementsdelaterre.org →</a>
+    </div>
+    
+    <div class="org-card">
+        <h4>Extinction Rebellion France</h4>
+        <div class="tags">
+            <span class="tag">Désobéissance civile</span>
+            <span class="tag">Non-violence</span>
+        </div>
+        <p>Désobéissance civile de masse. Structure décentralisée, actions spectaculaires.</p>
+        <a href="https://extinctionrebellion.fr" target="_blank">extinctionrebellion.fr →</a>
+    </div>
+    
+    <div class="org-card">
+        <h4>Greenpeace France</h4>
+        <div class="tags">
+            <span class="tag">Climat</span>
+            <span class="tag">Biodiversité</span>
+            <span class="tag">Lobbying</span>
+        </div>
+        <p>ONG internationale. Actions directes, plaidoyer, contentieux (L'Affaire du Siècle).</p>
+        <a href="https://www.greenpeace.fr" target="_blank">greenpeace.fr →</a>
+    </div>
+    
+    <div class="org-card">
+        <h4>Attac</h4>
+        <div class="tags">
+            <span class="tag">Éducation populaire</span>
+            <span class="tag">Finance</span>
+            <span class="tag">Climat</span>
+        </div>
+        <p>Association pour la taxation des transactions financières. Guides juridiques pour la désobéissance.</p>
+        <a href="https://france.attac.org" target="_blank">france.attac.org →</a>
+    </div>
+</div>
+
+<!-- DROITS -->
+<h2 id="droits"><span class="flag">🇫🇷</span> Droits & Libertés</h2>
+
+<div class="orgs-grid">
+    <div class="org-card">
+        <h4>La Quadrature du Net</h4>
+        <div class="tags">
+            <span class="tag">Libertés numériques</span>
+            <span class="tag">Surveillance</span>
+            <span class="tag">Contentieux</span>
+        </div>
+        <p>Défense des libertés fondamentales dans l'environnement numérique. Contentieux contre la surveillance.</p>
+        <a href="https://www.laquadrature.net" target="_blank">laquadrature.net →</a>
+    </div>
+    
+    <div class="org-card">
+        <h4>Amnesty International France</h4>
+        <div class="tags">
+            <span class="tag">Droits humains</span>
+            <span class="tag">Rapports</span>
+        </div>
+        <p>Rapports sur les violences policières, conditions de détention, droits des migrants.</p>
+        <a href="https://www.amnesty.fr" target="_blank">amnesty.fr →</a>
+    </div>
+    
+    <div class="org-card">
+        <h4>Ligue des Droits de l'Homme</h4>
+        <div class="tags">
+            <span class="tag">Droits fondamentaux</span>
+            <span class="tag">Depuis 1898</span>
+        </div>
+        <p>Plus ancienne association française de défense des droits. Observatoires, contentieux.</p>
+        <a href="https://www.ldh-france.org" target="_blank">ldh-france.org →</a>
+    </div>
+    
+    <div class="org-card">
+        <h4>ACAT France</h4>
+        <div class="tags">
+            <span class="tag">Torture</span>
+            <span class="tag">Peine de mort</span>
+            <span class="tag">Violence d'État</span>
+        </div>
+        <p>Action des Chrétiens pour l'Abolition de la Torture. Documentation des violences policières.</p>
+        <a href="https://www.acatfrance.fr" target="_blank">acatfrance.fr →</a>
+    </div>
+    
+    <div class="org-card">
+        <h4>Maison des Lanceurs d'Alerte</h4>
+        <div class="tags">
+            <span class="tag">Protection</span>
+            <span class="tag">Accompagnement</span>
+        </div>
+        <p>Soutien juridique et accompagnement des lanceurs d'alerte. Ressources pratiques.</p>
+        <a href="https://mlalerte.org" target="_blank">mlalerte.org →</a>
+    </div>
+</div>
+
+<!-- ÉDUCATION POPULAIRE FRANCE -->
+<h2 id="edpop-fr"><span class="flag">🇫🇷</span> Éducation populaire</h2>
+
+<div class="orgs-grid">
+    <div class="org-card">
+        <h4>L'Ardeur</h4>
+        <div class="tags">
+            <span class="tag">Conférences gesticulées</span>
+            <span class="tag">Formations</span>
+        </div>
+        <p>Coopérative d'éducation populaire. Fondée par Franck Lepage. Formations, conférences gesticulées.</p>
+        <a href="https://ardeur.net" target="_blank">ardeur.net →</a>
+    </div>
+    
+    <div class="org-card">
+        <h4>La Grenaille</h4>
+        <div class="tags">
+            <span class="tag">Réseau de coopératives</span>
+            <span class="tag">Formations</span>
+        </div>
+        <p>Réseau de coopératives d'éducation populaire : Contrepied, Trouvaille, Orage, Engrenage.</p>
+        <a href="https://la-grenaille.org" target="_blank">la-grenaille.org →</a>
+    </div>
+    
+    <div class="org-card">
+        <h4>Peuple et Culture</h4>
+        <div class="tags">
+            <span class="tag">Depuis 1945</span>
+            <span class="tag">Entraînement mental</span>
+        </div>
+        <p>Mouvement historique né dans les maquis du Vercors. Réseau national.</p>
+        <a href="https://www.peuple-et-culture.org" target="_blank">peuple-et-culture.org →</a>
+    </div>
+    
+    <div class="org-card">
+        <h4>ATD Quart Monde</h4>
+        <div class="tags">
+            <span class="tag">Universités populaires</span>
+            <span class="tag">Croisement des savoirs</span>
+        </div>
+        <p>Universités populaires avec les personnes en grande pauvreté. Méthode du croisement des savoirs.</p>
+        <a href="https://www.atd-quartmonde.fr" target="_blank">atd-quartmonde.fr →</a>
+    </div>
+    
+    <div class="org-card">
+        <h4>CTO-Paris</h4>
+        <div class="tags">
+            <span class="tag">Théâtre de l'Opprimé</span>
+            <span class="tag">Théâtre-forum</span>
+        </div>
+        <p>Centre du Théâtre de l'Opprimé fondé par Augusto Boal. 100-150 créations par an.</p>
+        <a href="https://www.theatredelopprime.com" target="_blank">theatredelopprime.com →</a>
+    </div>
+</div>
+
+<!-- BELGIQUE -->
+<h2 id="belgique"><span class="flag">🇧🇪</span> Belgique</h2>
+
+<div class="orgs-grid">
+    <div class="org-card">
+        <h4>PAC — Présence et Action Culturelles</h4>
+        <div class="tags">
+            <span class="tag">Éducation permanente</span>
+            <span class="tag">Wallonie-Bruxelles</span>
+        </div>
+        <p>Plus grand mouvement d'éducation permanente belge. 50 salariés. Revue "Agir par la Culture".</p>
+        <a href="https://www.pac-g.be" target="_blank">pac-g.be →</a>
+    </div>
+    
+    <div class="org-card">
+        <h4>ARC — Action et Recherche Culturelles</h4>
+        <div class="tags">
+            <span class="tag">Recherche</span>
+            <span class="tag">Formation</span>
+        </div>
+        <p>Recherche et formation en éducation permanente. Publications, analyses.</p>
+        <a href="https://www.arc-culture.be" target="_blank">arc-culture.be →</a>
+    </div>
+    
+    <div class="org-card">
+        <h4>Stuut.info</h4>
+        <div class="tags">
+            <span class="tag">Média militant</span>
+            <span class="tag">Bruxelles</span>
+        </div>
+        <p>Média militant belge. Actualités des luttes, agenda.</p>
+        <a href="https://www.stuut.info" target="_blank">stuut.info →</a>
+    </div>
+    
+    <div class="org-card">
+        <h4>FGTB / ABVV</h4>
+        <div class="tags">
+            <span class="tag">Syndicat</span>
+            <span class="tag">1,5 million membres</span>
+        </div>
+        <p>Fédération Générale du Travail de Belgique. Plus grand syndicat socialiste.</p>
+        <a href="https://www.fgtb.be" target="_blank">fgtb.be →</a>
+    </div>
+</div>
+
+<!-- MÉDIAS -->
+<h2 id="medias">Médias & Agrégateurs</h2>
+
+<div class="box highlight">
+    <h4>infoLibertaire.net</h4>
+    <p>Agrégateur automatique de <strong>107+ médias militants francophones</strong>. Actualités de tous les collectifs, mise à jour toutes les 5 minutes.</p>
+    <p>Liste des sources, agenda militant, newsletter.</p>
+    <p><a href="https://www.infolibertaire.net" target="_blank"><strong>infolibertaire.net →</strong></a></p>
+</div>
+
+<div class="orgs-grid">
+    <div class="org-card">
+        <h4>Libertaire.net</h4>
+        <div class="tags">
+            <span class="tag">Forum</span>
+            <span class="tag">Agenda</span>
+        </div>
+        <p>Forum de discussion et agenda militant. Communauté francophone.</p>
+        <a href="https://www.libertaire.net" target="_blank">libertaire.net →</a>
+    </div>
+    
+    <div class="org-card">
+        <h4>Mediapart</h4>
+        <div class="tags">
+            <span class="tag">Investigation</span>
+            <span class="tag">Payant</span>
+        </div>
+        <p>Journal d'investigation indépendant. Révélations majeures (Benalla, Uber Files...).</p>
+        <a href="https://www.mediapart.fr" target="_blank">mediapart.fr →</a>
+    </div>
+    
+    <div class="org-card">
+        <h4>Disclose</h4>
+        <div class="tags">
+            <span class="tag">Investigation</span>
+            <span class="tag">Non-profit</span>
+        </div>
+        <p>Média d'investigation à but non lucratif. Enquêtes sur les ventes d'armes, santé, environnement.</p>
+        <a href="https://disclose.ngo" target="_blank">disclose.ngo →</a>
+    </div>
+    
+    <div class="org-card">
+        <h4>ACRIMED</h4>
+        <div class="tags">
+            <span class="tag">Critique médias</span>
+            <span class="tag">Observatoire</span>
+        </div>
+        <p>Observatoire des médias. Analyse de la concentration, du traitement médiatique.</p>
+        <a href="https://www.acrimed.org" target="_blank">acrimed.org →</a>
+    </div>
+    
+    <div class="org-card">
+        <h4>Basta!</h4>
+        <div class="tags">
+            <span class="tag">Enquêtes sociales</span>
+            <span class="tag">Indépendant</span>
+        </div>
+        <p>Média indépendant. Enquêtes sur les questions sociales et environnementales.</p>
+        <a href="https://basta.media" target="_blank">basta.media →</a>
+    </div>
+    
+    <div class="org-card">
+        <h4>Rapports de Force</h4>
+        <div class="tags">
+            <span class="tag">Mouvements sociaux</span>
+            <span class="tag">Travail</span>
+        </div>
+        <p>Média dédié aux mouvements sociaux et au monde du travail. Fusion avec Basta! en cours.</p>
+        <a href="https://rapportsdeforce.fr" target="_blank">rapportsdeforce.fr →</a>
+    </div>
+</div>
+
+<hr style="margin:3rem 0">
+<p><strong>→ Page suivante :</strong> <a href="sources.html">Sources</a> — Références primaires institutionnelles et ONG.</p>
+
+</main>
+
+<button class="print-btn" onclick="window.print()">🖨️ Imprimer</button>
+
+</body>
+</html>
